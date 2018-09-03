@@ -1,0 +1,142 @@
+package chessboard //klasy z pakietu nie korzystają z innych klas
+
+klasa Chessboard{ //zrobić aby logika gry wykorzystywała z tego pakietu tylko Chessboard
+	Place[8][8] chessboard
+	List<Figure> figures
+	
+	getPlaceWithCoordinates(int crX, char crY) : Place
+	getFigureWithCoordinates(int crX, char crY) : Figure
+}
+
+klasa Place{
+	int final coordinateX
+	char final coordinateY
+	Figure currentFigure
+}
+	
+Klasa Figure{
+	TypeOfFigure final type
+	Color final color
+	boolean isMoved
+}
+
+Enum Color{
+	black,
+	white
+}
+
+Enum TypeOfFigure{
+	pawn(" "),
+	knight("N"),
+	bishop("B"),
+	rook("R"),
+	queen("Q"),
+	king("K")
+}
+
+
+package status
+
+klasa StateOfGameboard{
+	Arrangement startedArrangement //tworzony w konstruktorze
+	List<Move> historyOfMoves
+
+	obsłużyć getNewArrangement() i newMove(), tak, żeby logika gry korzystała tylko z StateOfGameboard
+}
+
+Klasa Arrangement{
+	Map<Place, Figure>	figuresArrangement
+	
+	createArrangement(Chessboard chessboard)
+	createArrangement(Arrangement startedArrangement, List<Move> historyOfMoves)
+}
+
+klasa Move{
+	Color final currentPlayerColor
+	Figure final movedFigure 
+	Place final previousPlace
+	Place final nextPlace
+}
+
+
+package logic
+
+klasa GameLogic{
+	static getAllPlacesAttackedByFigure(Chessboard chessboard, Figure figure) : List<Place>
+	static getAllCorrectMovePlacesByFigure(Chessboard chessboard, Figure figure) : List<Place>
+	static isCorrectMove(Chessboard chessboard, Move testedMove) : boolean
+	static isAttackedPlace(Chessboard chessboard, Place place) : boolean
+	static isCheck(Chessboard chessboard, Color movedPlayer) : boolean
+	static isCheckmate(Chessboard chessboard, Color movedPlayer) : boolean
+	static isStalemate(Chessboard chessboard, Color movedPlayer) : boolean
+}
+
+
+package player
+
+klasa Player{
+	String nickName
+	String password
+	int rating
+	int numberOfWinMatches
+	int numberOfLostMatches
+	List<StateOfGameboard> savedMatches
+	
+	updateRating()
+	updateWin()
+	updateLost()
+	addTheMatch()
+}
+
+klasa computerPlayer{
+	// pokminić
+}
+
+
+package manager
+
+klasa GameManager{
+	Chessboard chessboard
+	StateOfGameboard stateOfGameboard
+	Player whitePlayer
+	Player blackPlayer
+	Color currentPlayer	
+	Move createdMove
+	
+	checkPlace(String clickedPlace) : List<Place> {
+		// sprawdzić trzy możliwości
+			// 1. pole wybrane pierwszy raz, posiadające figure w odpowiednim kolorze, wtedy zwrócić listę pól, na które może pójść
+			// 2. drugi raz wybrane to samo pole, wtedy trzeba wyłączyć kliknięcie (zwrócić pustą listę)
+			// 3. kliknięcie w pole należące do listy z kroku 1., wtedy należy stworzyć createdMove i wywolać metodę makeMove() i zwrócić pustą listę 
+	
+		List<Place> listPlace GameLogic.getAllCorrectMovePlacesByFigure(chessboard, chessboard.getFigureWithCoordinates(/*choosenPlace*/))
+	}
+	
+	makeMove() : StateOfMatch {
+		// logika robienia ruchu, uaktualnienia stanu szachownicy (chessboard i arrangement), dodanie ruchu do historii itp
+		// logika sprawdzania stanu partii i zwrócenie rezultatu (metody z GameLogic)
+	}
+	
+	backMove() {
+		// logika cofania ruchu, uaktualniania stanu szachownicy, usuwanie ruchu z historii itp
+	}
+	
+	
+}
+
+enume StateOfMatch{
+	gameIsNotFinished,
+	check,
+	whiteIsWinner,
+	blackIsWinner,
+	stalemate
+}
+
+
+
+
+
+
+
+
+
