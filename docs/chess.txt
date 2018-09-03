@@ -58,6 +58,8 @@ klasa Move{
 	Place final nextPlace
 }
 
+//pomyśleć o enumie oznaczającym inne symbole ruchu jak bicie, szacha itp
+
 
 package logic
 
