@@ -1,4 +1,4 @@
-package chessboard;
+package com.pl.chessboard;
 
 public class Place {
 }

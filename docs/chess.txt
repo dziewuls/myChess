@@ -61,11 +61,14 @@ klasa Move{
 
 package logic
 
-klasa GameLogic{
+klasa MovesValidator{
 	static getAllPlacesAttackedByFigure(Chessboard chessboard, Figure figure) : List<Place>
 	static getAllCorrectMovePlacesByFigure(Chessboard chessboard, Figure figure) : List<Place>
 	static isCorrectMove(Chessboard chessboard, Move testedMove) : boolean
 	static isAttackedPlace(Chessboard chessboard, Place place) : boolean
+}
+
+klasa GameResultValidator{
 	static isCheck(Chessboard chessboard, Color movedPlayer) : boolean
 	static isCheckmate(Chessboard chessboard, Color movedPlayer) : boolean
 	static isStalemate(Chessboard chessboard, Color movedPlayer) : boolean
@@ -124,13 +127,16 @@ klasa GameManager{
 	
 }
 
-enume StateOfMatch{
+enum StateOfMatch{
 	gameIsNotFinished,
 	check,
 	whiteIsWinner,
 	blackIsWinner,
 	stalemate
 }
+
+package gui
+GameManagerGUIAdapter
 
 
 

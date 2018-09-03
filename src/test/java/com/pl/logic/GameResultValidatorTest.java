@@ -1,4 +1,4 @@
 package com.pl.logic;
 
-public class GameLogicValidatorTest {
+public class GameResultValidatorTest {
 }

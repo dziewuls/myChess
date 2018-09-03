@@ -1,4 +1,4 @@
 package com.pl.status;
 
-public class StateOfGameboard {
+public class StateOfChessboard {
 }
