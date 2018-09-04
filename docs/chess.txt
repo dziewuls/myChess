@@ -4,8 +4,10 @@ klasa Chessboard{ //zrobić aby logika gry wykorzystywała z tego pakietu tylko 
 	Place[8][8] chessboard
 	List<Figure> figures
 	
-	getPlaceWithCoordinates(int crX, char crY) : Place
-	getFigureWithCoordinates(int crX, char crY) : Figure
+	getPlaceByCoordinates(char crX, int crY) : Place
+	getFigureByCoordinates(char crX, int crY) : Figure
+	updateMove(Move move)
+	updateBackMove(Move move)
 }
 
 klasa Place{
@@ -18,6 +20,7 @@ Klasa Figure{
 	TypeOfFigure final type
 	Color final color
 	boolean isMoved
+	boolean isBeaten
 }
 
 Enum Color{
@@ -51,11 +54,24 @@ Klasa Arrangement{
 	createArrangement(Arrangement startedArrangement, List<Move> historyOfMoves)
 }
 
-klasa Move{
+klasa Move{ //wykorzystać builder
 	Color final currentPlayerColor
 	Figure final movedFigure 
 	Place final previousPlace
 	Place final nextPlace
+	typeOfMove typeOfMove
+}
+
+enum TypeOfMove{
+    normal,
+    beating,
+    longcastle
+    shortcastle
+    enpassant
+    pawntransform
+    check
+    checkmate
+    stalemate
 }
 
 //pomyśleć o enumie oznaczającym inne symbole ruchu jak bicie, szacha itp
@@ -74,6 +90,12 @@ klasa GameResultValidator{
 	static isCheck(Chessboard chessboard, Color movedPlayer) : boolean
 	static isCheckmate(Chessboard chessboard, Color movedPlayer) : boolean
 	static isStalemate(Chessboard chessboard, Color movedPlayer) : boolean
+}
+
+Klasa CustomMovesValidator{
+    static isEnPassantCorrect(Chessboard chessboard, Figure movedFigure, Move previousMove) : boolean
+    static isCastleShortCorrect(Chessboard chessboard, Figure movedFigure)
+    static isCastleLongCorrect(Chessboard chessboard, Figure movedFigure)
 }
 
 
@@ -106,7 +128,7 @@ klasa GameManager{
 	Player whitePlayer
 	Player blackPlayer
 	Color currentPlayer	
-	Move createdMove
+	MoveBuilder createdMove
 	
 	checkPlace(String clickedPlace) : List<Place> {
 		// sprawdzić trzy możliwości
