@@ -1,7 +1,8 @@
 package com.pl.chessboard;
 
-import com.pl.status.Move;
-import com.pl.status.TypeOfMove;
+import com.pl.state.Move;
+import com.pl.state.TypeOfMove;
+import org.assertj.core.api.Condition;
 import org.junit.Test;
 
 import java.util.List;
@@ -37,9 +38,9 @@ public class ChessboardTest {
         Chessboard chessboard = new Chessboard();
         Place[][] places = chessboard.getChessboard();
 
-        Figure expectedFigureForIndexes00 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
-        Figure expectedFigureForIndexes31 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
-        Figure expectedFigureForIndexes47 = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Figure expectedFigureForIndexes00 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
+        Figure expectedFigureForIndexes31 = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure expectedFigureForIndexes47 = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
 
         assertThat(places[0][0].getCurrentFigure()).isEqualTo(expectedFigureForIndexes00);
         assertThat(places[3][1].getCurrentFigure()).isEqualTo(expectedFigureForIndexes31);
@@ -60,18 +61,18 @@ public class ChessboardTest {
         List<Figure> figures = chessboard.getFigures();
 
         assertThat(figures)
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.ROOK) && f.getColor.equals(Color.WHITE))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.KNIGHT) && f.getColor.equals(Color.WHITE))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.BISHOP) && f.getColor.equals(Color.WHITE))
-                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.QUEEN) && f.getColor.equals(Color.WHITE))
-                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.KING) && f.getColor.equals(Color.WHITE))
-                .areExactly(8, f -> f.getTypeOfFigure.equals(TypeOfFigure.PAWN) && f.getColor.equals(Color.WHITE))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.ROOK) && f.getColor.equals(Color.BLACK))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.KNIGHT) && f.getColor.equals(Color.BLACK))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.BISHOP) && f.getColor.equals(Color.BLACK))
-                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.QUEEN) && f.getColor.equals(Color.BLACK))
-                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.KING) && f.getColor.equals(Color.BLACK))
-                .areExactly(8, f -> f.getTypeOfFigure.equals(TypeOfFigure.PAWN) && f.getColor.equals(Color.BLACK));
+                .areExactly(2, new Condition<Figure>(figures::contains, " ", new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE))
+                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.KNIGHT) && f.getColor.equals(ColorOfFigure.WHITE))
+                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.BISHOP) && f.getColor.equals(ColorOfFigure.WHITE))
+                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.QUEEN) && f.getColor.equals(ColorOfFigure.WHITE))
+                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.KING) && f.getColor.equals(ColorOfFigure.WHITE))
+                .areExactly(8, f -> f.getTypeOfFigure.equals(TypeOfFigure.PAWN) && f.getColor.equals(ColorOfFigure.WHITE))
+                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.ROOK) && f.getColor.equals(ColorOfFigure.BLACK))
+                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.KNIGHT) && f.getColor.equals(ColorOfFigure.BLACK))
+                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.BISHOP) && f.getColor.equals(ColorOfFigure.BLACK))
+                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.QUEEN) && f.getColor.equals(ColorOfFigure.BLACK))
+                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.KING) && f.getColor.equals(ColorOfFigure.BLACK))
+                .areExactly(8, f -> f.getTypeOfFigure.equals(TypeOfFigure.PAWN) && f.getColor.equals(ColorOfFigure.BLACK));
     }
 
     @Test
@@ -91,9 +92,9 @@ public class ChessboardTest {
     public void shouldReturnCorrectFigureByCoordinates() {
         Chessboard chessboard = new Chessboard();
 
-        Figure expectedFigureForIndexesA1 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
-        Figure expectedFigureForIndexesD2 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
-        Figure expectedFigureForIndexesE8 = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Figure expectedFigureForIndexesA1 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
+        Figure expectedFigureForIndexesD2 = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure expectedFigureForIndexesE8 = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
 
         assertThat(chessboard.getPlaceByCoordinates('a', 1)).isEqualTo(expectedFigureForIndexesA1);
         assertThat(chessboard.getPlaceByCoordinates('d', 2)).isEqualTo(expectedFigureForIndexesD2);
@@ -104,14 +105,14 @@ public class ChessboardTest {
     public void shouldUpdateChessboardAfterMove() {
         Chessboard chessboard = new Chessboard();
         Move move = Move.getBuilder()
-                .currentPlayerColor(Color.WHITE)
+                .currentPlayerColor(ColorOfFigure.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
                 .typeOfMove(TypeOfMove.NORMAL)
                 .build();
 
-        Figure expectedMovedFigure = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Figure expectedMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
         chessboard.updateMove(move);
 
         assertThat(chessboard.getFigureByCoordinates('e', 4)).isEqualTo(expectedMovedFigure);
@@ -122,18 +123,23 @@ public class ChessboardTest {
     public void shouldUpdateChessboardAfterBackMove() {
         Chessboard chessboard = new Chessboard();
         Move move = Move.getBuilder()
-                .currentPlayerColor(Color.WHITE)
+                .currentPlayerColor(ColorOfFigure.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
                 .typeOfMove(TypeOfMove.NORMAL)
                 .build();
 
-        Figure expectedMovedFigure = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Figure expectedMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
         chessboard.updateMove(move);
-        chessboard.updateBackMove(move);
+        chessboard.updateBackMove();
 
         assertThat(chessboard.getFigureByCoordinates('e', 2)).isEqualTo(expectedMovedFigure);
         assertThat(chessboard.getFigureByCoordinates('e', 4)).isNull();
+    }
+
+    @Test
+    public void shouldUpdateChessboardByArrangement(){
+
     }
 }

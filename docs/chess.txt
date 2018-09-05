@@ -3,16 +3,18 @@ package chessboard //klasy z pakietu nie korzystają z innych klas
 klasa Chessboard{ //zrobić aby logika gry wykorzystywała z tego pakietu tylko Chessboard
 	Place[8][8] chessboard
 	List<Figure> figures
-	
+   	StateOfChessboard stateOfChessboard
+
 	getPlaceByCoordinates(char crX, int crY) : Place
 	getFigureByCoordinates(char crX, int crY) : Figure
+	setChessboardByArrangement(Arrangement arrangement) //jeszcze bez testu ?
 	updateMove(Move move)
-	updateBackMove(Move move)
+	updateBackMove()
 }
 
 klasa Place{
-	int final coordinateX
-	char final coordinateY
+	char final coordinateX
+	int final coordinateY
 	Figure currentFigure
 }
 	
@@ -40,15 +42,14 @@ Enum TypeOfFigure{
 
 package status
 
-klasa StateOfGameboard{
+klasa StateOfChessboard{
 	Arrangement startedArrangement //tworzony w konstruktorze
 	List<Move> historyOfMoves
-
 	obsłużyć getNewArrangement() i newMove(), tak, żeby logika gry korzystała tylko z StateOfGameboard
 }
 
 Klasa Arrangement{
-	Map<Place, Figure>	figuresArrangement
+	Map<String, Figure>	figuresArrangement
 	
 	createArrangement(Chessboard chessboard)
 	createArrangement(Arrangement startedArrangement, List<Move> historyOfMoves)
@@ -56,10 +57,11 @@ Klasa Arrangement{
 
 klasa Move{ //wykorzystać builder
 	Color final currentPlayerColor
-	Figure final movedFigure 
+	Figure final movedFigure
+	Figure final beatenFigure
 	Place final previousPlace
 	Place final nextPlace
-	typeOfMove typeOfMove
+	typeOfMove final typeOfMove
 }
 
 enum TypeOfMove{
@@ -69,12 +71,17 @@ enum TypeOfMove{
     shortcastle
     enpassant
     pawntransform
-    check
-    checkmate
-    stalemate
 }
 
 //pomyśleć o enumie oznaczającym inne symbole ruchu jak bicie, szacha itp
+
+//logika apdejtowania ruchu:
+//  1. gameManager -> createMove()
+//  2. gameManager -> makeMove()
+//  3. gameManager -> chessboard.updateMove(move)
+//  4. chessboard -> statusOfChessboard.addMove(move)
+//  5. chessboard -> statusOfChessboard.getNewArrangement()
+//  6. chessboard -> setChessboardByArrangement(arrangement)
 
 
 package logic
@@ -107,7 +114,7 @@ klasa Player{
 	int rating
 	int numberOfWinMatches
 	int numberOfLostMatches
-	List<StateOfGameboard> savedMatches
+	List<StateOfChessboard> savedMatches
 	
 	updateRating()
 	updateWin()
@@ -124,7 +131,6 @@ package manager
 
 klasa GameManager{
 	Chessboard chessboard
-	StateOfGameboard stateOfGameboard
 	Player whitePlayer
 	Player blackPlayer
 	Color currentPlayer	

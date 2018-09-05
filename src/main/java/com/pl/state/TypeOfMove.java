@@ -1,4 +1,4 @@
-package com.pl.status;
+package com.pl.state;
 
 public enum TypeOfMove {
 }
