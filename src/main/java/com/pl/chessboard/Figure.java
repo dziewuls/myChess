@@ -55,6 +55,6 @@ public class Figure {
 
     @Override
     public String toString() {
-        return typeOfFigure.getSignature();
+        return colorOfFigure + " " + typeOfFigure.getSignature();
     }
 }

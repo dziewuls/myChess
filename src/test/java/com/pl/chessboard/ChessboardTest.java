@@ -1,7 +1,7 @@
 package com.pl.chessboard;
 
 import com.pl.state.Move;
-import com.pl.state.TypeOfMove;
+import com.pl.state.TypeOfCustomMove;
 import org.assertj.core.api.Condition;
 import org.junit.Test;
 
@@ -61,18 +61,30 @@ public class ChessboardTest {
         List<Figure> figures = chessboard.getFigures();
 
         assertThat(figures)
-                .areExactly(2, new Condition<Figure>(figures::contains, " ", new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.KNIGHT) && f.getColor.equals(ColorOfFigure.WHITE))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.BISHOP) && f.getColor.equals(ColorOfFigure.WHITE))
-                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.QUEEN) && f.getColor.equals(ColorOfFigure.WHITE))
-                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.KING) && f.getColor.equals(ColorOfFigure.WHITE))
-                .areExactly(8, f -> f.getTypeOfFigure.equals(TypeOfFigure.PAWN) && f.getColor.equals(ColorOfFigure.WHITE))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.ROOK) && f.getColor.equals(ColorOfFigure.BLACK))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.KNIGHT) && f.getColor.equals(ColorOfFigure.BLACK))
-                .areExactly(2, f -> f.getTypeOfFigure.equals(TypeOfFigure.BISHOP) && f.getColor.equals(ColorOfFigure.BLACK))
-                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.QUEEN) && f.getColor.equals(ColorOfFigure.BLACK))
-                .areExactly(1, f -> f.getTypeOfFigure.equals(TypeOfFigure.KING) && f.getColor.equals(ColorOfFigure.BLACK))
-                .areExactly(8, f -> f.getTypeOfFigure.equals(TypeOfFigure.PAWN) && f.getColor.equals(ColorOfFigure.BLACK));
+                .areExactly(2, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.ROOK,
+                        ColorOfFigure.WHITE)), "White Rook"))
+                .areExactly(2, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.KNIGHT,
+                        ColorOfFigure.WHITE)), "White Knight"))
+                .areExactly(2, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.BISHOP,
+                        ColorOfFigure.WHITE)), "White Bishop"))
+                .areExactly(1, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.QUEEN,
+                        ColorOfFigure.WHITE)), "White Queen"))
+                .areExactly(1, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.KING,
+                        ColorOfFigure.WHITE)), "White King"))
+                .areExactly(8, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.PAWN,
+                        ColorOfFigure.WHITE)), "White Pawn"))
+                .areExactly(2, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.ROOK,
+                        ColorOfFigure.BLACK)), "Black Rook"))
+                .areExactly(2, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.KNIGHT,
+                        ColorOfFigure.BLACK)), "Black Knight"))
+                .areExactly(2, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.BISHOP,
+                        ColorOfFigure.BLACK)), "Black Bishop"))
+                .areExactly(1, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.QUEEN,
+                        ColorOfFigure.BLACK)), "Black Queen"))
+                .areExactly(1, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.KING,
+                        ColorOfFigure.BLACK)), "Black King"))
+                .areExactly(8, new Condition<>(f -> f.equals(new Figure(TypeOfFigure.PAWN,
+                        ColorOfFigure.BLACK)), "Black Pawn"));
     }
 
     @Test
@@ -109,7 +121,7 @@ public class ChessboardTest {
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
-                .typeOfMove(TypeOfMove.NORMAL)
+                .typeOfMove(TypeOfCustomMove.NORMAL)
                 .build();
 
         Figure expectedMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
@@ -127,7 +139,7 @@ public class ChessboardTest {
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
-                .typeOfMove(TypeOfMove.NORMAL)
+                .typeOfMove(TypeOfCustomMove.NORMAL)
                 .build();
 
         Figure expectedMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);

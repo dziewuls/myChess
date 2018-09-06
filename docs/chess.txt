@@ -44,15 +44,21 @@ package status
 
 klasa StateOfChessboard{
 	Arrangement startedArrangement //tworzony w konstruktorze
+	List<Arrangement> historyOfArrangement
 	List<Move> historyOfMoves
-	obsłużyć getNewArrangement() i newMove(), tak, żeby logika gry korzystała tylko z StateOfGameboard
+
+	createStartedArrangement() : Arrangement
+	addNewMove(Move move) : Arrangement
+	backMove() : Arrangement
+	getMoveBuilder() : moveBuilder
 }
 
 Klasa Arrangement{
 	Map<String, Figure>	figuresArrangement
-	
-	createArrangement(Chessboard chessboard)
+
+	getFigure(String place) : Figure
 	createArrangement(Arrangement startedArrangement, List<Move> historyOfMoves)
+	createArrangement(Arrangement lastArrangement, Move move)
 }
 
 klasa Move{ //wykorzystać builder
@@ -64,9 +70,8 @@ klasa Move{ //wykorzystać builder
 	typeOfMove final typeOfMove
 }
 
-enum TypeOfMove{
+enum TypeOfCustomMove{
     normal,
-    beating,
     longcastle
     shortcastle
     enpassant

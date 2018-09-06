@@ -13,6 +13,12 @@ public class Place {
         this.currentFigure = null;
     }
 
+    public Place(char coordinateX, int coordinateY, Figure currentFigure) {
+        this.coordinateX = coordinateX;
+        this.coordinateY = coordinateY;
+        this.currentFigure = currentFigure;
+    }
+
     public char getCoordinateX() {
         return coordinateX;
     }
