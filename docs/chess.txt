@@ -7,7 +7,7 @@ klasa Chessboard{ //zrobić aby logika gry wykorzystywała z tego pakietu tylko 
 
 	getPlaceByCoordinates(char crX, int crY) : Place
 	getFigureByCoordinates(char crX, int crY) : Figure
-	setChessboardByArrangement(Arrangement arrangement) //jeszcze bez testu ?
+	setChessboardByArrangement(Arrangement arrangement)
 	updateMove(Move move)
 	updateBackMove()
 }
@@ -57,6 +57,7 @@ Klasa Arrangement{
 	Map<String, Figure>	figuresArrangement
 
 	getFigure(String place) : Figure
+	createArrangement()
 	createArrangement(Arrangement startedArrangement, List<Move> historyOfMoves)
 	createArrangement(Arrangement lastArrangement, Move move)
 }
@@ -64,10 +65,10 @@ Klasa Arrangement{
 klasa Move{ //wykorzystać builder
 	Color final currentPlayerColor
 	Figure final movedFigure
-	Figure final beatenFigure
+	Figure final beatenFigure //domyslnie null
 	Place final previousPlace
 	Place final nextPlace
-	typeOfMove final typeOfMove
+	typeOfMove final typeOfMove //domyslnie normal
 }
 
 enum TypeOfCustomMove{

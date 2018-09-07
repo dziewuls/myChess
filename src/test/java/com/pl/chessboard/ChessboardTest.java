@@ -1,6 +1,8 @@
 package com.pl.chessboard;
 
+import com.pl.state.Arrangement;
 import com.pl.state.Move;
+import com.pl.state.StateOfChessboard;
 import com.pl.state.TypeOfCustomMove;
 import org.assertj.core.api.Condition;
 import org.junit.Test;
@@ -152,6 +154,23 @@ public class ChessboardTest {
 
     @Test
     public void shouldUpdateChessboardByArrangement(){
+        Chessboard chessboard = new Chessboard();
+        StateOfChessboard stateOfChessboard = new StateOfChessboard();
+        Arrangement startedArrangement = stateOfChessboard.getStartedArrangement();
+        Figure expectedMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
 
+        Move move = stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('e', 2))
+                .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
+                .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
+                .typeOfMove(TypeOfCustomMove.NORMAL)
+                .build();
+
+        Arrangement arrangement = (new Arrangement()).createArrangement(startedArrangement, move);
+        chessboard.updateChessboardByArrangement(arrangement);
+
+        assertThat(chessboard.getFigureByCoordinates('e', 2)).isNull();
+        assertThat(chessboard.getFigureByCoordinates('e', 4)).isEqualTo(expectedMovedFigure);
     }
 }
