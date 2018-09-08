@@ -69,6 +69,8 @@ klasa Move{ //wykorzystać builder
 	Place final previousPlace
 	Place final nextPlace
 	typeOfMove final typeOfMove //domyslnie normal
+
+	klasa MoveBuilder
 }
 
 enum TypeOfCustomMove{
