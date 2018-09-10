@@ -57,6 +57,10 @@ Klasa Arrangement{
 	Map<String, Figure>	figuresArrangement
 
 	getFigure(String place) : Figure
+
+}
+
+Klasa ArrangementFactory{
 	createArrangement()
 	createArrangement(Arrangement startedArrangement, List<Move> historyOfMoves)
 	createArrangement(Arrangement lastArrangement, Move move)
