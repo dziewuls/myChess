@@ -1,6 +1,6 @@
 package com.pl.mychess;
 
-import com.pl.mychess.domain.chessboard.Chessboard;
+import com.pl.mychess.domain.model.chessboard.Chessboard;
 
 public class Application {
     public static void main(String[] args) {

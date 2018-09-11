@@ -1,15 +1,12 @@
-package com.pl.mychess.domain.chessboard;
+package com.pl.mychess.domain.model.chessboard;
 
 import com.pl.mychess.domain.chessboard.StateOfChessboard;
-import com.pl.mychess.domain.model.chessboard.Arrangement;
-import com.pl.mychess.domain.model.chessboard.Figure;
-import com.pl.mychess.domain.model.chessboard.Move;
-import com.pl.mychess.domain.model.chessboard.Place;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Chessboard implements Cloneable{
+    //TODO implementacja Clonable
     private Place[][] chessboard;
     private List<Figure> figures;
     private StateOfChessboard stateOfChessboard;
@@ -49,18 +46,4 @@ public class Chessboard implements Cloneable{
 
         return null;
     }
-
-    public void updateMove(Move move){
-
-    }
-
-    public void updateBackMove(){
-
-    }
-
-    private void setChessboardByArrangement(Arrangement arrangement){
-
-    }
-
-
 }

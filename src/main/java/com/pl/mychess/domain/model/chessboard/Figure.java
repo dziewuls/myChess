@@ -2,7 +2,7 @@ package com.pl.mychess.domain.model.chessboard;
 
 import java.util.Objects;
 
-public class Figure {
+public class Figure { //TODO dodać clonable
     private final TypeOfFigure typeOfFigure;
     private final ColorOfFigure colorOfFigure;
     private boolean isMoved;

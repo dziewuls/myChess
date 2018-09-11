@@ -1,18 +1,10 @@
 package com.pl.mychess.domain.chessboard;
 
-import com.pl.mychess.domain.chessboard.StateOfChessboard;
-import com.pl.mychess.domain.model.chessboard.ColorOfFigure;
-import com.pl.mychess.domain.model.chessboard.Figure;
-import com.pl.mychess.domain.model.chessboard.Place;
-import com.pl.mychess.domain.model.chessboard.TypeOfFigure;
-import com.pl.mychess.domain.model.chessboard.Arrangement;
-import com.pl.mychess.domain.model.chessboard.Move;
-import com.pl.mychess.domain.model.chessboard.TypeOfCustomMove;
+import com.pl.mychess.domain.model.chessboard.*;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.Condition;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,101 +43,6 @@ public class StateOfChessboardTest {
                         "Type of move is normal"));
     }
 
-    @Test //TODO params
-    public void shouldCreateInitialArrangementForStartGame() {
-        StateOfChessboard stateOfChessboard = new StateOfChessboard();
-        Arrangement figuresArrangement = stateOfChessboard.getStartedArrangement();
-
-        assertThat(figuresArrangement)
-                .isNotNull()
-                .is(new Condition<>(a -> a.getFigure("a1").equals(new Figure(TypeOfFigure.ROOK,
-                        ColorOfFigure.WHITE)), "White Rook in a1"))
-                .is(new Condition<>(a -> a.getFigure("d1").equals(new Figure(TypeOfFigure.QUEEN,
-                        ColorOfFigure.WHITE)), "White Queen in d1"))
-                .is(new Condition<>(a -> a.getFigure("e2").equals(new Figure(TypeOfFigure.PAWN,
-                        ColorOfFigure.WHITE)), "White Pawn in e2"))
-                .is(new Condition<>(a -> a.getFigure("e8").equals(new Figure(TypeOfFigure.KING,
-                        ColorOfFigure.BLACK)), "Black King in e8"))
-                .is(new Condition<>(a -> a.getFigure("g8").equals(new Figure(TypeOfFigure.KNIGHT,
-                        ColorOfFigure.BLACK)), "Black knight in g8"));
-    }
-
-    @Test
-    public void shouldCreateArrangementByStartedArrangementAndTheListOfMoves() {
-        StateOfChessboard stateOfChessboard = new StateOfChessboard();
-        List<Move> moveList = new ArrayList<>();
-        Arrangement startedArrangement = (new Arrangement()).createArrangement();
-
-        Move firstMove = stateOfChessboard.getMoveBuilder()
-                .currentPlayerColor(ColorOfFigure.WHITE)
-                .movedFigure(new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE))
-                .beatenFigure(null)
-                .previousPlace(new Place('e', 2))
-                .nextPlace(new Place('e', 4))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
-                .build();
-        Move secondMove = stateOfChessboard.getMoveBuilder()
-                .currentPlayerColor(ColorOfFigure.BLACK)
-                .movedFigure(new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK))
-                .beatenFigure(null)
-                .previousPlace(new Place('e', 7))
-                .nextPlace(new Place('e', 5))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
-                .build();
-
-        moveList.add(firstMove);
-        moveList.add(secondMove);
-
-        Arrangement finishedArrangement = (new Arrangement()).createArrangement(startedArrangement, moveList);
-
-        assertThat(finishedArrangement)
-                .isNotNull()
-                .is(new Condition<>(a -> a.getFigure("e4").equals(new Figure(TypeOfFigure.PAWN,
-                        ColorOfFigure.WHITE)), "White Rook in e4"))
-                .is(new Condition<>(a -> a.getFigure("e5").equals(new Figure(TypeOfFigure.PAWN,
-                        ColorOfFigure.BLACK)), "Black Rook in e5"))
-                .is(new Condition<>(a -> a.getFigure("e2").equals(null), "no figure in e2"))
-                .is(new Condition<>(a -> a.getFigure("e7").equals(null), "no figure in e7"));
-    }
-
-    @Test
-    public void shouldCreateArrangementByLastOfArrangementAndTheNewMove() {
-        StateOfChessboard stateOfChessboard = new StateOfChessboard();
-        List<Move> moveList = new ArrayList<>();
-        Arrangement startedArrangement = (new Arrangement()).createArrangement();
-
-        Move firstMove = stateOfChessboard.getMoveBuilder()
-                .currentPlayerColor(ColorOfFigure.WHITE)
-                .movedFigure(new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE))
-                .beatenFigure(null)
-                .previousPlace(new Place('e', 2))
-                .nextPlace(new Place('e', 4))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
-                .build();
-        Move secondMove = stateOfChessboard.getMoveBuilder()
-                .currentPlayerColor(ColorOfFigure.BLACK)
-                .movedFigure(new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK))
-                .beatenFigure(null)
-                .previousPlace(new Place('e', 7))
-                .nextPlace(new Place('e', 5))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
-                .build();
-
-        moveList.add(firstMove);
-
-        Arrangement secondArrangement = (new Arrangement()).createArrangement(startedArrangement, moveList);
-        Arrangement finishedArrangement = (new Arrangement()).createArrangement(secondArrangement, secondMove);
-
-        assertThat(finishedArrangement)
-                .isNotNull()
-                .is(new Condition<>(a -> a.getFigure("e4").equals(new Figure(TypeOfFigure.PAWN,
-                        ColorOfFigure.WHITE)), "White Rook in e4"))
-                .is(new Condition<>(a -> a.getFigure("e5").equals(new Figure(TypeOfFigure.PAWN,
-                        ColorOfFigure.BLACK)), "Black Rook in e5"))
-                .is(new Condition<>(a -> a.getFigure("e2").equals(null), "no figure in e2"))
-                .is(new Condition<>(a -> a.getFigure("e7").equals(null), "no figure in e7"));
-    }
-
     @Test
     public void shouldAddTheNewMoveToTheListOfMoves() {
         StateOfChessboard stateOfChessboard = new StateOfChessboard();
@@ -165,7 +62,7 @@ public class StateOfChessboardTest {
     }
 
     @Test
-    public void shouldAddTheNewArrangementToTheListOfArrangementsAndReturnIt() {
+    public void shouldAddTheNewChessboardToTheListOfArrangement() {
         StateOfChessboard stateOfChessboard = new StateOfChessboard();
         Move firstMove = stateOfChessboard.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.WHITE)
@@ -176,10 +73,13 @@ public class StateOfChessboardTest {
                 .typeOfMove(TypeOfCustomMove.NORMAL)
                 .build();
 
-        Arrangement currentArrangement = stateOfChessboard.addNewMove(firstMove);
-        List<Arrangement> arrangementList = stateOfChessboard.getHistoryOfArrangement();
+        Chessboard newChessboard = ChessboardFactory.CreateChessboard(
+                ChessboardFactory.CreateChessboard(), firstMove);
 
-        Assertions.assertThat(arrangementList).contains(currentArrangement);
+        stateOfChessboard.addNewArrangement(newChessboard);
+        List<Chessboard> arrangementList = stateOfChessboard.getHistoryOfArrangement();
+
+        Assertions.assertThat(arrangementList).contains(newChessboard);
     }
 
     @Test
@@ -195,6 +95,10 @@ public class StateOfChessboardTest {
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
+        Chessboard newChessboard = ChessboardFactory.CreateChessboard(
+                ChessboardFactory.CreateChessboard(), firstMove);
+        stateOfChessboard.addNewArrangement(newChessboard);
+
         stateOfChessboard.backMove();
         List<Move> moveList = stateOfChessboard.getHistoryOfMoves();
 
@@ -202,7 +106,7 @@ public class StateOfChessboardTest {
     }
 
     @Test
-    public void shouldRemoveTheLastArrangementAndReturnPenultimate() {
+    public void shouldRemoveTheLastChessboardFromTheHistoryOfArrangement() {
         StateOfChessboard stateOfChessboard = new StateOfChessboard();
         Move firstMove = stateOfChessboard.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.WHITE)
@@ -213,12 +117,14 @@ public class StateOfChessboardTest {
                 .typeOfMove(TypeOfCustomMove.NORMAL)
                 .build();
 
-        Arrangement currentArrangement = stateOfChessboard.addNewMove(firstMove);
-        Arrangement penultimateArrangement = stateOfChessboard.backMove();
-        List<Arrangement> arrangementList = stateOfChessboard.getHistoryOfArrangement();
+        stateOfChessboard.addNewMove(firstMove);
+        Chessboard newChessboard = ChessboardFactory.CreateChessboard(
+                ChessboardFactory.CreateChessboard(), firstMove);
+        stateOfChessboard.addNewArrangement(newChessboard);
 
-        Assertions.assertThat(arrangementList)
-                .doesNotContain(currentArrangement)
-                .endsWith(penultimateArrangement);
+        stateOfChessboard.backMove();
+        List<Chessboard> arrangementList = stateOfChessboard.getHistoryOfArrangement();
+
+        Assertions.assertThat(arrangementList).doesNotContain(newChessboard);
     }
 }

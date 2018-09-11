@@ -2,7 +2,7 @@ package com.pl.mychess.domain.model.chessboard;
 
 import java.util.Objects;
 
-public class Place {
+public class Place { //TODO dodac Clonable
     private final char coordinateX;
     private final int coordinateY;
     private Figure currentFigure;
@@ -41,12 +41,13 @@ public class Place {
         if (o == null || getClass() != o.getClass()) return false;
         Place place = (Place) o;
         return coordinateX == place.coordinateX &&
-                coordinateY == place.coordinateY;
+                coordinateY == place.coordinateY &&
+                Objects.equals(currentFigure, place.currentFigure);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(coordinateX, coordinateY);
+        return Objects.hash(coordinateX, coordinateY, currentFigure);
     }
 
     @Override

@@ -3,13 +3,11 @@ package chessboard //klasy z pakietu nie korzystają z innych klas
 klasa Chessboard{ //zrobić aby logika gry wykorzystywała z tego pakietu tylko Chessboard
 	Place[8][8] chessboard
 	List<Figure> figures
-   	StateOfChessboard stateOfChessboard
+
+    pełen konstruktor
 
 	getPlaceByCoordinates(char crX, int crY) : Place
 	getFigureByCoordinates(char crX, int crY) : Figure
-	setChessboardByArrangement(Arrangement arrangement)
-	updateMove(Move move)
-	updateBackMove()
 }
 
 klasa Place{
@@ -39,35 +37,27 @@ Enum TypeOfFigure{
 	king("K")
 }
 
+Klasa ChessboardFactory{
+ 	createChessboard() : Chessboard
+ 	createChessboard(Chessboard initialState, List<Move> historyOfMoves) : Chessboard
+ 	createChessboard(Chessboard currentChessboard, Move move) : Chessboard
+}
 
 package status
 
 klasa StateOfChessboard{
-	Arrangement startedArrangement //tworzony w konstruktorze
-	List<Arrangement> historyOfArrangement
+	Chessboard initialState
+	List<Chessboard> historyOfArrangement
 	List<Move> historyOfMoves
 
-	createStartedArrangement() : Arrangement
-	addNewMove(Move move) : Arrangement
-	backMove() : Arrangement
+	addNewMove(Move move)
+	addNewArrangement(Chessboard)
+	backMove()
 	getMoveBuilder() : moveBuilder
 }
 
-Klasa Arrangement{
-	Map<String, Figure>	figuresArrangement
-
-	getFigure(String place) : Figure
-
-}
-
-Klasa ArrangementFactory{
-	createArrangement()
-	createArrangement(Arrangement startedArrangement, List<Move> historyOfMoves)
-	createArrangement(Arrangement lastArrangement, Move move)
-}
-
 klasa Move{ //wykorzystać builder
-	Color final currentPlayerColor
+	Color final playerColor
 	Figure final movedFigure
 	Figure final beatenFigure //domyslnie null
 	Place final previousPlace
@@ -90,10 +80,9 @@ enum TypeOfCustomMove{
 //logika apdejtowania ruchu:
 //  1. gameManager -> createMove()
 //  2. gameManager -> makeMove()
-//  3. gameManager -> chessboard.updateMove(move)
-//  4. chessboard -> statusOfChessboard.addMove(move)
-//  5. chessboard -> statusOfChessboard.getNewArrangement()
-//  6. chessboard -> setChessboardByArrangement(arrangement)
+//  4. gameManager -> statusOfChessboard.addMove(move)
+//  5. gameManager -> statusOfChessboard.getNewArrangement()
+//  6. gameManager -> chessboard.setChessboardByArrangement(arrangement)
 
 
 package logic
@@ -147,7 +136,7 @@ klasa GameManager{
 	Player blackPlayer
 	Color currentPlayer	
 	MoveBuilder createdMove
-	
+
 	checkPlace(String clickedPlace) : List<Place> {
 		// sprawdzić trzy możliwości
 			// 1. pole wybrane pierwszy raz, posiadające figure w odpowiednim kolorze, wtedy zwrócić listę pól, na które może pójść
