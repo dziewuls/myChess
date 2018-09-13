@@ -1,7 +1,7 @@
 package com.pl.mychess.domain.model.chessboard;
 
 public enum TypeOfFigure {
-    PAWN(" "),
+    PAWN(""),
     KNIGHT("N"),
     BISHOP("B"),
     ROOK("R"),

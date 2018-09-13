@@ -15,8 +15,8 @@ public class ChessboardTest {
 
     @Test
     public void shouldCreateChessboardWhichConsistsOf8x8Places() {
-        Chessboard chessboard = ChessboardFactory.CreateChessboard();
-        Place[][] places = chessboard.getPlaces();
+        Chessboard chessboard = ChessboardFactory.createChessboard();
+        Place[][] places = chessboard.getPlacesOfChessboard();
 
         assertThat(places.length).isEqualTo(8);
         assertThat(places[0].length).isEqualTo(8);
@@ -24,7 +24,7 @@ public class ChessboardTest {
 
     @Test
     public void shouldCreate32ChessFigures() {
-        Chessboard chessboard = ChessboardFactory.CreateChessboard();
+        Chessboard chessboard = ChessboardFactory.createChessboard();
         List<Figure> figures = chessboard.getFigures();
 
         assertThat(figures.size()).isEqualTo(32);
@@ -32,18 +32,18 @@ public class ChessboardTest {
 
     @Test //TODO dodać test params
     public void shouldCreatedPlacesOfChessboardHaveCorrectCoordinatesAndFigures() {
-        Chessboard chessboard = ChessboardFactory.CreateChessboard();
-        Place[][] places = chessboard.getPlaces();
+        Chessboard chessboard = ChessboardFactory.createChessboard();
+        Place[][] places = chessboard.getPlacesOfChessboard();
 
         Place expectedPlaceForIndexes00 = new Place('a', 1,
                 new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE));
-        Place expectedPlaceForIndexes32 = new Place('d', 3);
-        Place expectedPlaceForIndexes67 = new Place('g', 8,
+        Place expectedPlaceForIndexes23 = new Place('d', 3);
+        Place expectedPlaceForIndexes76 = new Place('g', 8,
                 new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.BLACK));
 
         assertThat(places[0][0]).isEqualTo(expectedPlaceForIndexes00);
-        assertThat(places[3][2]).isEqualTo(expectedPlaceForIndexes32);
-        assertThat(places[6][7]).isEqualTo(expectedPlaceForIndexes67);
+        assertThat(places[2][3]).isEqualTo(expectedPlaceForIndexes23);
+        assertThat(places[7][6]).isEqualTo(expectedPlaceForIndexes76);
 
         // TODO sprobowac wykorzystać lambde
         // assertThat(figuresArrangement)
@@ -54,7 +54,7 @@ public class ChessboardTest {
 
     @Test //TODO dodać test params
     public void shouldCreatedFiguresCompatibleWithChessRules() {
-        Chessboard chessboard = ChessboardFactory.CreateChessboard();
+        Chessboard chessboard = ChessboardFactory.createChessboard();
         List<Figure> figures = chessboard.getFigures();
 
         assertThat(figures)
@@ -86,7 +86,7 @@ public class ChessboardTest {
 
     @Test //TODO params
     public void shouldReturnCorrectPlaceByCoordinates() {
-        Chessboard chessboard = ChessboardFactory.CreateChessboard();
+        Chessboard chessboard = ChessboardFactory.createChessboard();
 
         Place expectedPlaceForIndexesA1 = new Place('a', 1,
                 new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE));
@@ -101,31 +101,31 @@ public class ChessboardTest {
 
     @Test //TODO params
     public void shouldReturnCorrectFigureByCoordinates() {
-        Chessboard chessboard = ChessboardFactory.CreateChessboard();
+        Chessboard chessboard = ChessboardFactory.createChessboard();
 
         Figure expectedFigureForIndexesA1 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
         Figure expectedFigureForIndexesD2 = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
         Figure expectedFigureForIndexesE8 = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
 
-        assertThat(chessboard.getPlaceByCoordinates('a', 1)).isEqualTo(expectedFigureForIndexesA1);
-        assertThat(chessboard.getPlaceByCoordinates('d', 2)).isEqualTo(expectedFigureForIndexesD2);
-        assertThat(chessboard.getPlaceByCoordinates('e', 8)).isEqualTo(expectedFigureForIndexesE8);
+        assertThat(chessboard.getFigureByCoordinates('a', 1)).isEqualTo(expectedFigureForIndexesA1);
+        assertThat(chessboard.getFigureByCoordinates('d', 2)).isEqualTo(expectedFigureForIndexesD2);
+        assertThat(chessboard.getFigureByCoordinates('e', 8)).isEqualTo(expectedFigureForIndexesE8);
     }
 
     @Test
     public void shouldReturnChessboardUpdatedWithMove() {
-        Chessboard chessboard = ChessboardFactory.CreateChessboard();
+        Chessboard chessboard = ChessboardFactory.createChessboard();
         StateOfChessboard stateOfChessboard = new StateOfChessboard();
         Move move = stateOfChessboard.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build();
 
         Figure expectedMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
-        Chessboard newChessboard = ChessboardFactory.CreateChessboard(chessboard, move);
+        Chessboard newChessboard = ChessboardFactory.createChessboard(chessboard, move);
 
         assertThat(newChessboard.getFigureByCoordinates('e', 4)).isEqualTo(expectedMovedFigure);
         assertThat(newChessboard.getFigureByCoordinates('e', 2)).isNull();
@@ -143,7 +143,7 @@ public class ChessboardTest {
 
     @Test
     public void shouldReturnChessboardUpdatedWithListOfMoves() {
-        Chessboard chessboard = ChessboardFactory.CreateChessboard();
+        Chessboard chessboard = ChessboardFactory.createChessboard();
         StateOfChessboard stateOfChessboard = new StateOfChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(stateOfChessboard.getMoveBuilder()
@@ -151,20 +151,20 @@ public class ChessboardTest {
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(stateOfChessboard.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.BLACK)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 7))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 5))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
 
         Figure expectedWhiteMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
         Figure expectedBlackMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
 
-        Chessboard finishedChessboard = ChessboardFactory.CreateChessboard(chessboard, moves);
+        Chessboard finishedChessboard = ChessboardFactory.createChessboard(chessboard, moves);
 
         assertThat(finishedChessboard.getFigureByCoordinates('e', 4)).isEqualTo(expectedWhiteMovedFigure);
         assertThat(finishedChessboard.getFigureByCoordinates('e', 2)).isNull();

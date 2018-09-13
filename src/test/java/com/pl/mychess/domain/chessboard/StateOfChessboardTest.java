@@ -24,7 +24,7 @@ public class StateOfChessboardTest {
                 .beatenFigure(beatenFigure)
                 .previousPlace(previousPlace)
                 .nextPlace(nextPlace)
-                .typeOfMove(TypeOfCustomMove.NORMAL)
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build();
 
         assertThat(move)
@@ -35,11 +35,11 @@ public class StateOfChessboardTest {
                         ColorOfFigure.WHITE)), "Moved figure is white King"))
                 .is(new Condition<>(m -> m.getBeatenFigure().equals(new Figure(TypeOfFigure.PAWN,
                         ColorOfFigure.BLACK)), "Beaten figure is black Pawn"))
-                .is(new Condition<>(m -> m.getPreviousPlace().equals(new Place('a', 4)),
+                .is(new Condition<>(m -> m.getPreviousPlace().equals(new Place('a', 4, movedFigure)),
                         "Previous place is a4"))
-                .is(new Condition<>(m -> m.getNextPlace().equals(new Place('b', 5)),
+                .is(new Condition<>(m -> m.getNextPlace().equals(new Place('b', 5, beatenFigure)),
                         "Next place is b5"))
-                .is(new Condition<>(m -> m.getTypeOfMove().equals(TypeOfCustomMove.NORMAL),
+                .is(new Condition<>(m -> m.getTypeOfCustomMove().equals(TypeOfCustomMove.NORMAL),
                         "Type of move is normal"));
     }
 
@@ -52,7 +52,7 @@ public class StateOfChessboardTest {
                 .beatenFigure(null)
                 .previousPlace(new Place('e', 2))
                 .nextPlace(new Place('e', 4))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
@@ -70,11 +70,11 @@ public class StateOfChessboardTest {
                 .beatenFigure(null)
                 .previousPlace(new Place('e', 2))
                 .nextPlace(new Place('e', 4))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build();
 
-        Chessboard newChessboard = ChessboardFactory.CreateChessboard(
-                ChessboardFactory.CreateChessboard(), firstMove);
+        Chessboard newChessboard = ChessboardFactory.createChessboard(
+                ChessboardFactory.createChessboard(), firstMove);
 
         stateOfChessboard.addNewArrangement(newChessboard);
         List<Chessboard> arrangementList = stateOfChessboard.getHistoryOfArrangement();
@@ -91,12 +91,12 @@ public class StateOfChessboardTest {
                 .beatenFigure(null)
                 .previousPlace(new Place('e', 2))
                 .nextPlace(new Place('e', 4))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
-        Chessboard newChessboard = ChessboardFactory.CreateChessboard(
-                ChessboardFactory.CreateChessboard(), firstMove);
+        Chessboard newChessboard = ChessboardFactory.createChessboard(
+                ChessboardFactory.createChessboard(), firstMove);
         stateOfChessboard.addNewArrangement(newChessboard);
 
         stateOfChessboard.backMove();
@@ -114,12 +114,12 @@ public class StateOfChessboardTest {
                 .beatenFigure(null)
                 .previousPlace(new Place('e', 2))
                 .nextPlace(new Place('e', 4))
-                .typeOfMove(TypeOfCustomMove.NORMAL)
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
-        Chessboard newChessboard = ChessboardFactory.CreateChessboard(
-                ChessboardFactory.CreateChessboard(), firstMove);
+        Chessboard newChessboard = ChessboardFactory.createChessboard(
+                ChessboardFactory.createChessboard(), firstMove);
         stateOfChessboard.addNewArrangement(newChessboard);
 
         stateOfChessboard.backMove();

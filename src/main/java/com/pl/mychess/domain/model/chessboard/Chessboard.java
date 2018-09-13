@@ -1,49 +1,57 @@
 package com.pl.mychess.domain.model.chessboard;
 
-import com.pl.mychess.domain.chessboard.StateOfChessboard;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
-public class Chessboard implements Cloneable{
-    //TODO implementacja Clonable
-    private Place[][] chessboard;
+public class Chessboard {
+    private Place[][] placesOfChessboard;
     private List<Figure> figures;
-    private StateOfChessboard stateOfChessboard;
 
-    public Chessboard(){
-        this.chessboard = new Place[8][8];
+    public Chessboard() {
+        this.placesOfChessboard = new Place[8][8];
         this.figures = new ArrayList<>();
-        this.stateOfChessboard = new StateOfChessboard();
     }
 
-    public Chessboard(Chessboard chessboard){
-        this.chessboard = chessboard.getChessboard().clone();
-        this.figures = new ArrayList<>(chessboard.getFigures());
-        this.stateOfChessboard = new StateOfChessboard();
+    public Chessboard(Place[][] placesOfChessboard, List<Figure> figures) {
+        this.placesOfChessboard = placesOfChessboard;
+        this.figures = figures;
     }
 
-
-
-    public Place[][] getChessboard() {
-        return chessboard;
+    public Place[][] getPlacesOfChessboard() {
+        return placesOfChessboard;
     }
 
     public List<Figure> getFigures() {
         return figures;
     }
 
-    public StateOfChessboard getStateOfChessboard() {
-        return stateOfChessboard;
+    public Place getPlaceByCoordinates(char x, int y) {
+        int indexForCoordinateX = (int) x - (int) 'a';
+        int indexForCoordinateY = y - 1;
+        return placesOfChessboard[indexForCoordinateY][indexForCoordinateX];
     }
 
-    public Place getPlaceByCoordinates(char x, int y){
-
-        return null;
+    public Figure getFigureByCoordinates(char x, int y) {
+        int indexForCoordinateX = (int) x - (int) 'a';
+        int indexForCoordinateY = y - 1;
+        return placesOfChessboard[indexForCoordinateY][indexForCoordinateX].getCurrentFigure();
     }
 
-    public Figure getFigureByCoordinates(char x, int y){
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chessboard that = (Chessboard) o;
+        return Arrays.equals(placesOfChessboard, that.placesOfChessboard) &&
+                Objects.equals(figures, that.figures);
+    }
 
-        return null;
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(figures);
+        result = 31 * result + Arrays.hashCode(placesOfChessboard);
+        return result;
     }
 }

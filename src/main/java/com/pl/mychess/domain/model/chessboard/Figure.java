@@ -2,8 +2,8 @@ package com.pl.mychess.domain.model.chessboard;
 
 import java.util.Objects;
 
-public class Figure { //TODO dodać clonable
-    private final TypeOfFigure typeOfFigure;
+public class Figure {
+    private TypeOfFigure typeOfFigure;
     private final ColorOfFigure colorOfFigure;
     private boolean isMoved;
     private boolean isBeaten;
@@ -13,6 +13,13 @@ public class Figure { //TODO dodać clonable
         this.colorOfFigure = colorOfFigure;
         this.isMoved = false;
         this.isBeaten = false;
+    }
+
+    public Figure(Figure figure) {
+        this.typeOfFigure = figure.getTypeOfFigure();
+        this.colorOfFigure = figure.getColorOfFigure();
+        this.isMoved = figure.isMoved();
+        this.isBeaten = figure.isBeaten();
     }
 
     public TypeOfFigure getTypeOfFigure() {
@@ -37,6 +44,10 @@ public class Figure { //TODO dodać clonable
 
     public void setBeaten(boolean beaten) {
         isBeaten = beaten;
+    }
+
+    public void setTypeOfFigure(TypeOfFigure typeOfFigure) {
+        this.typeOfFigure = typeOfFigure;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.pl.mychess.domain.model.chessboard;
 
 import java.util.Objects;
 
-public class Place { //TODO dodac Clonable
+public class Place {
     private final char coordinateX;
     private final int coordinateY;
     private Figure currentFigure;
@@ -17,6 +17,12 @@ public class Place { //TODO dodac Clonable
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
         this.currentFigure = currentFigure;
+    }
+
+    public Place(Place place, Figure figure) {
+        this.coordinateX = place.getCoordinateX();
+        this.coordinateY = place.getCoordinateY();
+        this.currentFigure = figure;
     }
 
     public char getCoordinateX() {

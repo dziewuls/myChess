@@ -7,18 +7,20 @@ public class Move {
     private final Place previousPlace;
     private final Place nextPlace;
     private final TypeOfCustomMove typeOfCustomMove;
+    private final TypeOfFigure pawnTransformNewFigure;
 
     public static MoveBuilder getMoveBuilder() {
         return new MoveBuilder();
     }
 
-    private Move(ColorOfFigure currentPlayerColor, Figure movedFigure, Figure beatenFigure, Place previousPlace, Place nextPlace, TypeOfCustomMove typeOfCustomMove) {
+    private Move(ColorOfFigure currentPlayerColor, Figure movedFigure, Figure beatenFigure, Place previousPlace, Place nextPlace, TypeOfCustomMove typeOfCustomMove, TypeOfFigure pawnTransformNewFigure) {
         this.currentPlayerColor = currentPlayerColor;
         this.movedFigure = movedFigure;
         this.beatenFigure = beatenFigure;
         this.previousPlace = previousPlace;
         this.nextPlace = nextPlace;
         this.typeOfCustomMove = typeOfCustomMove;
+        this.pawnTransformNewFigure = pawnTransformNewFigure;
     }
 
     public ColorOfFigure getCurrentPlayerColor() {
@@ -41,6 +43,10 @@ public class Move {
         return nextPlace;
     }
 
+    public TypeOfFigure getPawnTransformNewFigure() {
+        return pawnTransformNewFigure;
+    }
+
     public TypeOfCustomMove getTypeOfCustomMove() {
         return typeOfCustomMove;
     }
@@ -58,10 +64,12 @@ public class Move {
         private Place previousPlace;
         private Place nextPlace;
         private TypeOfCustomMove typeOfCustomMove;
+        private TypeOfFigure pawnTransformNewFigure;
 
         public MoveBuilder() {
             this.beatenFigure = null;
             this.typeOfCustomMove = TypeOfCustomMove.NORMAL;
+            this.pawnTransformNewFigure = null;
         }
 
         public MoveBuilder currentPlayerColor(ColorOfFigure currentPlayerColor) {
@@ -94,8 +102,13 @@ public class Move {
             return this;
         }
 
+        public MoveBuilder pawnTransformNewFigure(TypeOfFigure pawnTransformNewFigure) {
+            this.pawnTransformNewFigure = pawnTransformNewFigure;
+            return this;
+        }
+
         public Move build() {
-            return new Move(currentPlayerColor, movedFigure, beatenFigure, previousPlace, nextPlace, typeOfCustomMove);
+            return new Move(currentPlayerColor, movedFigure, beatenFigure, previousPlace, nextPlace, typeOfCustomMove, pawnTransformNewFigure);
         }
     }
 }

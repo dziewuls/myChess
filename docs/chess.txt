@@ -1,7 +1,7 @@
-package chessboard //klasy z pakietu nie korzystają z innych klas
+package placesOfChessboard //klasy z pakietu nie korzystają z innych klas
 
 klasa Chessboard{ //zrobić aby logika gry wykorzystywała z tego pakietu tylko Chessboard
-	Place[8][8] chessboard
+	Place[8][8] placesOfChessboard
 	List<Figure> figures
 
     pełen konstruktor
@@ -82,28 +82,28 @@ enum TypeOfCustomMove{
 //  2. gameManager -> makeMove()
 //  4. gameManager -> statusOfChessboard.addMove(move)
 //  5. gameManager -> statusOfChessboard.getNewArrangement()
-//  6. gameManager -> chessboard.setChessboardByArrangement(arrangement)
+//  6. gameManager -> placesOfChessboard.setChessboardByArrangement(arrangement)
 
 
 package logic
 
 klasa MovesValidator{
-	static getAllPlacesAttackedByFigure(Chessboard chessboard, Figure figure) : List<Place>
-	static getAllCorrectMovePlacesByFigure(Chessboard chessboard, Figure figure) : List<Place>
-	static isCorrectMove(Chessboard chessboard, Move testedMove) : boolean
-	static isAttackedPlace(Chessboard chessboard, Place place) : boolean
+	static getAllPlacesAttackedByFigure(Chessboard placesOfChessboard, Figure figure) : List<Place>
+	static getAllCorrectMovePlacesByFigure(Chessboard placesOfChessboard, Figure figure) : List<Place>
+	static isCorrectMove(Chessboard placesOfChessboard, Move testedMove) : boolean
+	static isAttackedPlace(Chessboard placesOfChessboard, Place place) : boolean
 }
 
 klasa GameResultValidator{
-	static isCheck(Chessboard chessboard, Color movedPlayer) : boolean
-	static isCheckmate(Chessboard chessboard, Color movedPlayer) : boolean
-	static isStalemate(Chessboard chessboard, Color movedPlayer) : boolean
+	static isCheck(Chessboard placesOfChessboard, Color movedPlayer) : boolean
+	static isCheckmate(Chessboard placesOfChessboard, Color movedPlayer) : boolean
+	static isStalemate(Chessboard placesOfChessboard, Color movedPlayer) : boolean
 }
 
 Klasa CustomMovesValidator{
-    static isEnPassantCorrect(Chessboard chessboard, Figure movedFigure, Move previousMove) : boolean
-    static isCastleShortCorrect(Chessboard chessboard, Figure movedFigure)
-    static isCastleLongCorrect(Chessboard chessboard, Figure movedFigure)
+    static isEnPassantCorrect(Chessboard placesOfChessboard, Figure movedFigure, Move previousMove) : boolean
+    static isCastleShortCorrect(Chessboard placesOfChessboard, Figure movedFigure)
+    static isCastleLongCorrect(Chessboard placesOfChessboard, Figure movedFigure)
 }
 
 
@@ -131,7 +131,8 @@ klasa computerPlayer{
 package manager
 
 klasa GameManager{
-	Chessboard chessboard
+	Chessboard currentChessboard
+	StateOfChessboard stateOfChessboard
 	Player whitePlayer
 	Player blackPlayer
 	Color currentPlayer	
@@ -143,11 +144,11 @@ klasa GameManager{
 			// 2. drugi raz wybrane to samo pole, wtedy trzeba wyłączyć kliknięcie (zwrócić pustą listę)
 			// 3. kliknięcie w pole należące do listy z kroku 1., wtedy należy stworzyć createdMove i wywolać metodę makeMove() i zwrócić pustą listę 
 	
-		List<Place> listPlace GameLogic.getAllCorrectMovePlacesByFigure(chessboard, chessboard.getFigureWithCoordinates(/*choosenPlace*/))
+		List<Place> listPlace GameLogic.getAllCorrectMovePlacesByFigure(placesOfChessboard, placesOfChessboard.getFigureWithCoordinates(/*choosenPlace*/))
 	}
 	
 	makeMove() : StateOfMatch {
-		// logika robienia ruchu, uaktualnienia stanu szachownicy (chessboard i arrangement), dodanie ruchu do historii itp
+		// logika robienia ruchu, uaktualnienia stanu szachownicy (placesOfChessboard i arrangement), dodanie ruchu do historii itp
 		// logika sprawdzania stanu partii i zwrócenie rezultatu (metody z GameLogic)
 	}
 	
