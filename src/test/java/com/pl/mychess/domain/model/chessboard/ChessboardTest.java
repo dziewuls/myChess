@@ -171,4 +171,73 @@ public class ChessboardTest {
         assertThat(finishedChessboard.getFigureByCoordinates('e', 5)).isEqualTo(expectedBlackMovedFigure);
         assertThat(finishedChessboard.getFigureByCoordinates('e', 7)).isNull();
     }
+
+    @Test
+    public void shouldReturnChessboardUpdatedWithEnPassant() {
+        Chessboard chessboard = ChessboardFactory.createChessboard();
+        StateOfChessboard stateOfChessboard = new StateOfChessboard();
+        List<Move> moves = new ArrayList<>();
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('e', 2))
+                .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
+                .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
+                .build());
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .movedFigure(chessboard.getFigureByCoordinates('d', 7))
+                .previousPlace(chessboard.getPlaceByCoordinates('d', 7))
+                .nextPlace(chessboard.getPlaceByCoordinates('d', 5))
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
+                .build());
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('e', 4))
+                .previousPlace(chessboard.getPlaceByCoordinates('e', 4))
+                .nextPlace(chessboard.getPlaceByCoordinates('e', 5))
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
+                .build());
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .movedFigure(chessboard.getFigureByCoordinates('f', 7))
+                .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
+                .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
+                .build());
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('e', 5))
+                .previousPlace(chessboard.getPlaceByCoordinates('e', 5))
+                .nextPlace(chessboard.getPlaceByCoordinates('f', 6))
+                .beatenFigure(chessboard.getFigureByCoordinates('f', 5))
+                .typeOfCustomMove(TypeOfCustomMove.EN_PASSANT)
+                .build());
+
+        Figure expectedWhiteMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure expectedBlackMovedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+
+        Chessboard finishedChessboard = ChessboardFactory.createChessboard(chessboard, moves);
+
+        assertThat(finishedChessboard.getFigureByCoordinates('f', 6)).isEqualTo(expectedWhiteMovedFigure);
+        assertThat(finishedChessboard.getFigureByCoordinates('f', 5)).isNull();
+        assertThat(finishedChessboard.getFigures()).areExactly(1,
+                new Condition<>(f -> f.isBeaten() && f.equals(expectedBlackMovedFigure), "Black beaten pawn"));
+    }
+
+    @Test
+    public void shouldReturnChessboardUpdatedWithShortCastle() {
+
+    }
+
+    @Test
+    public void shouldReturnChessboardUpdatedWithLongCastle() {
+
+    }
+
+    @Test
+    public void shouldReturnChessboardUpdatedWithPawnTransform() {
+
+    }
 }
+
