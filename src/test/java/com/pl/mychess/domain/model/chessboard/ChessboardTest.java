@@ -11,8 +11,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChessboardTest {
-    //TODO czy zwraca szachownice poprawnie uaktualniona o ruchy specjalne
-
     @Test
     public void shouldCreateChessboardWhichConsistsOf8x8Places() {
         Chessboard chessboard = ChessboardFactory.createChessboard();
@@ -30,7 +28,7 @@ public class ChessboardTest {
         assertThat(figures.size()).isEqualTo(32);
     }
 
-    @Test //TODO dodać test params
+    @Test
     public void shouldCreatedPlacesOfChessboardHaveCorrectCoordinatesAndFigures() {
         Chessboard chessboard = ChessboardFactory.createChessboard();
         Place[][] places = chessboard.getPlacesOfChessboard();
@@ -44,15 +42,9 @@ public class ChessboardTest {
         assertThat(places[0][0]).isEqualTo(expectedPlaceForIndexes00);
         assertThat(places[2][3]).isEqualTo(expectedPlaceForIndexes23);
         assertThat(places[7][6]).isEqualTo(expectedPlaceForIndexes76);
-
-        // TODO sprobowac wykorzystać lambde
-        // assertThat(figuresArrangement)
-        //     .isNotNull()
-        //     .is(new Condition<>(a -> a.getFigure("a1").equals(new Figure(TypeOfFigure.ROOK,
-        //                  ColorOfFigure.WHITE)), "White Rook in a1"))
     }
 
-    @Test //TODO dodać test params
+    @Test
     public void shouldCreatedFiguresCompatibleWithChessRules() {
         Chessboard chessboard = ChessboardFactory.createChessboard();
         List<Figure> figures = chessboard.getFigures();
@@ -84,7 +76,7 @@ public class ChessboardTest {
                         ColorOfFigure.BLACK)), "Black Pawn"));
     }
 
-    @Test //TODO params
+    @Test
     public void shouldReturnCorrectPlaceByCoordinates() {
         Chessboard chessboard = ChessboardFactory.createChessboard();
 
@@ -99,7 +91,7 @@ public class ChessboardTest {
         assertThat(chessboard.getPlaceByCoordinates('g', 8)).isEqualTo(expectedPlaceForIndexesG8);
     }
 
-    @Test //TODO params
+    @Test
     public void shouldReturnCorrectFigureByCoordinates() {
         Chessboard chessboard = ChessboardFactory.createChessboard();
 
@@ -129,16 +121,6 @@ public class ChessboardTest {
 
         assertThat(newChessboard.getFigureByCoordinates('e', 4)).isEqualTo(expectedMovedFigure);
         assertThat(newChessboard.getFigureByCoordinates('e', 2)).isNull();
-
-        //
-//        assertThat(finishedArrangement)
-//                .isNotNull()
-//                .is(new Condition<>(a -> a.getFigure("e4").equals(new Figure(TypeOfFigure.PAWN,
-//                        ColorOfFigure.WHITE)), "White Rook in e4"))
-//                .is(new Condition<>(a -> a.getFigure("e5").equals(new Figure(TypeOfFigure.PAWN,
-//                        ColorOfFigure.BLACK)), "Black Rook in e5"))
-//                .is(new Condition<>(a -> a.getFigure("e2").equals(null), "no figure in e2"))
-//                .is(new Condition<>(a -> a.getFigure("e7").equals(null), "no figure in e7"));
     }
 
     @Test
@@ -181,20 +163,6 @@ public class ChessboardTest {
                 .currentPlayerColor(ColorOfFigure.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
-                .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
-                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
-                .build());
-        moves.add(stateOfChessboard.getMoveBuilder()
-                .currentPlayerColor(ColorOfFigure.BLACK)
-                .movedFigure(chessboard.getFigureByCoordinates('d', 7))
-                .previousPlace(chessboard.getPlaceByCoordinates('d', 7))
-                .nextPlace(chessboard.getPlaceByCoordinates('d', 5))
-                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
-                .build());
-        moves.add(stateOfChessboard.getMoveBuilder()
-                .currentPlayerColor(ColorOfFigure.WHITE)
-                .movedFigure(chessboard.getFigureByCoordinates('e', 4))
-                .previousPlace(chessboard.getPlaceByCoordinates('e', 4))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 5))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
@@ -227,17 +195,108 @@ public class ChessboardTest {
 
     @Test
     public void shouldReturnChessboardUpdatedWithShortCastle() {
+        Chessboard chessboard = ChessboardFactory.createChessboard();
+        StateOfChessboard stateOfChessboard = new StateOfChessboard();
+        List<Move> moves = new ArrayList<>();
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('g', 1))
+                .previousPlace(chessboard.getPlaceByCoordinates('g', 1))
+                .nextPlace(chessboard.getPlaceByCoordinates('f', 6))
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
+                .build());
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .movedFigure(chessboard.getFigureByCoordinates('f', 1))
+                .previousPlace(chessboard.getPlaceByCoordinates('f', 1))
+                .nextPlace(chessboard.getPlaceByCoordinates('d', 6))
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
+                .build());
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('e', 1))
+                .previousPlace(chessboard.getPlaceByCoordinates('e', 1))
+                .nextPlace(chessboard.getPlaceByCoordinates('g', 1))
+                .typeOfCustomMove(TypeOfCustomMove.SHORT_CASTLE)
+                .build());
 
+        Figure expectedKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
+        Figure expectedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
+
+        Chessboard finishedChessboard = ChessboardFactory.createChessboard(chessboard, moves);
+
+        assertThat(finishedChessboard.getFigureByCoordinates('g', 1)).isEqualTo(expectedKing);
+        assertThat(finishedChessboard.getFigureByCoordinates('f', 1)).isEqualTo(expectedRook);
+        assertThat(finishedChessboard.getFigureByCoordinates('h', 1)).isNull();
+        assertThat(finishedChessboard.getFigureByCoordinates('e', 1)).isNull();
     }
 
     @Test
     public void shouldReturnChessboardUpdatedWithLongCastle() {
+        Chessboard chessboard = ChessboardFactory.createChessboard();
+        StateOfChessboard stateOfChessboard = new StateOfChessboard();
+        List<Move> moves = new ArrayList<>();
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('b', 1))
+                .previousPlace(chessboard.getPlaceByCoordinates('b', 1))
+                .nextPlace(chessboard.getPlaceByCoordinates('c', 6))
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
+                .build());
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('c', 1))
+                .previousPlace(chessboard.getPlaceByCoordinates('c', 1))
+                .nextPlace(chessboard.getPlaceByCoordinates('e', 6))
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
+                .build());
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('d', 1))
+                .previousPlace(chessboard.getPlaceByCoordinates('d', 1))
+                .nextPlace(chessboard.getPlaceByCoordinates('d', 6))
+                .typeOfCustomMove(TypeOfCustomMove.NORMAL)
+                .build());
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('e', 1))
+                .previousPlace(chessboard.getPlaceByCoordinates('e', 1))
+                .nextPlace(chessboard.getPlaceByCoordinates('c', 1))
+                .typeOfCustomMove(TypeOfCustomMove.LONG_CASTLE)
+                .build());
 
+        Figure expectedKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
+        Figure expectedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
+
+        Chessboard finishedChessboard = ChessboardFactory.createChessboard(chessboard, moves);
+
+        assertThat(finishedChessboard.getFigureByCoordinates('c', 1)).isEqualTo(expectedKing);
+        assertThat(finishedChessboard.getFigureByCoordinates('d', 1)).isEqualTo(expectedRook);
+        assertThat(finishedChessboard.getFigureByCoordinates('a', 1)).isNull();
+        assertThat(finishedChessboard.getFigureByCoordinates('b', 1)).isNull();
+        assertThat(finishedChessboard.getFigureByCoordinates('e', 1)).isNull();
     }
 
     @Test
     public void shouldReturnChessboardUpdatedWithPawnTransform() {
+        Chessboard chessboard = ChessboardFactory.createChessboard();
+        StateOfChessboard stateOfChessboard = new StateOfChessboard();
+        List<Move> moves = new ArrayList<>();
+        moves.add(stateOfChessboard.getMoveBuilder()
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .movedFigure(chessboard.getFigureByCoordinates('a', 2))
+                .previousPlace(chessboard.getPlaceByCoordinates('a', 2))
+                .nextPlace(chessboard.getPlaceByCoordinates('a', 8))
+                .pawnTransformNewFigure(TypeOfFigure.QUEEN)
+                .typeOfCustomMove(TypeOfCustomMove.PAWN_TRANSFORM)
+                .build());
 
+        Figure expectedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
+
+        Chessboard finishedChessboard = ChessboardFactory.createChessboard(chessboard, moves);
+
+        assertThat(finishedChessboard.getFigureByCoordinates('a', 8)).isEqualTo(expectedQueen);
+        assertThat(finishedChessboard.getFigureByCoordinates('a', 2)).isNull();
     }
 }
 

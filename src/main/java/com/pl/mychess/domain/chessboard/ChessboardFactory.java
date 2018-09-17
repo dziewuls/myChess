@@ -121,7 +121,7 @@ public class ChessboardFactory {
         nextPlace.setCurrentFigure(movedFigure);
         movedFigure.setMoved(true);
         if (beatenFigure != null) beatenFigure.setBeaten(true);
-        if (TypeOfCustomMove.EN_PASSANT.equals(move.getTypeOfCustomMove()))
+        if (TypeOfCustomMove.PAWN_TRANSFORM.equals(move.getTypeOfCustomMove()))
             movedFigure.setTypeOfFigure(move.getPawnTransformNewFigure());
 
     }
