@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChessboardTest {
     @Test
-    public void shouldCreateChessboardWithoutFugiresSetted(){
+    public void shouldCreateChessboardWithoutFiguresSet(){
         Chessboard chessboard = ChessboardFactory.createNoSettedChessboard();
 
         assertThat(chessboard.getFigureByCoordinates('a', 1)).isNull();
@@ -20,6 +20,21 @@ public class ChessboardTest {
         assertThat(chessboard.getFigureByCoordinates('d', 5)).isNull();
         assertThat(chessboard.getFigureByCoordinates('e', 8)).isNull();
         assertThat(chessboard.getFigureByCoordinates('f', 7)).isNull();
+    }
+
+    @Test
+    public void shouldSetFigureInChessboard(){
+        Chessboard chessboard = ChessboardFactory.createNoSettedChessboard();
+        chessboard.setFigureInPlace('a', 1, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
+        chessboard.setFigureInPlace('c', 2, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
+        chessboard.setFigureInPlace('d', 8, new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK));
+        chessboard.setFigureInPlace('h', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
+
+        assertThat(chessboard.getFigureByCoordinates('a', 1)).isEqualTo(new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
+        assertThat(chessboard.getFigureByCoordinates('c', 2)).isEqualTo(new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
+        assertThat(chessboard.getFigureByCoordinates('d', 8)).isEqualTo(new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK));
+        assertThat(chessboard.getFigureByCoordinates('h', 6)).isEqualTo(new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
+
     }
 
     @Test
