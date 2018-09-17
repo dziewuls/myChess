@@ -12,6 +12,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChessboardTest {
     @Test
+    public void shouldCreateChessboardWithoutFugiresSetted(){
+        Chessboard chessboard = ChessboardFactory.createNoSettedChessboard();
+
+        assertThat(chessboard.getFigureByCoordinates('a', 1)).isNull();
+        assertThat(chessboard.getFigureByCoordinates('b', 5)).isNull();
+        assertThat(chessboard.getFigureByCoordinates('d', 5)).isNull();
+        assertThat(chessboard.getFigureByCoordinates('e', 8)).isNull();
+        assertThat(chessboard.getFigureByCoordinates('f', 7)).isNull();
+    }
+
+    @Test
     public void shouldCreateChessboardWhichConsistsOf8x8Places() {
         Chessboard chessboard = ChessboardFactory.createChessboard();
         Place[][] places = chessboard.getPlacesOfChessboard();

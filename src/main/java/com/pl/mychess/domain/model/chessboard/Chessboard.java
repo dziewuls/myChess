@@ -19,6 +19,11 @@ public class Chessboard {
         this.figures = figures;
     }
 
+    public void setFigureInPlace(char coordinateX, int coordinateY, Figure figureToSet) {
+        getPlaceByCoordinates(coordinateX, coordinateY).setCurrentFigure(figureToSet);
+        figures.add(figureToSet);
+    }
+
     public Place[][] getPlacesOfChessboard() {
         return placesOfChessboard;
     }

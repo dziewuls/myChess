@@ -77,13 +77,6 @@ enum TypeOfCustomMove{
 
 //pomyśleć o enumie oznaczającym inne symbole ruchu jak bicie, szacha itp
 
-//logika apdejtowania ruchu:
-//  1. gameManager -> createMove()
-//  2. gameManager -> makeMove()
-//  4. gameManager -> statusOfChessboard.addMove(move)
-//  5. gameManager -> statusOfChessboard.getNewArrangement()
-//  6. gameManager -> placesOfChessboard.setChessboardByArrangement(arrangement)
-
 
 package logic
 

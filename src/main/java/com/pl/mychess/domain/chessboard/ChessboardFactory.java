@@ -6,6 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChessboardFactory {
+    public static Chessboard createNoSettedChessboard(){
+        Place[][] placesOfChessboard = new Place[8][8];
+        List<Figure> figuresList = new ArrayList<>();
+
+        for (int i = 0; i < placesOfChessboard.length; i++) {
+            for (int j = 0; j < placesOfChessboard[i].length; j++) {
+                char coordinateX = (char) ((int) 'a' + j);
+                placesOfChessboard[i][j] = new Place(coordinateX, i + 1);
+            }
+        }
+        return new Chessboard(placesOfChessboard, figuresList);
+    }
+
     public static Chessboard createCopyOfChessboard(Chessboard chessboard) {
         Place[][] placesOfChessboard = new Place[8][8];
         List<Figure> figuresList = new ArrayList<>();
