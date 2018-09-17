@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChessboardFactory {
-    public static Chessboard createNoSettedChessboard(){
+    public static Chessboard createEmptyChessboard(){
         Place[][] placesOfChessboard = new Place[8][8];
         List<Figure> figuresList = new ArrayList<>();
 

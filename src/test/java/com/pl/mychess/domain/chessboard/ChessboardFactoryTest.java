@@ -1,7 +1,6 @@
-package com.pl.mychess.domain.model.chessboard;
+package com.pl.mychess.domain.chessboard;
 
-import com.pl.mychess.domain.chessboard.ChessboardFactory;
-import com.pl.mychess.domain.chessboard.StateOfChessboard;
+import com.pl.mychess.domain.model.chessboard.*;
 import org.assertj.core.api.Condition;
 import org.junit.Test;
 
@@ -10,10 +9,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ChessboardTest {
+public class ChessboardFactoryTest {
     @Test
-    public void shouldCreateChessboardWithoutFiguresSet(){
-        Chessboard chessboard = ChessboardFactory.createNoSettedChessboard();
+    public void shouldCreateChessboardWithoutFiguresSet() {
+        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
 
         assertThat(chessboard.getFigureByCoordinates('a', 1)).isNull();
         assertThat(chessboard.getFigureByCoordinates('b', 5)).isNull();
@@ -23,8 +22,8 @@ public class ChessboardTest {
     }
 
     @Test
-    public void shouldSetFigureInChessboard(){
-        Chessboard chessboard = ChessboardFactory.createNoSettedChessboard();
+    public void shouldSetFigureInChessboard() {
+        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
         chessboard.setFigureInPlace('a', 1, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
         chessboard.setFigureInPlace('c', 2, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboard.setFigureInPlace('d', 8, new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK));

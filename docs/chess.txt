@@ -88,9 +88,9 @@ klasa MovesValidator{
 }
 
 klasa GameResultValidator{
-	static isCheck(Chessboard placesOfChessboard, Color movedPlayer) : boolean
-	static isCheckmate(Chessboard placesOfChessboard, Color movedPlayer) : boolean
-	static isStalemate(Chessboard placesOfChessboard, Color movedPlayer) : boolean
+	static isCheck(Chessboard placesOfChessboard, Color currentPlayer) : boolean
+	static isCheckmate(Chessboard placesOfChessboard, Color currentPlayer) : boolean
+	static isStalemate(Chessboard placesOfChessboard, Color currentPlayer) : boolean
 }
 
 Klasa CustomMovesValidator{
