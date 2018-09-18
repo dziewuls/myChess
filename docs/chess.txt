@@ -81,10 +81,10 @@ enum TypeOfCustomMove{
 package logic
 
 klasa MovesValidator{
-	static getAllPlacesAttackedByFigure(Chessboard placesOfChessboard, Figure figure) : List<Place>
-	static getAllCorrectMovePlacesByFigure(Chessboard placesOfChessboard, Figure figure) : List<Place>
-	static isCorrectMove(Chessboard placesOfChessboard, Move testedMove) : boolean
-	static isAttackedPlace(Chessboard placesOfChessboard, Place place) : boolean
+	static getAllPossiblePlacesForTheFigure(Chessboard placesOfChessboard, Figure figure) : List<Place>
+	static getAllCorrectPlacesForTheFigure(Chessboard placesOfChessboard, Figure figure) : List<Place>
+?	static isCorrectMove(Chessboard placesOfChessboard, Move testedMove) : boolean
+?	static isAttackedPlace(Chessboard placesOfChessboard, Place place) : boolean
 }
 
 klasa GameResultValidator{
@@ -157,7 +157,8 @@ enum StateOfMatch{
 	check,
 	whiteIsWinner,
 	blackIsWinner,
-	stalemate
+	stalemate,
+	draw
 }
 
 package gui

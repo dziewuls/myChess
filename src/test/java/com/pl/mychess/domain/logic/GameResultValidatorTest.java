@@ -6,7 +6,6 @@ import com.pl.mychess.domain.model.chessboard.ColorOfFigure;
 import com.pl.mychess.domain.model.chessboard.Figure;
 import com.pl.mychess.domain.model.chessboard.TypeOfFigure;
 import org.junit.Test;
-import org.assertj.core.api.Condition;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
