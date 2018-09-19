@@ -95,8 +95,8 @@ klasa GameResultValidator{
 
 Klasa CustomMovesValidator{
     static isEnPassantCorrect(Chessboard placesOfChessboard, Figure movedFigure, Move previousMove) : boolean
-    static isCastleShortCorrect(Chessboard placesOfChessboard, Figure movedFigure)
-    static isCastleLongCorrect(Chessboard placesOfChessboard, Figure movedFigure)
+    static isShortCastlingCorrect(Chessboard placesOfChessboard, Figure movedFigure)
+    static isLongCastlingCorrect(Chessboard placesOfChessboard, Figure movedFigure)
 }
 
 
