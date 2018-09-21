@@ -282,26 +282,96 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldEnPassantValidatorReturnFalseWhenTheChosenFigureIsNotAPawn() {
+        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Figure testedWhiteFigure = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
+        Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+        chessboard.setFigureInPlace('e', 5, testedWhiteFigure);
+        chessboard.setFigureInPlace('f', 5, testedBlackPawn);
+        Move lastMove = Move.getMoveBuilder()
+                .movedFigure(testedBlackPawn)
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
+                .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
+                .build();
 
+        boolean enPassantCorrect = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhiteFigure, lastMove);
+
+        assertThat(enPassantCorrect).isFalse();
     }
 
     @Test
     public void shouldEnPassantValidatorReturnFalseWhenTheLastMovedFigureIsNotAPawn() {
+        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Figure testedWhitePawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure testedBlackFigure = new Figure(TypeOfFigure.BISHOP, ColorOfFigure.BLACK);
+        chessboard.setFigureInPlace('e', 5, testedWhitePawn);
+        chessboard.setFigureInPlace('f', 5, testedBlackFigure);
+        Move lastMove = Move.getMoveBuilder()
+                .movedFigure(testedBlackFigure)
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
+                .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
+                .build();
 
+        boolean enPassantCorrect = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhitePawn, lastMove);
+
+        assertThat(enPassantCorrect).isFalse();
     }
 
     @Test
     public void shouldEnPassantValidatorReturnFalseWhenTheBeatenPawnNotStandBesideTheBeatingPawn() {
+        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Figure testedWhitePawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+        chessboard.setFigureInPlace('e', 5, testedWhitePawn);
+        chessboard.setFigureInPlace('f', 6, testedBlackPawn);
+        Move lastMove = Move.getMoveBuilder()
+                .movedFigure(testedBlackPawn)
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
+                .nextPlace(chessboard.getPlaceByCoordinates('f', 6))
+                .build();
 
+        boolean enPassantCorrect = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhitePawn, lastMove);
+
+        assertThat(enPassantCorrect).isTrue();
     }
 
     @Test
     public void shouldEnPassantValidatorReturnFalseWhenTheBeatenPawnNotMoveAboutTwoPlacesForward() {
+        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Figure testedWhitePawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+        chessboard.setFigureInPlace('e', 5, testedWhitePawn);
+        chessboard.setFigureInPlace('f', 5, testedBlackPawn);
+        Move lastMove = Move.getMoveBuilder()
+                .movedFigure(testedBlackPawn)
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .previousPlace(chessboard.getPlaceByCoordinates('f', 6))
+                .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
+                .build();
 
+        boolean enPassantCorrect = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhitePawn, lastMove);
+
+        assertThat(enPassantCorrect).isTrue();
     }
 
     @Test
     public void shouldEnPassandValidatorReturnTrueWhenEnPassantMoveIsCorrect() {
+        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Figure testedWhitePawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+        chessboard.setFigureInPlace('e', 5, testedWhitePawn);
+        chessboard.setFigureInPlace('f', 5, testedBlackPawn);
+        Move lastMove = Move.getMoveBuilder()
+                .movedFigure(testedBlackPawn)
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
+                .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
+                .build();
 
+        boolean enPassantCorrect = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhitePawn, lastMove);
+
+        assertThat(enPassantCorrect).isTrue();
     }
 }
