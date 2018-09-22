@@ -4,9 +4,6 @@ import com.pl.mychess.domain.chessboard.ChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.*;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomMovesValidatorTest {
