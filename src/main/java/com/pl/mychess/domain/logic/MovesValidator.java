@@ -19,7 +19,7 @@ public class MovesValidator {
                 result = possiblePlacesForPawn(chessboard, testedFigure, corX, corY);
                 break;
             case KNIGHT:
-
+                result = possiblePlacesForKnight(chessboard, testedFigure, corX, corY);
                 break;
             case BISHOP:
 
@@ -37,23 +37,73 @@ public class MovesValidator {
         return result;
     }
 
-    private static List<Place>possiblePlacesForPawn(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
+    private static List<Place> possiblePlacesForKnight(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
         List<Place> result = new ArrayList<>();
-        if(chessboard.getFigureByCoordinates(corX, corY + 1) == null){
-            result.add(chessboard.getPlaceByCoordinates(corX, corY + 1));
+        if (isThePlaceExist((char) ((int) corX + 1), corY + 2) &&
+                (isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX + 1), corY + 2)) ||
+                chessboard.getFigureByCoordinates((char) ((int) corX + 1), corY + 2) == null) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX + 1), corY + 2));
         }
-        if(!testedFigure.isMoved() && chessboard.getFigureByCoordinates(corX, corY + 2) == null){
-            result.add(chessboard.getPlaceByCoordinates(corX, corY + 2));
+        if (isThePlaceExist((char) ((int) corX + 2), corY + 1) &&
+                (isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX + 2), corY + 1)) ||
+                chessboard.getFigureByCoordinates((char) ((int) corX + 2), corY + 1) == null) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX + 2), corY + 1));
         }
-        if(isThePlaceExist((char)((int)corX - 1), corY + 1) && chessboard.getFigureByCoordinates((char)((int)corX - 1), corY + 1) != null &&
-        !chessboard.getFigureByCoordinates((char)((int)corX - 1), corY + 1).getColorOfFigure().equals(testedFigure.getColorOfFigure())){
-            result.add(chessboard.getPlaceByCoordinates((char)((int)corX - 1), corY + 1));
+        if (isThePlaceExist((char) ((int) corX + 1), corY - 2) &&
+                (isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX + 1), corY - 2)) ||
+                chessboard.getFigureByCoordinates((char) ((int) corX + 1), corY - 2) == null) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX + 1), corY - 2));
         }
-        if(isThePlaceExist((char)((int)corX + 1), corY) && chessboard.getFigureByCoordinates((char)((int)corX + 1), corY) != null &&
-        !chessboard.getFigureByCoordinates((char)((int)corX + 1), corY).getColorOfFigure().equals(testedFigure.getColorOfFigure())){
-            result.add(chessboard.getPlaceByCoordinates((char)((int)corX + 1), corY + 1));
+        if (isThePlaceExist((char) ((int) corX - 2), corY + 1) &&
+                (isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX - 2), corY + 1)) ||
+                chessboard.getFigureByCoordinates((char) ((int) corX - 2), corY + 1) == null) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX - 2), corY + 1));
+        }
+        if (isThePlaceExist((char) ((int) corX - 1), corY + 2) &&
+                (isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX - 1), corY + 2)) ||
+                chessboard.getFigureByCoordinates((char) ((int) corX - 1), corY + 2) == null) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX - 1), corY + 2));
+        }
+        if (isThePlaceExist((char) ((int) corX + 2), corY - 1) &&
+                (isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX + 2), corY - 1)) ||
+                chessboard.getFigureByCoordinates((char) ((int) corX + 2), corY - 1) == null) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX + 2), corY - 1));
+        }
+        if (isThePlaceExist((char) ((int) corX - 1), corY - 2) &&
+                (isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX - 1), corY - 2)) ||
+                chessboard.getFigureByCoordinates((char) ((int) corX - 1), corY - 2) == null) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX - 1), corY - 2));
+        }
+        if (isThePlaceExist((char) ((int) corX - 2), corY - 1) &&
+                (isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX - 2), corY - 1)) ||
+                chessboard.getFigureByCoordinates((char) ((int) corX - 2), corY - 1) == null) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX - 2), corY - 1));
         }
         return result;
+    }
+
+    private static List<Place> possiblePlacesForPawn(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
+        List<Place> result = new ArrayList<>();
+        if (chessboard.getFigureByCoordinates(corX, corY + 1) == null) {
+            result.add(chessboard.getPlaceByCoordinates(corX, corY + 1));
+        }
+        if (!testedFigure.isMoved() && chessboard.getFigureByCoordinates(corX, corY + 2) == null) {
+            result.add(chessboard.getPlaceByCoordinates(corX, corY + 2));
+        }
+        if (isThePlaceExist((char) ((int) corX - 1), corY + 1) &&
+                isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX - 1), corY + 1)) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX - 1), corY + 1));
+        }
+        if (isThePlaceExist((char) ((int) corX + 1), corY + 1) &&
+                isOpponentFigureInPlace(chessboard, testedFigure, (char) ((int) corX + 1), corY + 1)) {
+            result.add(chessboard.getPlaceByCoordinates((char) ((int) corX + 1), corY + 1));
+        }
+        return result;
+    }
+
+    private static boolean isOpponentFigureInPlace(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
+        return chessboard.getFigureByCoordinates(corX, corY) != null &&
+                !chessboard.getFigureByCoordinates(corX, corY).getColorOfFigure().equals(testedFigure.getColorOfFigure());
     }
 
     private static boolean isThePlaceExist(char corX, int corY) {
