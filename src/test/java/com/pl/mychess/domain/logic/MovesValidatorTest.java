@@ -21,7 +21,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('e', 3));
         expectedPlaces.add(new Place('e', 4));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -34,10 +34,10 @@ public class MovesValidatorTest {
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedPawn);
 
         List<Place> expectedPlaces = new ArrayList<>();
-        expectedPlaces.add(new Place('f', 4));
+        expectedPlaces.add(new Place('f', 4, chessboard.getFigureByCoordinates('f', 4)));
         expectedPlaces.add(new Place('e', 4));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class MovesValidatorTest {
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('e', 4));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('c', 3));
         expectedPlaces.add(new Place('c', 5));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('b', 7));
         expectedPlaces.add(new Place('a', 8));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('g', 4));
         expectedPlaces.add(new Place('h', 4));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -161,7 +161,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('b', 7));
         expectedPlaces.add(new Place('a', 8));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -181,7 +181,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('e', 3));
         expectedPlaces.add(new Place('e', 5));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -219,7 +219,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('b', 7));
         expectedPlaces.add(new Place('a', 8));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -254,7 +254,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('b', 7));
         expectedPlaces.add(new Place('a', 8));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -275,7 +275,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('e', 7));
         expectedPlaces.add(new Place('e', 8));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
@@ -309,6 +309,6 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('e', 3));
         expectedPlaces.add(new Place('e', 5));
 
-        assertThat(possiblePlaces).isEqualTo(expectedPlaces);
+        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 }
