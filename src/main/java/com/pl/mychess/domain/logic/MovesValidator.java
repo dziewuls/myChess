@@ -105,8 +105,10 @@ public class MovesValidator {
                                                              int corY, List<Integer[]> differencesToCurrentPlace) {
         List<Place> result = new ArrayList<>();
         for (Integer[] diff : differencesToCurrentPlace) {
-            if (isThePlaceExist((char) (corX + diff[0]), corY + diff[1]) &&
-                    (isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + diff[0]), corY + diff[1])) ||
+            if (!isThePlaceExist((char) (corX + diff[0]), corY + diff[1]))
+                continue;
+
+            if (isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + diff[0]), corY + diff[1]) ||
                     chessboard.getFigureByCoordinates((char) (corX + diff[0]), corY + diff[1]) == null) {
                 result.add(chessboard.getPlaceByCoordinates((char) (corX + diff[0]), corY + diff[1]));
             }
@@ -124,7 +126,7 @@ public class MovesValidator {
 
             if (isThePlaceExist((char) (corX + diffX), corY + diffY)) {
                 if (isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + diffX), corY + diffY)) {
-                    result.add(chessboard.getPlaceByCoordinates(corX, corY));
+                    result.add(chessboard.getPlaceByCoordinates((char) (corX + diffX), corY + diffY));
                 } else if (chessboard.getFigureByCoordinates((char) (corX + diffX), corY + diffY) == null) {
                     result.add(chessboard.getPlaceByCoordinates((char) (corX + diffX), corY + diffY));
 
@@ -143,7 +145,6 @@ public class MovesValidator {
         }
         return result;
     }
-
 
     private static boolean isOpponentFigureInPlace(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
         return chessboard.getFigureByCoordinates(corX, corY) != null &&
