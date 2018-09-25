@@ -24,13 +24,16 @@ public class ChessboardUpdater {
         beatenFigure.setBeaten(true);
     }
 
-    public static void updateChessboardForCastle(Move move, Chessboard createdChessboard,
-                                                  char nextXForKing, char prevXForRook, char nextXForRook) {
-        Place previousKingPlace = createdChessboard.getPlaceByCoordinates('e', move.getNextPlace().getCoordinateY());
-        Place nextKingPlace = createdChessboard.getPlaceByCoordinates(nextXForKing, move.getNextPlace().getCoordinateY());
-        Place previousRookPlace = createdChessboard.getPlaceByCoordinates(prevXForRook, move.getNextPlace().getCoordinateY());
+    public static void updateChessboardForCastling(Move move, Chessboard createdChessboard, char prevXForRook, char nextXForRook) {
+        Place previousKingPlace = createdChessboard.getPlaceByCoordinates(
+                move.getPreviousPlace().getCoordinateX(), move.getPreviousPlace().getCoordinateY());
+        Place nextKingPlace = createdChessboard.getPlaceByCoordinates(
+                move.getNextPlace().getCoordinateX(), move.getNextPlace().getCoordinateY());
+        Figure movedKing = createdChessboard.getFigureByCoordinates(
+                move.getPreviousPlace().getCoordinateX(), move.getPreviousPlace().getCoordinateY());
+
+        Place previousRookPlace = createdChessboard.getPlaceByCoordinates(prevXForRook, move.getPreviousPlace().getCoordinateY());
         Place nextRookPlace = createdChessboard.getPlaceByCoordinates(nextXForRook, move.getNextPlace().getCoordinateY());
-        Figure movedKing = createdChessboard.getFigureByCoordinates('e', move.getNextPlace().getCoordinateY());
         Figure movedRook = createdChessboard.getFigureByCoordinates(prevXForRook, move.getNextPlace().getCoordinateY());
 
         previousKingPlace.setCurrentFigure(null);

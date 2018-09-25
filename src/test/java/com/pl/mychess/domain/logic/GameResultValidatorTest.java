@@ -5,132 +5,109 @@ import com.pl.mychess.domain.model.chessboard.Chessboard;
 import com.pl.mychess.domain.model.chessboard.ColorOfFigure;
 import com.pl.mychess.domain.model.chessboard.Figure;
 import com.pl.mychess.domain.model.chessboard.TypeOfFigure;
+import com.pl.mychess.domain.model.match.StateOfMatch;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class GameResultValidatorTest {
     @Test
-    public void shouldCheckDetectMethodReturnTrueWhenTheCheckExist(){
+    public void shouldGameResultValidatorReturnCheckWhenTheCheckExist(){
         Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
 
-        boolean result = GameResultValidator.isCheck(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
 
-        assertThat(result).isTrue();
+        assertThat(result).isEqualTo(StateOfMatch.CHECK);
     }
 
     @Test
-    public void shouldCheckDetectMethodReturnFalseWhenTheCheckExistButForOtherPlayerColor(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
-        chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
-        chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
-        chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
-
-        boolean result = GameResultValidator.isCheck(chessboardForTest, ColorOfFigure.WHITE);
-
-        assertThat(result).isFalse();
-    }
-
-    @Test
-    public void shouldCheckDetectMethodReturnFalseWhenTheCheckNotExist(){
+    public void shouldGameResultValidatorReturnGameIsNotCompleteWhenTheCheckNotExist(){
         Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK));
 
-        boolean result = GameResultValidator.isCheck(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
 
-        assertThat(result).isFalse();
+        assertThat(result).isEqualTo(StateOfMatch.GAME_IS_NOT_COMPLETED);
     }
 
 
     @Test
-    public void shouldMateDetectMethodReturnTrueWhenTheMateExist(){
+    public void shouldGameResultValidatorReturnCheckmateWhenTheMateExist(){
         Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
 
-        boolean result = GameResultValidator.isCheckmate(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
 
-        assertThat(result).isTrue();
+        assertThat(result).isEqualTo(StateOfMatch.CHECKMATE);
     }
 
     @Test
-    public void shouldMateDetectMethodReturnFalseWhenTheMateExistButForOtherPlayerColor(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
-        chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
-        chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
-        chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
-
-        boolean result = GameResultValidator.isCheckmate(chessboardForTest, ColorOfFigure.WHITE);
-
-        assertThat(result).isFalse();
-    }
-
-    @Test
-    public void shouldMateDetectMethodReturnFalseWhenTheMateNotExist(){
+    public void shouldGameResultValidatorNotReturnCheckmateWhenTheMateNotExist(){
         Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('a', 7, new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK));
 
-        boolean result = GameResultValidator.isCheckmate(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
 
-        assertThat(result).isTrue();
+        assertThat(result).isNotEqualTo(StateOfMatch.CHECKMATE);
     }
 
     @Test
-    public void shouldStalemateDetectMethodReturnTrueWhenTheStalemateExist(){
+    public void shouldGameResultValidatorReturnDrawWhenTheStalemateExist(){
         Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
 
-        boolean result = GameResultValidator.isStalemate(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
-        assertThat(result).isTrue();
+        assertThat(result).isEqualTo(StateOfMatch.DRAW);
     }
 
     @Test
-    public void shouldStalemateDetectMethodReturnFalseWhenTheMateExistButForOtherPlayerColor(){
+    public void shouldGameResultValidatorNotReturnDrawWhenTheStaleMateExistButForOtherPlayerColor(){
         Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
 
-        boolean result = GameResultValidator.isStalemate(chessboardForTest, ColorOfFigure.WHITE);
+        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
 
-        assertThat(result).isFalse();
+        assertThat(result).isNotEqualTo(StateOfMatch.DRAW);
     }
 
     @Test
-    public void shouldStalemateDetectMethodReturnFalseWhenTheStalemateNotExist(){
+    public void shouldGameResultValidatorNotReturnDrawWhenTheStalemateNotExist(){
         Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('h', 5, new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK));
 
-        boolean result = GameResultValidator.isStalemate(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
-        assertThat(result).isFalse();
+        assertThat(result).isNotEqualTo(StateOfMatch.DRAW);
     }
 
     @Test
-    public void shouldDrawDetectMethodReturnTrueWhenInChessboardIsInsufficientMaterialForMate(){
+    public void shouldGameResultValidatorReturnDrawWhenInChessboardIsInsufficientMaterialForMate(){
         Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE));
 
-        boolean result = GameResultValidator.isDraw(chessboardForTest);
+        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
 
-        assertThat(result).isTrue();
+        assertThat(result).isEqualTo(StateOfMatch.DRAW);
     }
 }

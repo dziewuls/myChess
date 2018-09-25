@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChessboardFactory {
-    public static Chessboard createEmptyChessboard(){
+    public static Chessboard createEmptyChessboard() {
         Place[][] placesOfChessboard = new Place[8][8];
         List<Figure> figuresList = new ArrayList<>();
 
@@ -66,10 +66,10 @@ public class ChessboardFactory {
                 ChessboardUpdater.updateChessboardForNormalMove(move, createdChessboard);
                 break;
             case SHORT_CASTLE:
-                ChessboardUpdater.updateChessboardForCastle(move, createdChessboard, 'g', 'h', 'f');
+                ChessboardUpdater.updateChessboardForCastling(move, createdChessboard, 'h', 'f');
                 break;
             case LONG_CASTLE:
-                ChessboardUpdater.updateChessboardForCastle(move, createdChessboard, 'c', 'a', 'd');
+                ChessboardUpdater.updateChessboardForCastling(move, createdChessboard, 'a', 'd');
                 break;
             case EN_PASSANT:
                 ChessboardUpdater.updateChessboardForEnPassant(move, createdChessboard);
