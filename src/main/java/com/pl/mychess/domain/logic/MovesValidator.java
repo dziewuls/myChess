@@ -1,8 +1,8 @@
 package com.pl.mychess.domain.logic;
 
-import com.pl.mychess.domain.model.chessboard.Chessboard;
-import com.pl.mychess.domain.model.chessboard.Figure;
-import com.pl.mychess.domain.model.chessboard.Place;
+import com.pl.mychess.domain.chessboard.ChessboardFactory;
+import com.pl.mychess.domain.model.chessboard.*;
+import com.pl.mychess.domain.model.match.StateOfMatch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +38,27 @@ public class MovesValidator {
         return result;
     }
 
+    public static List<Place> getAllCorrectPlacesForTheFigure(Chessboard chessboard, Figure testedFigure) {
+        List<Place> allPossiblePlaces = getAllPossiblePlacesForTheFigure(chessboard, testedFigure);
+        List<Place> result = new ArrayList<>();
+
+        allPossiblePlaces.forEach(p -> {
+            Move simulatedMove = Move.getMoveBuilder()
+                    .movedFigure(testedFigure)
+                    .previousPlace(chessboard.getPlaceForGivenFigure(testedFigure))
+                    .nextPlace(p)
+                    .currentPlayerColor(testedFigure.getColorOfFigure())
+                    .build();
+            Chessboard simulateChessboard = ChessboardFactory.createChessboard(chessboard, simulatedMove);
+
+            if(!GameResultValidator.isTheFigureAttacked(simulateChessboard,
+                    GameResultValidator.findTheKing(simulateChessboard, testedFigure.getColorOfFigure()))){
+                result.add(p);
+            }
+        });
+        return result;
+    }
+
     private static List<Place> possiblePlacesForQueen(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
         List<Integer[]> differencesToCurrentPlace = new ArrayList<>(Arrays.asList(
                 new Integer[]{1, 1}, new Integer[]{1, -1}, new Integer[]{-1, 1}, new Integer[]{-1, -1},
@@ -68,7 +89,7 @@ public class MovesValidator {
                 new Integer[]{1, 1}, new Integer[]{1, -1}, new Integer[]{-1, 1}, new Integer[]{-1, -1},
                 new Integer[]{0, 1}, new Integer[]{0, -1}, new Integer[]{1, 0}, new Integer[]{-1, 0}
         ));
-
+        //TODO dodać pola możliwe dla roszady
         return getPlacesForPointMovingFigure(chessboard, testedFigure, corX, corY, differencesToCurrentPlace);
     }
 
@@ -84,20 +105,27 @@ public class MovesValidator {
 
     private static List<Place> possiblePlacesForPawn(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
         List<Place> result = new ArrayList<>();
-        if (chessboard.getFigureByCoordinates(corX, corY + 1) == null) {
-            result.add(chessboard.getPlaceByCoordinates(corX, corY + 1));
+
+        int direction = (testedFigure.getColorOfFigure() == ColorOfFigure.WHITE) ? 1 : -1;
+
+
+        if (isThePlaceExist(corX, corY + direction) &&
+                chessboard.getFigureByCoordinates(corX, corY + direction) == null) {
+            result.add(chessboard.getPlaceByCoordinates(corX, corY + direction));
         }
-        if (!testedFigure.isMoved() && chessboard.getFigureByCoordinates(corX, corY + 2) == null) {
-            result.add(chessboard.getPlaceByCoordinates(corX, corY + 2));
+        if (isThePlaceExist(corX, corY + 2 * direction) &&
+                !testedFigure.isMoved() && chessboard.getFigureByCoordinates(corX, corY + 2 * direction) == null) {
+            result.add(chessboard.getPlaceByCoordinates(corX, corY + 2 * direction));
         }
-        if (isThePlaceExist((char) (corX - 1), corY + 1) &&
-                isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX - 1), corY + 1)) {
-            result.add(chessboard.getPlaceByCoordinates((char) (corX - 1), corY + 1));
+        if (isThePlaceExist((char) (corX - 1), corY + direction) &&
+                isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX - 1), corY + direction)) {
+            result.add(chessboard.getPlaceByCoordinates((char) (corX - 1), corY + direction));
         }
-        if (isThePlaceExist((char) (corX + 1), corY + 1) &&
-                isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + 1), corY + 1)) {
-            result.add(chessboard.getPlaceByCoordinates((char) (corX + 1), corY + 1));
+        if (isThePlaceExist((char) (corX + 1), corY + direction) &&
+                isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + 1), corY + direction)) {
+            result.add(chessboard.getPlaceByCoordinates((char) (corX + 1), corY + direction));
         }
+        //TODO dodać pola możliwe dla bicia w przelocie
         return result;
     }
 
@@ -153,9 +181,5 @@ public class MovesValidator {
 
     private static boolean isThePlaceExist(char corX, int corY) {
         return corX >= 'a' && corX <= 'h' && corY >= 1 && corY <= 8;
-    }
-
-    public static List<Place> getAllCorrectPlacesForTheFigure(Chessboard chessboard, Figure testedFigure) {
-        return null;
     }
 }

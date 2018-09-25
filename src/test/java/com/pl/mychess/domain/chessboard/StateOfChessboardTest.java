@@ -35,9 +35,9 @@ public class StateOfChessboardTest {
                         ColorOfFigure.WHITE)), "Moved figure is white King"))
                 .is(new Condition<>(m -> m.getBeatenFigure().equals(new Figure(TypeOfFigure.PAWN,
                         ColorOfFigure.BLACK)), "Beaten figure is black Pawn"))
-                .is(new Condition<>(m -> m.getPreviousPlace().equals(new Place('a', 4, movedFigure)),
+                .is(new Condition<>(m -> m.getPreviousPlace().equalsWithFigure(new Place('a', 4, movedFigure)),
                         "Previous place is a4"))
-                .is(new Condition<>(m -> m.getNextPlace().equals(new Place('b', 5, beatenFigure)),
+                .is(new Condition<>(m -> m.getNextPlace().equalsWithFigure(new Place('b', 5, beatenFigure)),
                         "Next place is b5"))
                 .is(new Condition<>(m -> m.getTypeOfCustomMove().equals(TypeOfCustomMove.NORMAL),
                         "Type of move is normal"));

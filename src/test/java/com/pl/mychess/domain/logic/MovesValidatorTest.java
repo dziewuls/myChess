@@ -273,7 +273,7 @@ public class MovesValidatorTest {
         expectedPlaces.add(new Place('e', 5));
         expectedPlaces.add(new Place('e', 6));
         expectedPlaces.add(new Place('e', 7));
-        expectedPlaces.add(new Place('e', 8));
+        expectedPlaces.add(new Place('e', 8, chessboard.getFigureByCoordinates('e', 8)));
 
         assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
