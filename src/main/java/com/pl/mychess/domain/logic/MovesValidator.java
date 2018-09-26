@@ -1,15 +1,18 @@
 package com.pl.mychess.domain.logic;
 
-import com.pl.mychess.domain.chessboard.ChessboardFactory;
-import com.pl.mychess.domain.model.chessboard.*;
-import com.pl.mychess.domain.model.match.StateOfMatch;
+import com.pl.mychess.domain.model.chessboard.Chessboard;
+import com.pl.mychess.domain.model.chessboard.ColorOfFigure;
+import com.pl.mychess.domain.model.chessboard.Figure;
+import com.pl.mychess.domain.model.chessboard.Place;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MovesValidator {
-    public static List<Place> getAllPossiblePlacesForTheFigure(Chessboard chessboard, Figure testedFigure) {
+class MovesValidator {
+    private MovesValidator(){}
+
+    static List<Place> getAllPossiblePlacesForTheFigure(Chessboard chessboard, Figure testedFigure) {
         List<Place> result = new ArrayList<>();
         Place placeOfTestedFigure = chessboard.getPlaceForGivenFigure(testedFigure);
         char corX = placeOfTestedFigure.getCoordinateX();
@@ -35,27 +38,6 @@ public class MovesValidator {
                 result = possiblePlacesForKing(chessboard, testedFigure, corX, corY);
                 break;
         }
-        return result;
-    }
-
-    public static List<Place> getAllCorrectPlacesForTheFigure(Chessboard chessboard, Figure testedFigure) {
-        List<Place> allPossiblePlaces = getAllPossiblePlacesForTheFigure(chessboard, testedFigure);
-        List<Place> result = new ArrayList<>();
-
-        allPossiblePlaces.forEach(p -> {
-            Move simulatedMove = Move.getMoveBuilder()
-                    .movedFigure(testedFigure)
-                    .previousPlace(chessboard.getPlaceForGivenFigure(testedFigure))
-                    .nextPlace(p)
-                    .currentPlayerColor(testedFigure.getColorOfFigure())
-                    .build();
-            Chessboard simulateChessboard = ChessboardFactory.createChessboard(chessboard, simulatedMove);
-
-            if(!GameResultValidator.isTheFigureAttacked(simulateChessboard,
-                    GameResultValidator.findTheKing(simulateChessboard, testedFigure.getColorOfFigure()))){
-                result.add(p);
-            }
-        });
         return result;
     }
 
@@ -105,23 +87,21 @@ public class MovesValidator {
 
     private static List<Place> possiblePlacesForPawn(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
         List<Place> result = new ArrayList<>();
-
         int direction = (testedFigure.getColorOfFigure() == ColorOfFigure.WHITE) ? 1 : -1;
 
-
-        if (isThePlaceExist(corX, corY + direction) &&
+        if (StateOfGameToolsValidator.isThePlaceExist(corX, corY + direction) &&
                 chessboard.getFigureByCoordinates(corX, corY + direction) == null) {
             result.add(chessboard.getPlaceByCoordinates(corX, corY + direction));
         }
-        if (isThePlaceExist(corX, corY + 2 * direction) &&
+        if (StateOfGameToolsValidator.isThePlaceExist(corX, corY + 2 * direction) &&
                 !testedFigure.isMoved() && chessboard.getFigureByCoordinates(corX, corY + 2 * direction) == null) {
             result.add(chessboard.getPlaceByCoordinates(corX, corY + 2 * direction));
         }
-        if (isThePlaceExist((char) (corX - 1), corY + direction) &&
+        if (StateOfGameToolsValidator.isThePlaceExist((char) (corX - 1), corY + direction) &&
                 isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX - 1), corY + direction)) {
             result.add(chessboard.getPlaceByCoordinates((char) (corX - 1), corY + direction));
         }
-        if (isThePlaceExist((char) (corX + 1), corY + direction) &&
+        if (StateOfGameToolsValidator.isThePlaceExist((char) (corX + 1), corY + direction) &&
                 isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + 1), corY + direction)) {
             result.add(chessboard.getPlaceByCoordinates((char) (corX + 1), corY + direction));
         }
@@ -133,7 +113,7 @@ public class MovesValidator {
                                                              int corY, List<Integer[]> differencesToCurrentPlace) {
         List<Place> result = new ArrayList<>();
         for (Integer[] diff : differencesToCurrentPlace) {
-            if (!isThePlaceExist((char) (corX + diff[0]), corY + diff[1]))
+            if (!StateOfGameToolsValidator.isThePlaceExist((char) (corX + diff[0]), corY + diff[1]))
                 continue;
 
             if (isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + diff[0]), corY + diff[1]) ||
@@ -152,34 +132,38 @@ public class MovesValidator {
             int diffX = differencesToCurrentPlace.get(0)[0];
             int diffY = differencesToCurrentPlace.get(0)[1];
 
-            if (isThePlaceExist((char) (corX + diffX), corY + diffY)) {
-                if (isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + diffX), corY + diffY)) {
-                    result.add(chessboard.getPlaceByCoordinates((char) (corX + diffX), corY + diffY));
-                } else if (chessboard.getFigureByCoordinates((char) (corX + diffX), corY + diffY) == null) {
-                    result.add(chessboard.getPlaceByCoordinates((char) (corX + diffX), corY + diffY));
-
-                    int newDiffX;
-                    if (diffX == 0) newDiffX = 0;
-                    else newDiffX = (diffX < 1) ? diffX - 1 : diffX + 1;
-
-                    int newDiffY;
-                    if (diffY == 0) newDiffY = 0;
-                    else newDiffY = (diffY < 1) ? diffY - 1 : diffY + 1;
-
-                    differencesToCurrentPlace.add(new Integer[]{newDiffX, newDiffY});
-                }
+            if (StateOfGameToolsValidator.isThePlaceExist((char) (corX + diffX), corY + diffY)) {
+                addPlaceWhenIsCorrect(chessboard, testedFigure, corX, corY, differencesToCurrentPlace, result);
             }
             differencesToCurrentPlace.remove(0);
         }
         return result;
     }
 
+    private static void addPlaceWhenIsCorrect(Chessboard chessboard, Figure testedFigure, char corX, int corY,
+                                              List<Integer[]> differencesToCurrentPlace, List<Place> result) {
+        int diffX = differencesToCurrentPlace.get(0)[0];
+        int diffY = differencesToCurrentPlace.get(0)[1];
+
+        if (isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + diffX), corY + diffY)) {
+            result.add(chessboard.getPlaceByCoordinates((char) (corX + diffX), corY + diffY));
+        } else if (chessboard.getFigureByCoordinates((char) (corX + diffX), corY + diffY) == null) {
+            result.add(chessboard.getPlaceByCoordinates((char) (corX + diffX), corY + diffY));
+
+            int newDiffX;
+            if (diffX == 0) newDiffX = 0;
+            else newDiffX = (diffX < 1) ? diffX - 1 : diffX + 1;
+
+            int newDiffY;
+            if (diffY == 0) newDiffY = 0;
+            else newDiffY = (diffY < 1) ? diffY - 1 : diffY + 1;
+
+            differencesToCurrentPlace.add(new Integer[]{newDiffX, newDiffY});
+        }
+    }
+
     private static boolean isOpponentFigureInPlace(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
         return chessboard.getFigureByCoordinates(corX, corY) != null &&
                 !chessboard.getFigureByCoordinates(corX, corY).getColorOfFigure().equals(testedFigure.getColorOfFigure());
-    }
-
-    private static boolean isThePlaceExist(char corX, int corY) {
-        return corX >= 'a' && corX <= 'h' && corY >= 1 && corY <= 8;
     }
 }

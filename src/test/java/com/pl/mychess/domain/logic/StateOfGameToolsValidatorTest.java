@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GameResultValidatorTest {
+public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldGameResultValidatorReturnCheckWhenTheCheckExist(){
         Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
@@ -18,7 +18,7 @@ public class GameResultValidatorTest {
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
 
-        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = StateOfGameToolsValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
         assertThat(result).isEqualTo(StateOfMatch.CHECK);
     }
@@ -31,7 +31,7 @@ public class GameResultValidatorTest {
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK));
 
-        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = StateOfGameToolsValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
         assertThat(result).isEqualTo(StateOfMatch.GAME_IS_NOT_COMPLETED);
     }
@@ -44,7 +44,7 @@ public class GameResultValidatorTest {
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
 
-        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = StateOfGameToolsValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
         assertThat(result).isEqualTo(StateOfMatch.CHECKMATE);
     }
@@ -57,7 +57,7 @@ public class GameResultValidatorTest {
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('a', 7, new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK));
 
-        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = StateOfGameToolsValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
         assertThat(result).isNotEqualTo(StateOfMatch.CHECKMATE);
     }
@@ -69,7 +69,7 @@ public class GameResultValidatorTest {
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
 
-        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = StateOfGameToolsValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
         assertThat(result).isEqualTo(StateOfMatch.DRAW);
     }
@@ -81,7 +81,7 @@ public class GameResultValidatorTest {
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
 
-        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
+        StateOfMatch result = StateOfGameToolsValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
 
         assertThat(result).isNotEqualTo(StateOfMatch.DRAW);
     }
@@ -94,7 +94,7 @@ public class GameResultValidatorTest {
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('h', 5, new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK));
 
-        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+        StateOfMatch result = StateOfGameToolsValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
         assertThat(result).isNotEqualTo(StateOfMatch.DRAW);
     }
@@ -106,7 +106,7 @@ public class GameResultValidatorTest {
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE));
 
-        StateOfMatch result = GameResultValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
+        StateOfMatch result = StateOfGameToolsValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
 
         assertThat(result).isEqualTo(StateOfMatch.DRAW);
     }

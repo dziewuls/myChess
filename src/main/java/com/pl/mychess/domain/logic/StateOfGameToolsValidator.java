@@ -1,29 +1,11 @@
 package com.pl.mychess.domain.logic;
 
 import com.pl.mychess.domain.model.chessboard.*;
-import com.pl.mychess.domain.model.match.StateOfMatch;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class GameResultValidator {
-    public static StateOfMatch getTheGameResult(Chessboard chessboard, ColorOfFigure currentColor) {
-        Figure checkedKing = findTheKing(chessboard, currentColor);
-        boolean isTheKingAttacked = isTheFigureAttacked(chessboard, checkedKing);
-        boolean hasAnyCorrectMove = hasTheCurrentPlayerAnyCorrectMove(chessboard, currentColor);
-        boolean isAnotherDrawSituation = isDraw(chessboard);
-
-        if (isTheKingAttacked) {
-            if (!hasAnyCorrectMove) {
-                return StateOfMatch.CHECKMATE;
-            }
-            return StateOfMatch.CHECK;
-        }
-        if (!hasAnyCorrectMove || isAnotherDrawSituation) {
-            return StateOfMatch.DRAW;
-        }
-        return StateOfMatch.GAME_IS_NOT_COMPLETED;
-    }
+class StateOfGameToolsValidator {
+    private StateOfGameToolsValidator(){}
 
     static Figure findTheKing(Chessboard chessboard, ColorOfFigure currentColor) {
         for (Figure f : chessboard.getFigures()) {
@@ -32,6 +14,15 @@ public class GameResultValidator {
             }
         }
         return null;
+    }
+
+    static boolean isThePlaceAttacked(Chessboard chessboard, Place testedPlace, ColorOfFigure currentColor){
+        //TODO przetestować
+        Figure tmpFigure = new Figure(TypeOfFigure.PAWN, currentColor);
+        testedPlace.setCurrentFigure(tmpFigure);
+        boolean isAttacked = isTheFigureAttacked(chessboard, tmpFigure);
+        testedPlace.setCurrentFigure(null);
+        return isAttacked;
     }
 
     static boolean isTheFigureAttacked(Chessboard chessboard, Figure checkedFigure) {
@@ -58,7 +49,7 @@ public class GameResultValidator {
         return false;
     }
 
-    private static boolean hasTheCurrentPlayerAnyCorrectMove(Chessboard chessboard, ColorOfFigure currentColor) {
+    static boolean hasTheCurrentPlayerAnyCorrectMove(Chessboard chessboard, ColorOfFigure currentColor) {
         for (int i = 1; i <= 8; i++) {
             for (char j = 'a'; j <= 'h'; j++) {
                 if (hasTheFigureAnyCorrectMove(chessboard, currentColor, i, j))
@@ -71,13 +62,14 @@ public class GameResultValidator {
     private static boolean hasTheFigureAnyCorrectMove(Chessboard chessboard, ColorOfFigure currentColor, int i, char j) {
         Figure checkedFigure = chessboard.getFigureByCoordinates(j, i);
         if (checkedFigure != null && checkedFigure.getColorOfFigure() == currentColor) {
-            List<Place> correctPlaces = MovesValidator.getAllCorrectPlacesForTheFigure(chessboard, checkedFigure);
+            List<Place> correctPlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, checkedFigure);
             return !correctPlaces.isEmpty();
         }
         return false;
     }
 
-    private static boolean isDraw(Chessboard chessboard) {
+    static boolean isDraw(Chessboard chessboard) {
+        //TODO uprościć
         int whiteKnights = 0;
         int whiteBishops = 0;
         int blackKnights = 0;
@@ -109,5 +101,9 @@ public class GameResultValidator {
         boolean blackHasNotEnoughFigures = blackBishops == 0 || (blackBishops == 1 && blackKnights == 0);
 
         return whiteHasNotEnoughFigures && blackHasNotEnoughFigures;
+    }
+
+    static boolean isThePlaceExist(char corX, int corY) {
+        return corX >= 'a' && corX <= 'h' && corY >= 1 && corY <= 8;
     }
 }
