@@ -1,6 +1,6 @@
 package com.pl.mychess.domain.logic;
 
-import com.pl.mychess.domain.chessboard.ChessboardFactory;
+import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.*;
 import com.pl.mychess.domain.model.match.StateOfMatch;
 import com.pl.mychess.domain.port.GameValidator;
@@ -40,7 +40,8 @@ public class ClassicChessGameValidator implements GameValidator {
                     .nextPlace(p)
                     .currentPlayerColor(testedFigure.getColorOfFigure())
                     .build();
-            Chessboard simulateChessboard = ChessboardFactory.createChessboard(chessboard, simulatedMove);
+
+            Chessboard simulateChessboard = (new ClassicChessChessboardFactory()).createUpdatedChessboard(chessboard, simulatedMove);
 
             if (!StateOfGameToolsValidator.isTheFigureAttacked(simulateChessboard,
                     StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColorOfFigure()))) {

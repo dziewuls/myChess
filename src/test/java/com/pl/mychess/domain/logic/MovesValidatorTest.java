@@ -1,6 +1,6 @@
 package com.pl.mychess.domain.logic;
 
-import com.pl.mychess.domain.chessboard.ChessboardFactory;
+import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.*;
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MovesValidatorTest {
     @Test
     public void shouldReturnTwoPlacesStraightAheadForPawnInStartingPosition() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 2, testedPawn);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedPawn);
@@ -26,7 +26,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnOnePlaceAslantAndOnePlaceStraightForPawnWithBeating() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
         testedPawn.setMoved(true);
         chessboard.setFigureInPlace('e', 3, testedPawn);
@@ -42,7 +42,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnOnePlaceStraightForPawnWhoHasAlreadyMadeAMove() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
         testedPawn.setMoved(true);
         chessboard.setFigureInPlace('e', 3, testedPawn);
@@ -56,7 +56,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnAllPossiblePlacesForTheKnight() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedKnight);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKnight);
@@ -76,7 +76,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnAllPossiblePlacesForTheBishop() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedBishop = new Figure(TypeOfFigure.BISHOP, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedBishop);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedBishop);
@@ -101,7 +101,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnAllPossiblePlacesForTheRook() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedRook);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedRook);
@@ -127,7 +127,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnAllPossiblePlacesForTheQueen() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedQueen);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedQueen);
@@ -166,7 +166,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnAllPossiblePlacesForTheKing() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedKing);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKing);
@@ -186,7 +186,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnPlacesOccupiedByFigureAnotherColor() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
         Figure testedFirstPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
         Figure testedSecondPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
@@ -224,7 +224,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldNotReturnPlacesOccupiedByFigureThisSameColor() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
         Figure testedFirstPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
         Figure testedSecondPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
@@ -259,7 +259,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnPlacesToWhichTheMoveWouldNotDiscoverTheCheck() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedWhiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
         Figure testedWhiteRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
         Figure testedBlackQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.BLACK);
@@ -280,7 +280,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldNotReturnAnyPlacesWhenTheKingIsChecked() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedWhiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
         Figure testedWhiteRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
         Figure testedBlackQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.BLACK);
@@ -294,7 +294,7 @@ public class MovesValidatorTest {
 
     @Test
     public void shouldReturnThePlacesForWhichTheKingDoesNotFallUnderTheCheck() {
-        Chessboard chessboard = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboard = ClassicChessChessboardFactory.createEmptyChessboard();
         Figure testedWhiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
         chessboard.setFigureInPlace('e', 4, testedWhiteKing);

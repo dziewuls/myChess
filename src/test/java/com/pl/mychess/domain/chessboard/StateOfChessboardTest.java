@@ -73,8 +73,8 @@ public class StateOfChessboardTest {
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build();
 
-        Chessboard newChessboard = ChessboardFactory.createChessboard(
-                ChessboardFactory.createChessboard(), firstMove);
+        Chessboard newChessboard = ClassicChessChessboardFactory.createChessboard(
+                ClassicChessChessboardFactory.createChessboard(), firstMove);
 
         stateOfChessboard.addNewArrangement(newChessboard);
         List<Chessboard> arrangementList = stateOfChessboard.getHistoryOfArrangement();
@@ -95,8 +95,8 @@ public class StateOfChessboardTest {
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
-        Chessboard newChessboard = ChessboardFactory.createChessboard(
-                ChessboardFactory.createChessboard(), firstMove);
+        Chessboard newChessboard = ClassicChessChessboardFactory.createChessboard(
+                ClassicChessChessboardFactory.createChessboard(), firstMove);
         stateOfChessboard.addNewArrangement(newChessboard);
 
         stateOfChessboard.backMove();
@@ -118,8 +118,8 @@ public class StateOfChessboardTest {
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
-        Chessboard newChessboard = ChessboardFactory.createChessboard(
-                ChessboardFactory.createChessboard(), firstMove);
+        Chessboard newChessboard = ClassicChessChessboardFactory.createChessboard(
+                ClassicChessChessboardFactory.createChessboard(), firstMove);
         stateOfChessboard.addNewArrangement(newChessboard);
 
         stateOfChessboard.backMove();

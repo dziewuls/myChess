@@ -1,7 +1,4 @@
-package com.pl.mychess.domain.chessboard;
-
-import com.pl.mychess.domain.model.chessboard.Chessboard;
-import com.pl.mychess.domain.model.chessboard.Move;
+package com.pl.mychess.domain.model.chessboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +23,6 @@ public class StateOfChessboard {
     public void backMove() {
         historyOfMoves.remove(historyOfMoves.size() - 1);
         historyOfArrangement.remove(historyOfArrangement.size() - 1);
-    }
-
-    public Move.MoveBuilder getMoveBuilder() {
-        return Move.getMoveBuilder();
     }
 
     public List<Chessboard> getHistoryOfArrangement() {

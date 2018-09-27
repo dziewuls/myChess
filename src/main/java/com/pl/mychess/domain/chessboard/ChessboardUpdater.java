@@ -2,8 +2,10 @@ package com.pl.mychess.domain.chessboard;
 
 import com.pl.mychess.domain.model.chessboard.*;
 
-public class ChessboardUpdater {
-    public static void updateChessboardForEnPassant(Move move, Chessboard createdChessboard) {
+class ChessboardUpdater {
+    private ChessboardUpdater(){}
+
+    static void updateChessboardForEnPassant(Move move, Chessboard createdChessboard) {
         Place previousPlace = createdChessboard.getPlaceByCoordinates(move.getPreviousPlace().getCoordinateX(),
                 move.getPreviousPlace().getCoordinateY());
         Place nextPlace = createdChessboard.getPlaceByCoordinates(move.getNextPlace().getCoordinateX(),
@@ -24,7 +26,7 @@ public class ChessboardUpdater {
         beatenFigure.setBeaten(true);
     }
 
-    public static void updateChessboardForCastling(Move move, Chessboard createdChessboard, char prevXForRook, char nextXForRook) {
+    static void updateChessboardForCastling(Move move, Chessboard createdChessboard, char prevXForRook, char nextXForRook) {
         Place previousKingPlace = createdChessboard.getPlaceByCoordinates(
                 move.getPreviousPlace().getCoordinateX(), move.getPreviousPlace().getCoordinateY());
         Place nextKingPlace = createdChessboard.getPlaceByCoordinates(
@@ -44,7 +46,7 @@ public class ChessboardUpdater {
         movedRook.setMoved(true);
     }
 
-    public static void updateChessboardForNormalMove(Move move, Chessboard createdChessboard) {
+    static void updateChessboardForNormalMove(Move move, Chessboard createdChessboard) {
         Place previousPlace = createdChessboard.getPlaceByCoordinates(move.getPreviousPlace().getCoordinateX(),
                 move.getPreviousPlace().getCoordinateY());
         Figure movedFigure = createdChessboard.getFigureByCoordinates(move.getPreviousPlace().getCoordinateX(),

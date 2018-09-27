@@ -1,12 +1,13 @@
 package com.pl.mychess.domain.chessboard;
 
 import com.pl.mychess.domain.model.chessboard.*;
+import com.pl.mychess.domain.port.ChessboardCreator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChessboardFactory {
-    public static Chessboard createEmptyChessboard() {
+public class ClassicChessChessboardFactory implements ChessboardCreator {
+    public Chessboard createEmptyChessboard() {
         Place[][] placesOfChessboard = new Place[8][8];
         List<Figure> figuresList = new ArrayList<>();
 
@@ -19,23 +20,7 @@ public class ChessboardFactory {
         return new Chessboard(placesOfChessboard, figuresList);
     }
 
-    public static Chessboard createCopyOfChessboard(Chessboard chessboard) {
-        Place[][] placesOfChessboard = new Place[8][8];
-        List<Figure> figuresList = new ArrayList<>();
-
-        for (int i = 0; i < placesOfChessboard.length; i++) {
-            for (int j = 0; j < placesOfChessboard[i].length; j++) {
-                char coordinateX = (char) ((int) 'a' + j);
-                Figure figureForCopy = chessboard.getFigureByCoordinates(coordinateX, i + 1);
-                Figure createdFigure = FigureFactory.createCopyOfFigure(figureForCopy);
-                placesOfChessboard[i][j] = new Place(coordinateX, i + 1, createdFigure);
-                if (createdFigure != null) figuresList.add(createdFigure);
-            }
-        }
-        return new Chessboard(placesOfChessboard, figuresList);
-    }
-
-    public static Chessboard createChessboard() {
+    public Chessboard createInitialChessboard() {
         Place[][] placesOfChessboard = new Place[8][8];
         List<Figure> figuresList = new ArrayList<>();
 
@@ -51,15 +36,7 @@ public class ChessboardFactory {
         return new Chessboard(placesOfChessboard, figuresList);
     }
 
-    public static Chessboard createChessboard(Chessboard chessboard, List<Move> moves) {
-        Chessboard createdChessboard = chessboard;
-        for (Move move : moves) {
-            createdChessboard = createChessboard(createdChessboard, move);
-        }
-        return createdChessboard;
-    }
-
-    public static Chessboard createChessboard(Chessboard chessboard, Move move) {
+    public Chessboard createUpdatedChessboard(Chessboard chessboard, Move move) {
         Chessboard createdChessboard = createCopyOfChessboard(chessboard);
         switch (move.getTypeOfCustomMove()) {
             case NORMAL:
@@ -80,5 +57,21 @@ public class ChessboardFactory {
             default:
         }
         return createdChessboard;
+    }
+
+    private Chessboard createCopyOfChessboard(Chessboard chessboard) {
+        Place[][] placesOfChessboard = new Place[8][8];
+        List<Figure> figuresList = new ArrayList<>();
+
+        for (int i = 0; i < placesOfChessboard.length; i++) {
+            for (int j = 0; j < placesOfChessboard[i].length; j++) {
+                char coordinateX = (char) ((int) 'a' + j);
+                Figure figureForCopy = chessboard.getFigureByCoordinates(coordinateX, i + 1);
+                Figure createdFigure = FigureFactory.createCopyOfFigure(figureForCopy);
+                placesOfChessboard[i][j] = new Place(coordinateX, i + 1, createdFigure);
+                if (createdFigure != null) figuresList.add(createdFigure);
+            }
+        }
+        return new Chessboard(placesOfChessboard, figuresList);
     }
 }

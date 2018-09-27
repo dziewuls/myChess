@@ -1,6 +1,6 @@
 package com.pl.mychess.domain.logic;
 
-import com.pl.mychess.domain.chessboard.ChessboardFactory;
+import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.Chessboard;
 import com.pl.mychess.domain.model.chessboard.ColorOfFigure;
 import com.pl.mychess.domain.model.chessboard.Figure;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldGameResultValidatorReturnCheckWhenTheCheckExist(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboardForTest = ClassicChessChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
@@ -25,7 +25,7 @@ public class StateOfGameToolsValidatorTest {
 
     @Test
     public void shouldGameResultValidatorReturnGameIsNotCompleteWhenTheCheckNotExist(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboardForTest = ClassicChessChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
@@ -39,7 +39,7 @@ public class StateOfGameToolsValidatorTest {
 
     @Test
     public void shouldGameResultValidatorReturnCheckmateWhenTheMateExist(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboardForTest = ClassicChessChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
@@ -51,7 +51,7 @@ public class StateOfGameToolsValidatorTest {
 
     @Test
     public void shouldGameResultValidatorNotReturnCheckmateWhenTheMateNotExist(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboardForTest = ClassicChessChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
@@ -64,7 +64,7 @@ public class StateOfGameToolsValidatorTest {
 
     @Test
     public void shouldGameResultValidatorReturnDrawWhenTheStalemateExist(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboardForTest = ClassicChessChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
@@ -76,7 +76,7 @@ public class StateOfGameToolsValidatorTest {
 
     @Test
     public void shouldGameResultValidatorNotReturnDrawWhenTheStalemateExistButForOtherPlayerColor(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboardForTest = ClassicChessChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
@@ -88,7 +88,7 @@ public class StateOfGameToolsValidatorTest {
 
     @Test
     public void shouldGameResultValidatorNotReturnDrawWhenTheStalemateNotExist(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboardForTest = ClassicChessChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
@@ -101,7 +101,7 @@ public class StateOfGameToolsValidatorTest {
 
     @Test
     public void shouldGameResultValidatorReturnDrawWhenInChessboardIsInsufficientMaterialForMate(){
-        Chessboard chessboardForTest = ChessboardFactory.createEmptyChessboard();
+        Chessboard chessboardForTest = ClassicChessChessboardFactory.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
         chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE));
