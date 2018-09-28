@@ -1,4 +1,4 @@
-package com.pl.mychess.domain.model.chessboard;
+package com.pl.mychess.domain.model.state;
 
 public enum TypeOfCustomMove {
     NORMAL,

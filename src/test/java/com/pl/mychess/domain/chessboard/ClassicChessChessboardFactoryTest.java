@@ -1,6 +1,8 @@
 package com.pl.mychess.domain.chessboard;
 
 import com.pl.mychess.domain.model.chessboard.*;
+import com.pl.mychess.domain.model.state.Move;
+import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 import org.assertj.core.api.Condition;
 import org.junit.Test;
 

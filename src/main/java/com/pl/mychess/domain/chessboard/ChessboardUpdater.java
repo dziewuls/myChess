@@ -1,6 +1,8 @@
 package com.pl.mychess.domain.chessboard;
 
 import com.pl.mychess.domain.model.chessboard.*;
+import com.pl.mychess.domain.model.state.Move;
+import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 
 class ChessboardUpdater {
     private ChessboardUpdater(){}

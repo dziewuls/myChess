@@ -10,7 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 class MovesValidator {
-    private MovesValidator(){}
+    private MovesValidator() {
+    }
 
     static List<Place> getAllPossiblePlacesForTheFigure(Chessboard chessboard, Figure testedFigure) {
         List<Place> result = new ArrayList<>();
@@ -71,7 +72,7 @@ class MovesValidator {
                 new Integer[]{1, 1}, new Integer[]{1, -1}, new Integer[]{-1, 1}, new Integer[]{-1, -1},
                 new Integer[]{0, 1}, new Integer[]{0, -1}, new Integer[]{1, 0}, new Integer[]{-1, 0}
         ));
-        //TODO dodać pola możliwe dla roszady
+
         return getPlacesForPointMovingFigure(chessboard, testedFigure, corX, corY, differencesToCurrentPlace);
     }
 
@@ -105,7 +106,6 @@ class MovesValidator {
                 isOpponentFigureInPlace(chessboard, testedFigure, (char) (corX + 1), corY + direction)) {
             result.add(chessboard.getPlaceByCoordinates((char) (corX + 1), corY + direction));
         }
-        //TODO dodać pola możliwe dla bicia w przelocie
         return result;
     }
 

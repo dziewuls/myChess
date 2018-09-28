@@ -2,6 +2,8 @@ package com.pl.mychess.domain.logic;
 
 import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.*;
+import com.pl.mychess.domain.model.state.Move;
+import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 
 class CustomMovesValidator {
     private CustomMovesValidator() {
