@@ -41,8 +41,7 @@ public class Place {
         this.currentFigure = currentFigure;
     }
 
-    @Override
-    public boolean equals(Object o) {
+    public boolean equalsWithFigure(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Place place = (Place) o;
@@ -52,8 +51,17 @@ public class Place {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Place place = (Place) o;
+        return coordinateX == place.coordinateX &&
+                coordinateY == place.coordinateY;
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(coordinateX, coordinateY, currentFigure);
+        return Objects.hash(coordinateX, coordinateY);
     }
 
     @Override

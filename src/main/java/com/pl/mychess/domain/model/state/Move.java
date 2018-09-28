@@ -1,4 +1,6 @@
-package com.pl.mychess.domain.model.chessboard;
+package com.pl.mychess.domain.model.state;
+
+import com.pl.mychess.domain.model.chessboard.*;
 
 public class Move {
     private final ColorOfFigure currentPlayerColor;
