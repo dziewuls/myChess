@@ -42,25 +42,25 @@ class CustomMovesValidator {
         if (testedFigure == null || rookForCastling == null)
             return null;
 
-        if(isTheCastlingCorrect(chessboard, testedFigure, placeOfPassageTroughTheKing, newPlaceOccupiedByKing, rookForCastling)){
+        if (isTheCastlingCorrect(chessboard, testedFigure, placeOfPassageTroughTheKing, newPlaceOccupiedByKing, rookForCastling)) {
             return newPlaceOccupiedByKing;
-        }
-        else return null;
+        } else return null;
     }
 
     private static boolean isTheCastlingCorrect(Chessboard chessboard, Figure testedFigure, Place placeOfPassageTroughTheKing, Place newPlaceOccupiedByKing, Figure rookForCastling) {
-        return testedFigure.getTypeOfFigure() == TypeOfFigure.KING &&
-                rookForCastling.getTypeOfFigure() == TypeOfFigure.ROOK &&
-                rookForCastling.getColorOfFigure() == testedFigure.getColorOfFigure() &&
-                !testedFigure.isMoved() &&
-                !rookForCastling.isMoved() &&
-                StateOfGameToolsValidator.isTheFigureAttacked(chessboard, testedFigure) &&
-                newPlaceOccupiedByKing.getCurrentFigure() == null &&
-                placeOfPassageTroughTheKing.getCurrentFigure() == null &&
-                StateOfGameToolsValidator.isThePlaceAttacked(
-                        chessboard, placeOfPassageTroughTheKing, testedFigure.getColorOfFigure()) &&
-                StateOfGameToolsValidator.isThePlaceAttacked(
-                        chessboard, newPlaceOccupiedByKing, testedFigure.getColorOfFigure());
+        boolean b1 = testedFigure.getTypeOfFigure() == TypeOfFigure.KING;
+        boolean b2 = rookForCastling.getTypeOfFigure() == TypeOfFigure.ROOK;
+        boolean b3 = rookForCastling.getColorOfFigure() == testedFigure.getColorOfFigure();
+        boolean b4 = !testedFigure.isMoved();
+        boolean b5 = !rookForCastling.isMoved();
+        boolean b6 = !StateOfGameToolsValidator.isTheFigureAttacked(chessboard, testedFigure);
+        boolean b7 = newPlaceOccupiedByKing.getCurrentFigure() == null;
+        boolean b8 = placeOfPassageTroughTheKing.getCurrentFigure() == null;
+        boolean b9 = !StateOfGameToolsValidator.isThePlaceAttacked(
+                chessboard, placeOfPassageTroughTheKing, testedFigure.getColorOfFigure());
+        boolean b10 = !StateOfGameToolsValidator.isThePlaceAttacked(
+                chessboard, newPlaceOccupiedByKing, testedFigure.getColorOfFigure());
+        return b1 && b2 && b3 && b4 && b5 && b6 && b7 && b8 && b9 && b10;
     }
 
     static Place isEnPassantCorrect(Chessboard chessboard, Figure testedFigure, Move lastMove) {
@@ -90,10 +90,9 @@ class CustomMovesValidator {
             return null;
         }
 
-        if(isEnpassantNotDiscoverCheck(chessboard, testedFigure, placeOfTestedFigure, nextPlaceOfTestedFigure, lastMovedFigure)){
+        if (isEnpassantNotDiscoverCheck(chessboard, testedFigure, placeOfTestedFigure, nextPlaceOfTestedFigure, lastMovedFigure)) {
             return nextPlaceOfTestedFigure;
-        }
-        else{
+        } else {
             return null;
         }
     }

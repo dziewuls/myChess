@@ -13,12 +13,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StateOfChessboardTest {
     @Test
     public void shouldCreateNewMoveWithExpectedParameters() {
-        StateOfChessboard stateOfChessboard = new StateOfChessboard();
         Figure movedFigure = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
         Figure beatenFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
         Place previousPlace = new Place('a', 4, movedFigure);
         Place nextPlace = new Place('b', 5, beatenFigure);
-        Move move = stateOfChessboard.getMoveBuilder()
+        Move move = Move.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.WHITE)
                 .movedFigure(movedFigure)
                 .beatenFigure(beatenFigure)
@@ -46,7 +45,7 @@ public class StateOfChessboardTest {
     @Test
     public void shouldAddTheNewMoveToTheListOfMoves() {
         StateOfChessboard stateOfChessboard = new StateOfChessboard();
-        Move firstMove = stateOfChessboard.getMoveBuilder()
+        Move firstMove = Move.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.WHITE)
                 .movedFigure(new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE))
                 .beatenFigure(null)
@@ -63,8 +62,9 @@ public class StateOfChessboardTest {
 
     @Test
     public void shouldAddTheNewChessboardToTheListOfArrangement() {
+        ClassicChessChessboardFactory classicChessChessboardFactory = new ClassicChessChessboardFactory();
         StateOfChessboard stateOfChessboard = new StateOfChessboard();
-        Move firstMove = stateOfChessboard.getMoveBuilder()
+        Move firstMove = Move.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.WHITE)
                 .movedFigure(new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE))
                 .beatenFigure(null)
@@ -73,8 +73,8 @@ public class StateOfChessboardTest {
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build();
 
-        Chessboard newChessboard = ClassicChessChessboardFactory.createChessboard(
-                ClassicChessChessboardFactory.createChessboard(), firstMove);
+        Chessboard newChessboard = classicChessChessboardFactory.createUpdatedChessboard(
+                classicChessChessboardFactory.createInitialChessboard(), firstMove);
 
         stateOfChessboard.addNewArrangement(newChessboard);
         List<Chessboard> arrangementList = stateOfChessboard.getHistoryOfArrangement();
@@ -84,8 +84,9 @@ public class StateOfChessboardTest {
 
     @Test
     public void shouldRemoveTheLastMoveFromTheListOfMoves() {
+        ClassicChessChessboardFactory classicChessChessboardFactory = new ClassicChessChessboardFactory();
         StateOfChessboard stateOfChessboard = new StateOfChessboard();
-        Move firstMove = stateOfChessboard.getMoveBuilder()
+        Move firstMove = Move.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.WHITE)
                 .movedFigure(new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE))
                 .beatenFigure(null)
@@ -95,8 +96,8 @@ public class StateOfChessboardTest {
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
-        Chessboard newChessboard = ClassicChessChessboardFactory.createChessboard(
-                ClassicChessChessboardFactory.createChessboard(), firstMove);
+        Chessboard newChessboard = classicChessChessboardFactory.createUpdatedChessboard(
+                classicChessChessboardFactory.createInitialChessboard(), firstMove);
         stateOfChessboard.addNewArrangement(newChessboard);
 
         stateOfChessboard.backMove();
@@ -107,8 +108,9 @@ public class StateOfChessboardTest {
 
     @Test
     public void shouldRemoveTheLastChessboardFromTheHistoryOfArrangement() {
+        ClassicChessChessboardFactory classicChessChessboardFactory = new ClassicChessChessboardFactory();
         StateOfChessboard stateOfChessboard = new StateOfChessboard();
-        Move firstMove = stateOfChessboard.getMoveBuilder()
+        Move firstMove = Move.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.WHITE)
                 .movedFigure(new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE))
                 .beatenFigure(null)
@@ -118,8 +120,8 @@ public class StateOfChessboardTest {
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
-        Chessboard newChessboard = ClassicChessChessboardFactory.createChessboard(
-                ClassicChessChessboardFactory.createChessboard(), firstMove);
+        Chessboard newChessboard = classicChessChessboardFactory.createUpdatedChessboard(
+                classicChessChessboardFactory.createInitialChessboard(), firstMove);
         stateOfChessboard.addNewArrangement(newChessboard);
 
         stateOfChessboard.backMove();
