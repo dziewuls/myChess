@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StateOfChessboardTest {
     @Test
-    public void shouldCreateNewMoveWithExpectedParameters() {
+    public void shouldMoveBuilderCreateNewMoveWithExpectedParameters() {
         Figure movedFigure = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
         Figure beatenFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
         Place previousPlace = new Place('a', 4, movedFigure);

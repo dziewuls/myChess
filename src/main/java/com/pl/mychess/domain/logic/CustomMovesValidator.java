@@ -68,6 +68,8 @@ class CustomMovesValidator {
     static Place isEnPassantCorrect(Chessboard chessboard, Figure testedFigure, Move lastMove) {
         if (testedFigure == null)
             return null;
+        if(lastMove == null)
+            return null;
 
         int currentCorY = 5;
         int nextCorY = 6;
@@ -86,6 +88,8 @@ class CustomMovesValidator {
 
         if (testedFigure.getTypeOfFigure() != TypeOfFigure.PAWN ||
                 placeOfTestedFigure.getCoordinateY() != currentCorY ||
+                (placeOfTestedFigure.getCoordinateX() + 1 != placeOfLastMovedFigure.getCoordinateX() &&
+                        placeOfTestedFigure.getCoordinateX() - 1 != placeOfLastMovedFigure.getCoordinateX()) ||
                 lastMovedFigure.getTypeOfFigure() != TypeOfFigure.PAWN ||
                 placeOfLastMovedFigure.getCoordinateY() != currentCorY ||
                 previousPlaceOfLastMovedFigure.getCoordinateY() != opponentPrevCorY) {

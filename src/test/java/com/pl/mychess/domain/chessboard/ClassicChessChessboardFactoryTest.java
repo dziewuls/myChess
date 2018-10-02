@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ClassicChessChessboardFactoryTest {
     @Test
-    public void shouldCreateChessboardWithoutFiguresSet() {
+    public void shouldEmptyChessboardCreatorCreateChessboardWithoutFigures() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
 
         assertThat(chessboard.getFigureByCoordinates('a', 1)).isNull();
@@ -24,7 +24,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldSetFigureInChessboard() {
+    public void shouldSetGivenFigureInChessboard() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
         chessboard.setFigureInPlace('a', 1, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
         chessboard.setFigureInPlace('c', 2, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
@@ -39,7 +39,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldCreateChessboardWhichConsistsOf8x8Places() {
+    public void shouldChessboardCreatorCreateChessboardWhichConsistsOf8x8Places() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
         Place[][] places = chessboard.getPlacesOfChessboard();
 
@@ -48,7 +48,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldCreate32ChessFigures() {
+    public void shouldInoitialChessboardCreatorCreate32ChessFigures() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
         List<Figure> figures = chessboard.getFigures();
 
@@ -72,7 +72,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldCreatedFiguresCompatibleWithChessRules() {
+    public void shouldInitialChessboardCreatorCreatedFiguresCompatibleWithChessRules() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
         List<Figure> figures = chessboard.getFigures();
 

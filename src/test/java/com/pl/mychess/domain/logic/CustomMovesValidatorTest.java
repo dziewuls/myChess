@@ -131,7 +131,7 @@ public class CustomMovesValidatorTest {
     }
 
     @Test
-    public void shouldShortCastlingValidatorReturnTrueWhenCastlingMoveIsCorrect() {
+    public void shouldShortCastlingValidatorReturnCorrectPlaceWhenCastlingMoveIsCorrect() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
@@ -361,17 +361,17 @@ public class CustomMovesValidatorTest {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
         Figure testedWhitePawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
-        chessboard.setFigureInPlace('e', 5, testedWhitePawn);
-        chessboard.setFigureInPlace('f', 5, testedBlackPawn);
+        chessboard.setFigureInPlace('c', 5, testedWhitePawn);
+        chessboard.setFigureInPlace('b', 5, testedBlackPawn);
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackPawn)
                 .currentPlayerColor(ColorOfFigure.BLACK)
-                .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
-                .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
+                .previousPlace(chessboard.getPlaceByCoordinates('b', 7))
+                .nextPlace(chessboard.getPlaceByCoordinates('b', 5))
                 .build();
 
         Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhitePawn, lastMove);
-        Place expectedPlace = new Place('f', 6);
+        Place expectedPlace = new Place('b', 6);
 
         assertThat(enPassantPlace).isEqualTo(expectedPlace);
     }

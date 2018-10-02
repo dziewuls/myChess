@@ -11,15 +11,16 @@ import java.util.List;
 
 public class ClassicChessGameValidator implements GameValidator {
     @Override
-    public StateOfMatch getTheGameResult(Chessboard chessboard, ColorOfFigure currentColor) {
-        Figure checkedKing = StateOfGameToolsValidator.findTheKing(chessboard, currentColor);
+    public StateOfMatch getTheGameResult(Chessboard chessboard, ColorOfFigure colorOfCheckedPlayer) {
+        Figure checkedKing = StateOfGameToolsValidator.findTheKing(chessboard, colorOfCheckedPlayer);
         boolean isTheKingAttacked = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, checkedKing);
-        boolean hasAnyCorrectMove = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, currentColor);
+        boolean hasAnyCorrectMove = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, colorOfCheckedPlayer);
         boolean isAnotherDrawSituation = StateOfGameToolsValidator.isDraw(chessboard);
 
         if (isTheKingAttacked) {
             if (!hasAnyCorrectMove) {
-                return StateOfMatch.CHECKMATE;
+                return (colorOfCheckedPlayer == ColorOfFigure.BLACK) ?
+                        StateOfMatch.WHITE_IS_A_WINNER : StateOfMatch.BLACK_IS_THE_WINNER;
             }
             return StateOfMatch.CHECK;
         }

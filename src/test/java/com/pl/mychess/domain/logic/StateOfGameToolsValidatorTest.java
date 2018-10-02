@@ -11,6 +11,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StateOfGameToolsValidatorTest {
+    //TODO przetestować więcej przypadków
     @Test
     public void shouldGameResultValidatorReturnCheckWhenTheCheckExist(){
         Chessboard chessboardForTest = (new ClassicChessChessboardFactory()).createEmptyChessboard();
@@ -46,7 +47,7 @@ public class StateOfGameToolsValidatorTest {
 
         StateOfMatch result = (new ClassicChessGameValidator()).getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
-        assertThat(result).isEqualTo(StateOfMatch.CHECKMATE);
+        assertThat(result).isEqualTo(StateOfMatch.WHITE_IS_A_WINNER);
     }
 
     @Test
@@ -59,7 +60,7 @@ public class StateOfGameToolsValidatorTest {
 
         StateOfMatch result = (new ClassicChessGameValidator()).getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
-        assertThat(result).isNotEqualTo(StateOfMatch.CHECKMATE);
+        assertThat(result).isNotEqualTo(StateOfMatch.WHITE_IS_A_WINNER);
     }
 
     @Test

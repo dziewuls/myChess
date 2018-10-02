@@ -9,7 +9,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MovesValidatorTest {
+public class PossibleMovesValidatorTest {
+    //TODO test dla każdej figury:
+    //1. dla pustej szachownicy
+    //2. kiedy na jednym z możliwych pól stoi figura przeciwnika
+    //3. kiedy na jednym z mozliwych pol stoi figura własna
+    //4. kiedy figura stoi w narożniku
+    //5. kiedy figura nie ma możliwości ruchu
+    //TODO rozdzielić to na kilka klas?
     @Test
     public void shouldReturnTwoPlacesStraightAheadForPawnInStartingPosition() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
@@ -266,7 +273,7 @@ public class MovesValidatorTest {
         chessboard.setFigureInPlace('e', 2, testedWhiteKing);
         chessboard.setFigureInPlace('e', 4, testedWhiteRook);
         chessboard.setFigureInPlace('e', 8, testedBlackQueen);
-        List<Place> possiblePlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, testedWhiteRook);
+        List<Place> possiblePlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('e', 3));
@@ -287,7 +294,7 @@ public class MovesValidatorTest {
         chessboard.setFigureInPlace('e', 4, testedWhiteKing);
         chessboard.setFigureInPlace('e', 2, testedWhiteRook);
         chessboard.setFigureInPlace('e', 8, testedBlackQueen);
-        List<Place> possiblePlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, testedWhiteRook);
+        List<Place> possiblePlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
 
         assertThat(possiblePlaces.isEmpty()).isTrue();
     }
@@ -299,7 +306,7 @@ public class MovesValidatorTest {
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
         chessboard.setFigureInPlace('e', 4, testedWhiteKing);
         chessboard.setFigureInPlace('e', 6, testedBlackPawn);
-        List<Place> possiblePlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, testedWhiteKing);
+        List<Place> possiblePlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, testedWhiteKing, null);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 3));

@@ -62,7 +62,7 @@ class StateOfGameToolsValidator {
     private static boolean hasTheFigureAnyCorrectMove(Chessboard chessboard, ColorOfFigure currentColor, int i, char j) {
         Figure checkedFigure = chessboard.getFigureByCoordinates(j, i);
         if (checkedFigure != null && checkedFigure.getColorOfFigure() == currentColor) {
-            List<Place> correctPlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, checkedFigure);
+            List<Place> correctPlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, checkedFigure, null);
             return !correctPlaces.isEmpty();
         }
         return false;
