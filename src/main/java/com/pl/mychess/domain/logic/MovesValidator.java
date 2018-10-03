@@ -95,7 +95,9 @@ class MovesValidator {
             result.add(chessboard.getPlaceByCoordinates(corX, corY + direction));
         }
         if (StateOfGameToolsValidator.isThePlaceExist(corX, corY + 2 * direction) &&
-                !testedFigure.isMoved() && chessboard.getFigureByCoordinates(corX, corY + 2 * direction) == null) {
+                chessboard.getFigureByCoordinates(corX, corY + 2 * direction) == null &&
+                chessboard.getFigureByCoordinates(corX, corY + direction) == null &&
+                !testedFigure.isMoved()) {
             result.add(chessboard.getPlaceByCoordinates(corX, corY + 2 * direction));
         }
         if (StateOfGameToolsValidator.isThePlaceExist((char) (corX - 1), corY + direction) &&
