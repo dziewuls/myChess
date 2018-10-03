@@ -12,8 +12,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class GameResultValidatorTest {
-    private static ClassicChessChessboardFactory chessCreator = new ClassicChessChessboardFactory();
-    private static ClassicChessGameValidator gameValidator = new ClassicChessGameValidator();
+    private ClassicChessChessboardFactory chessCreator = new ClassicChessChessboardFactory();
+    private ClassicChessGameValidator gameValidator = new ClassicChessGameValidator();
 
     @Test
     public void shouldGameResultValidatorReturnCheckWhenThePawnAttacks(){

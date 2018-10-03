@@ -3,9 +3,11 @@ package com.pl.mychess.domain.logic;
 import com.pl.mychess.domain.model.chessboard.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 class StateOfGameToolsValidator {
-    private StateOfGameToolsValidator(){}
+    private StateOfGameToolsValidator() {
+    }
 
     static Figure findTheKing(Chessboard chessboard, ColorOfFigure currentColor) {
         for (Figure f : chessboard.getFigures()) {
@@ -16,7 +18,7 @@ class StateOfGameToolsValidator {
         return null;
     }
 
-    static boolean isThePlaceAttacked(Chessboard chessboard, Place testedPlace, ColorOfFigure currentColor){
+    static boolean isThePlaceAttacked(Chessboard chessboard, Place testedPlace, ColorOfFigure currentColor) {
         Figure tmpFigure = new Figure(TypeOfFigure.PAWN, currentColor);
         testedPlace.setCurrentFigure(tmpFigure);
         boolean isAttacked = isTheFigureAttacked(chessboard, tmpFigure);
@@ -67,35 +69,31 @@ class StateOfGameToolsValidator {
         return false;
     }
 
-    static boolean isDraw(Chessboard chessboard) {
-        //TODO uprościć
+    static boolean isInsufficientMaterialForMate(Chessboard chessboard) {
         int whiteKnights = 0;
         int whiteBishops = 0;
         int blackKnights = 0;
         int blackBishops = 0;
 
-        for (int i = 1; i <= 8; i++) {
-            for (char j = 'a'; j <= 'h'; j++) {
-                Figure figure = chessboard.getFigureByCoordinates(j, i);
-                if (figure != null && figure.getTypeOfFigure() != TypeOfFigure.KING) {
-                    if (figure.getTypeOfFigure() == TypeOfFigure.BISHOP &&
-                            figure.getColorOfFigure() == ColorOfFigure.WHITE) {
-                        whiteBishops++;
-                    } else if (figure.getTypeOfFigure() == TypeOfFigure.KNIGHT &&
-                            figure.getColorOfFigure() == ColorOfFigure.WHITE) {
-                        whiteKnights++;
-                    } else if (figure.getTypeOfFigure() == TypeOfFigure.BISHOP &&
-                            figure.getColorOfFigure() == ColorOfFigure.BLACK) {
-                        blackBishops++;
-                    } else if (figure.getTypeOfFigure() == TypeOfFigure.KNIGHT &&
-                            figure.getColorOfFigure() == ColorOfFigure.BLACK) {
-                        blackKnights++;
-                    } else {
-                        return false;
-                    }
-                }
+        List<Figure> notBeatenFigures = chessboard.getFigures()
+                .stream()
+                .filter(f -> !f.isBeaten() && f.getTypeOfFigure() != TypeOfFigure.KING)
+                .collect(Collectors.toList());
+
+        for (Figure f : notBeatenFigures) {
+            if (f.equals(new Figure(TypeOfFigure.BISHOP, ColorOfFigure.WHITE))) {
+                whiteBishops++;
+            } else if (f.equals(new Figure(TypeOfFigure.BISHOP, ColorOfFigure.BLACK))) {
+                blackBishops++;
+            } else if (f.equals(new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE))) {
+                whiteKnights++;
+            } else if (f.equals(new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.BLACK))) {
+                blackKnights++;
+            } else {
+                return false;
             }
         }
+
         boolean whiteHasNotEnoughFigures = whiteBishops == 0 || (whiteBishops == 1 && whiteKnights == 0);
         boolean blackHasNotEnoughFigures = blackBishops == 0 || (blackBishops == 1 && blackKnights == 0);
 

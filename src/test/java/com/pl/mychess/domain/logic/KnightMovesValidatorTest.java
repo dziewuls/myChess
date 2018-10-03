@@ -10,7 +10,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class KnightMovesValidatorTest {
-    private static ClassicChessChessboardFactory chessboardFactory = new ClassicChessChessboardFactory();
+    private ClassicChessChessboardFactory chessboardFactory = new ClassicChessChessboardFactory();
 
     @Test
     public void shouldReturnAllPossiblePlacesForTheKnightWhenChessboardIsEmpty() {

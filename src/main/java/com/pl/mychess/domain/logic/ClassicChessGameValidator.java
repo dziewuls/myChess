@@ -15,7 +15,7 @@ public class ClassicChessGameValidator implements GameValidator {
         Figure checkedKing = StateOfGameToolsValidator.findTheKing(chessboard, colorOfCheckedPlayer);
         boolean isTheKingAttacked = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, checkedKing);
         boolean hasAnyCorrectMove = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, colorOfCheckedPlayer);
-        boolean isAnotherDrawSituation = StateOfGameToolsValidator.isDraw(chessboard);
+        boolean isAnotherDrawSituation = StateOfGameToolsValidator.isInsufficientMaterialForMate(chessboard);
 
         if (isTheKingAttacked) {
             if (!hasAnyCorrectMove) {
