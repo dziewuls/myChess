@@ -2,6 +2,7 @@ package com.pl.mychess.domain.logic;
 
 import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.*;
+import com.pl.mychess.domain.model.state.Move;
 import com.pl.mychess.domain.model.state.StateOfMatch;
 import org.junit.Test;
 
@@ -13,25 +14,53 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GameResultValidatorTest {
     private static ClassicChessChessboardFactory chessCreator = new ClassicChessChessboardFactory();
     private static ClassicChessGameValidator gameValidator = new ClassicChessGameValidator();
-    //TODO wypełnić testy
+
     @Test
     public void shouldGameResultValidatorReturnCheckWhenThePawnAttacks(){
+        Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
+        chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
+        chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
+        chessboardForTest.setFigureInPlace('e', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
 
+        StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+
+        assertThat(result).isEqualTo(StateOfMatch.CHECK);
     }
 
     @Test
     public void shouldGameResultValidatorReturnCheckWhenTheKnightAttacks(){
+        Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
+        chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
+        chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
+        chessboardForTest.setFigureInPlace('e', 6, new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE));
 
+        StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+
+        assertThat(result).isEqualTo(StateOfMatch.CHECK);
     }
 
     @Test
     public void shouldGameResultValidatorReturnCheckWhenTheBishopAttacks(){
+        Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
+        chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
+        chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
+        chessboardForTest.setFigureInPlace('f', 6, new Figure(TypeOfFigure.BISHOP, ColorOfFigure.WHITE));
 
+        StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+
+        assertThat(result).isEqualTo(StateOfMatch.CHECK);
     }
 
     @Test
     public void shouldGameResultValidatorReturnCheckWhenTheRookAttacks(){
+        Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
+        chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
+        chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
+        chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
 
+        StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+
+        assertThat(result).isEqualTo(StateOfMatch.CHECK);
     }
 
     @Test
@@ -61,12 +90,19 @@ public class GameResultValidatorTest {
 
     @Test
     public void shouldGameResultValidatorReturnGameIsNotCompleteWhenTheCheckCheckmateOrDrawNotExist2(){
+        Chessboard chessboardForTest = chessCreator.createInitialChessboard();
+        Move move = Move.getMoveBuilder()
+                .previousPlace(chessboardForTest.getPlaceByCoordinates('e', 2))
+                .nextPlace(chessboardForTest.getPlaceByCoordinates('e', 4))
+                .movedFigure(chessboardForTest.getFigureByCoordinates('e', 2))
+                .currentPlayerColor(ColorOfFigure.WHITE)
+                .build();
 
-    }
+        chessboardForTest = chessCreator.createUpdatedChessboard(chessboardForTest, move);
 
-    @Test
-    public void shouldGameResultValidatorReturnGameIsNotCompleteWhenTheCheckCheckmateOrDrawNotExist3(){
+        StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
+        assertThat(result).isEqualTo(StateOfMatch.GAME_IS_NOT_COMPLETED);
     }
 
     @Test
@@ -82,13 +118,26 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnWhiteIsWinnerWhenTheBlackIsCheckmated2(){
+    public void shouldGameResultValidatorReturnBlackIsWinnerWhenTheWhiteIsCheckmated2(){
+        Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
+        chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
+        chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
+        chessboardForTest.setFigureInPlace('d', 7, new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE));
+        chessboardForTest.setFigureInPlace('f', 5, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.BLACK));
 
-    }
+        Move move = Move.getMoveBuilder()
+                .previousPlace(chessboardForTest.getPlaceByCoordinates('f', 5))
+                .nextPlace(chessboardForTest.getPlaceByCoordinates('d', 7))
+                .movedFigure(chessboardForTest.getFigureByCoordinates('f', 5))
+                .beatenFigure(chessboardForTest.getFigureByCoordinates('d', 7))
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .build();
 
-    @Test
-    public void shouldGameResultValidatorReturnWhiteIsWinnerWhenTheBlackIsCheckmated3(){
+        chessboardForTest = chessCreator.createUpdatedChessboard(chessboardForTest, move);
 
+        StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
+
+        assertThat(result).isEqualTo(StateOfMatch.BLACK_IS_A_WINNER);
     }
 
     @Test
@@ -118,12 +167,24 @@ public class GameResultValidatorTest {
 
     @Test
     public void shouldGameResultValidatorReturnDrawWhenTheStalemateExist2(){
+        Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
+        chessboardForTest.setFigureInPlace('a', 8, new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK));
+        chessboardForTest.setFigureInPlace('g', 6, new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE));
+        chessboardForTest.setFigureInPlace('b', 1, new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE));
 
-    }
+        Move move = Move.getMoveBuilder()
+                .previousPlace(chessboardForTest.getPlaceByCoordinates('b', 1))
+                .nextPlace(chessboardForTest.getPlaceByCoordinates('b', 6))
+                .movedFigure(chessboardForTest.getFigureByCoordinates('b', 1))
+                .beatenFigure(chessboardForTest.getFigureByCoordinates('b', 6))
+                .currentPlayerColor(ColorOfFigure.BLACK)
+                .build();
 
-    @Test
-    public void shouldGameResultValidatorReturnDrawWhenTheStalemateExist3(){
+        chessboardForTest = chessCreator.createUpdatedChessboard(chessboardForTest, move);
 
+        StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
+
+        assertThat(result).isEqualTo(StateOfMatch.DRAW);
     }
 
     @Test

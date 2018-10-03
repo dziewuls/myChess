@@ -20,7 +20,7 @@ public class ClassicChessGameValidator implements GameValidator {
         if (isTheKingAttacked) {
             if (!hasAnyCorrectMove) {
                 return (colorOfCheckedPlayer == ColorOfFigure.BLACK) ?
-                        StateOfMatch.WHITE_IS_A_WINNER : StateOfMatch.BLACK_IS_THE_WINNER;
+                        StateOfMatch.WHITE_IS_A_WINNER : StateOfMatch.BLACK_IS_A_WINNER;
             }
             return StateOfMatch.CHECK;
         }
