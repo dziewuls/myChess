@@ -40,7 +40,7 @@ public class StateOfChessboard {
         return historyOfMoves.get(historyOfMoves.size() - 1);
     }
 
-    public Chessboard getLastArragnement() {
+    public Chessboard getLastArrangement() {
         return historyOfArrangement.get(historyOfArrangement.size() - 1);
     }
 }

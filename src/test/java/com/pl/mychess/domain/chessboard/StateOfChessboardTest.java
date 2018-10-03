@@ -76,7 +76,7 @@ public class StateOfChessboardTest {
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build();
 
-        Chessboard newChessboard = classicChessChessboardFactory.createUpdatedChessboard(
+        Chessboard newChessboard = classicChessChessboardFactory.createUpdatedChessboardByMove(
                 classicChessChessboardFactory.createInitialChessboard(), firstMove);
 
         stateOfChessboard.addNewArrangement(newChessboard);
@@ -99,7 +99,7 @@ public class StateOfChessboardTest {
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
-        Chessboard newChessboard = classicChessChessboardFactory.createUpdatedChessboard(
+        Chessboard newChessboard = classicChessChessboardFactory.createUpdatedChessboardByMove(
                 classicChessChessboardFactory.createInitialChessboard(), firstMove);
         stateOfChessboard.addNewArrangement(newChessboard);
 
@@ -123,7 +123,7 @@ public class StateOfChessboardTest {
                 .build();
 
         stateOfChessboard.addNewMove(firstMove);
-        Chessboard newChessboard = classicChessChessboardFactory.createUpdatedChessboard(
+        Chessboard newChessboard = classicChessChessboardFactory.createUpdatedChessboardByMove(
                 classicChessChessboardFactory.createInitialChessboard(), firstMove);
         stateOfChessboard.addNewArrangement(newChessboard);
 

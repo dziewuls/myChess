@@ -114,7 +114,7 @@ class CustomMovesValidator {
                 .typeOfCustomMove(TypeOfCustomMove.EN_PASSANT)
                 .build();
 
-        Chessboard simulateChessboard = (new ClassicChessChessboardFactory()).createUpdatedChessboard(chessboard, simulatedMove);
+        Chessboard simulateChessboard = (new ClassicChessChessboardFactory()).createUpdatedChessboardByMove(chessboard, simulatedMove);
 
         return !StateOfGameToolsValidator.isTheFigureAttacked(simulateChessboard,
                 StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColorOfFigure()));

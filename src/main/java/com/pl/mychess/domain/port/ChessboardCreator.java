@@ -6,5 +6,6 @@ import com.pl.mychess.domain.model.state.Move;
 public interface ChessboardCreator {
     Chessboard createInitialChessboard();
     Chessboard createEmptyChessboard();
-    Chessboard createUpdatedChessboard(Chessboard chessboard, Move move);
+    Chessboard createUpdatedChessboardByMove(Chessboard chessboard, Move move);
+    Chessboard createUpdatedChessboardByBackMove(Chessboard chessboard, Move move);
 }

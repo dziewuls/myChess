@@ -59,7 +59,7 @@ public class ClassicChessGameValidator implements GameValidator {
                 .currentPlayerColor(testedFigure.getColorOfFigure())
                 .build();
 
-        Chessboard simulateChessboard = (new ClassicChessChessboardFactory()).createUpdatedChessboard(chessboard, simulatedMove);
+        Chessboard simulateChessboard = (new ClassicChessChessboardFactory()).createUpdatedChessboardByMove(chessboard, simulatedMove);
 
         if (!StateOfGameToolsValidator.isTheFigureAttacked(simulateChessboard,
                 StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColorOfFigure()))) {

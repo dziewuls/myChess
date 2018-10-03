@@ -98,7 +98,7 @@ public class GameResultValidatorTest {
                 .currentPlayerColor(ColorOfFigure.WHITE)
                 .build();
 
-        chessboardForTest = chessCreator.createUpdatedChessboard(chessboardForTest, move);
+        chessboardForTest = chessCreator.createUpdatedChessboardByMove(chessboardForTest, move);
 
         StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
@@ -133,7 +133,7 @@ public class GameResultValidatorTest {
                 .currentPlayerColor(ColorOfFigure.BLACK)
                 .build();
 
-        chessboardForTest = chessCreator.createUpdatedChessboard(chessboardForTest, move);
+        chessboardForTest = chessCreator.createUpdatedChessboardByMove(chessboardForTest, move);
 
         StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.WHITE);
 
@@ -180,7 +180,7 @@ public class GameResultValidatorTest {
                 .currentPlayerColor(ColorOfFigure.BLACK)
                 .build();
 
-        chessboardForTest = chessCreator.createUpdatedChessboard(chessboardForTest, move);
+        chessboardForTest = chessCreator.createUpdatedChessboardByMove(chessboardForTest, move);
 
         StateOfMatch result = gameValidator.getTheGameResult(chessboardForTest, ColorOfFigure.BLACK);
 
