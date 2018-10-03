@@ -48,7 +48,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldInoitialChessboardCreatorCreate32ChessFigures() {
+    public void shouldInitialChessboardCreatorCreate32ChessFigures() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
         List<Figure> figures = chessboard.getFigures();
 
@@ -104,7 +104,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldReturnCorrectPlaceByCoordinates() {
+    public void shouldChessboardReturnCorrectPlaceByCoordinates() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
 
         Place expectedPlaceForIndexesA1 = new Place('a', 1,
@@ -119,7 +119,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldReturnCorrectFigureByCoordinates() {
+    public void shouldChessboardReturnCorrectFigureByCoordinates() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
 
         Figure expectedFigureForIndexesA1 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
@@ -132,7 +132,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldReturnChessboardUpdatedWithMove() {
+    public void shouldUpdatedChessboardCreatorReturnChessboardUpdatedWithMove() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
         Move move = Move.getMoveBuilder()
                 .currentPlayerColor(ColorOfFigure.WHITE)
@@ -182,7 +182,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldReturnChessboardUpdatedWithEnPassant() {
+    public void shouldUpdatedChessboardCreatorReturnChessboardUpdatedWithEnPassant() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
@@ -221,7 +221,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldReturnChessboardUpdatedWithShortCastle() {
+    public void shouldUpdatedChessboardCreatorReturnChessboardUpdatedWithShortCastle() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
@@ -259,7 +259,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldReturnChessboardUpdatedWithLongCastle() {
+    public void shouldUpdatedChessboardCreatorReturnChessboardUpdatedWithLongCastle() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
@@ -305,7 +305,7 @@ public class ClassicChessChessboardFactoryTest {
     }
 
     @Test
-    public void shouldReturnChessboardUpdatedWithPawnTransform() {
+    public void shouldUpdatedChessboardCreatorReturnChessboardUpdatedWithPawnTransform() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
@@ -324,6 +324,31 @@ public class ClassicChessChessboardFactoryTest {
         }
         assertThat(chessboard.getFigureByCoordinates('a', 8)).isEqualTo(expectedQueen);
         assertThat(chessboard.getFigureByCoordinates('a', 2)).isNull();
+    }
+
+    @Test
+    public void shouldBackMoveUpdateReturnChessboardUpdatedWithBackMove() {
+        //TODO zapełnić
+    }
+
+    @Test
+    public void shouldBackMoveUpdateReturnChessboardUpdatedWithEnPassantBack() {
+
+    }
+
+    @Test
+    public void shouldBackMoveUpdateReturnChessboardUpdatedWithShortCastleBack() {
+
+    }
+
+    @Test
+    public void shouldBackMoveUpdateReturnChessboardUpdatedWithLongCastleBack() {
+
+    }
+
+    @Test
+    public void shouldBackMoveUpdateReturnChessboardUpdatedWithPawnTransformBack() {
+
     }
 }
 

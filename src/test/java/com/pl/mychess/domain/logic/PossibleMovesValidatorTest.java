@@ -10,13 +10,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PossibleMovesValidatorTest {
-    //TODO test dla każdej figury:
-    //1. dla pustej szachownicy
-    //2. kiedy na jednym z możliwych pól stoi figura przeciwnika
-    //3. kiedy na jednym z mozliwych pol stoi figura własna
-    //4. kiedy figura stoi w narożniku
-    //5. kiedy figura nie ma możliwości ruchu
-    //TODO rozdzielić to na kilka klas?
+    //TODO wypełnić testy
+    //TODO rozdzielić to na kilka klas w zależności od figury?
     @Test
     public void shouldReturnTwoPlacesStraightAheadForPawnInStartingPosition() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
@@ -62,7 +57,17 @@ public class PossibleMovesValidatorTest {
     }
 
     @Test
-    public void shouldReturnAllPossiblePlacesForTheKnight() {
+    public void shouldReturnTwoPlacesStraightAndOneAslantWhenThePawnStayInStartedPositionAndCouldBeatOpponent(){
+
+    }
+
+    @Test
+    public void shouldReturnEmptyArrayWhenThePawnHasOpponentInFront(){
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheKnightWhenChessboardIsEmpty() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
         Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedKnight);
@@ -82,7 +87,27 @@ public class PossibleMovesValidatorTest {
     }
 
     @Test
-    public void shouldReturnAllPossiblePlacesForTheBishop() {
+    public void shouldReturnAllPossiblePlacesForTheKnightWhenSomeOpponentFigureCouldBeBeaten() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheKnightWhenSomeOurFigureStayInPossiblePlace() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheKnightWhenItStayInTheCorner() {
+
+    }
+
+    @Test
+    public void shouldReturnEmptyArrayWhenTheKnightHasNotPossiblePlacesToMove(){
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheBishopWhenChessboardIdEmpty() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
         Figure testedBishop = new Figure(TypeOfFigure.BISHOP, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedBishop);
@@ -107,7 +132,27 @@ public class PossibleMovesValidatorTest {
     }
 
     @Test
-    public void shouldReturnAllPossiblePlacesForTheRook() {
+    public void shouldReturnAllPossiblePlacesForTheBishopWhenSomeOpponentFigureCouldBeBeaten() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheBishopWhenSomeOurFigureStayInPossiblePlace() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheBishopWhenItStayInTheCorner() {
+
+    }
+
+    @Test
+    public void shouldReturnEmptyArrayWhenTheBishopHasNotPossiblePlacesToMove(){
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheRookWhenChessboardIsEmpty() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
         Figure testedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedRook);
@@ -133,7 +178,27 @@ public class PossibleMovesValidatorTest {
     }
 
     @Test
-    public void shouldReturnAllPossiblePlacesForTheQueen() {
+    public void shouldReturnAllPossiblePlacesForTheRookWhenSomeOpponentFigureCouldBeBeaten() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheRookWhenSomeOurFigureStayInPossiblePlace() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheRookWhenItStayInTheCorner() {
+
+    }
+
+    @Test
+    public void shouldReturnEmptyArrayWhenTheRookHasNotPossiblePlacesToMove(){
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheQueenWhenChessboardIsEmpty() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
         Figure testedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedQueen);
@@ -172,7 +237,27 @@ public class PossibleMovesValidatorTest {
     }
 
     @Test
-    public void shouldReturnAllPossiblePlacesForTheKing() {
+    public void shouldReturnAllPossiblePlacesForTheQueenWhenSomeOpponentFigureCouldBeBeaten() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheQueenWhenSomeOurFigureStayInPossiblePlace() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheQueenWhenItStayInTheCorner() {
+
+    }
+
+    @Test
+    public void shouldReturnEmptyArrayWhenTheQueenHasNotPossiblePlacesToMove(){
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheKingWhenChessboardIsEmpty() {
         Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
         chessboard.setFigureInPlace('e', 4, testedKing);
@@ -189,6 +274,26 @@ public class PossibleMovesValidatorTest {
         expectedPlaces.add(new Place('e', 5));
 
         assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheKingWhenSomeOpponentFigureCouldBeBeaten() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheKingWhenSomeOurFigureStayInPossiblePlace() {
+
+    }
+
+    @Test
+    public void shouldReturnAllPossiblePlacesForTheKingWhenItStayInTheCorner() {
+
+    }
+
+    @Test
+    public void shouldReturnEmptyArrayWhenTheKingHasNotPossiblePlacesToMove(){
+
     }
 
     @Test
@@ -260,61 +365,6 @@ public class PossibleMovesValidatorTest {
         expectedPlaces.add(new Place('b', 1));
         expectedPlaces.add(new Place('b', 7));
         expectedPlaces.add(new Place('a', 8));
-
-        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
-    }
-
-    @Test
-    public void shouldReturnPlacesToWhichTheMoveWouldNotDiscoverTheCheck() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
-        Figure testedWhiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure testedWhiteRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
-        Figure testedBlackQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.BLACK);
-        chessboard.setFigureInPlace('e', 2, testedWhiteKing);
-        chessboard.setFigureInPlace('e', 4, testedWhiteRook);
-        chessboard.setFigureInPlace('e', 8, testedBlackQueen);
-        List<Place> possiblePlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
-
-        List<Place> expectedPlaces = new ArrayList<>();
-        expectedPlaces.add(new Place('e', 3));
-        expectedPlaces.add(new Place('e', 5));
-        expectedPlaces.add(new Place('e', 6));
-        expectedPlaces.add(new Place('e', 7));
-        expectedPlaces.add(new Place('e', 8, chessboard.getFigureByCoordinates('e', 8)));
-
-        assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
-    }
-
-    @Test
-    public void shouldNotReturnAnyPlacesWhenTheKingIsChecked() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
-        Figure testedWhiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure testedWhiteRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
-        Figure testedBlackQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.BLACK);
-        chessboard.setFigureInPlace('e', 4, testedWhiteKing);
-        chessboard.setFigureInPlace('e', 2, testedWhiteRook);
-        chessboard.setFigureInPlace('e', 8, testedBlackQueen);
-        List<Place> possiblePlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
-
-        assertThat(possiblePlaces.isEmpty()).isTrue();
-    }
-
-    @Test
-    public void shouldReturnThePlacesForWhichTheKingDoesNotFallUnderTheCheck() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
-        Figure testedWhiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
-        chessboard.setFigureInPlace('e', 4, testedWhiteKing);
-        chessboard.setFigureInPlace('e', 6, testedBlackPawn);
-        List<Place> possiblePlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, testedWhiteKing, null);
-
-        List<Place> expectedPlaces = new ArrayList<>();
-        expectedPlaces.add(new Place('f', 3));
-        expectedPlaces.add(new Place('f', 4));
-        expectedPlaces.add(new Place('d', 3));
-        expectedPlaces.add(new Place('d', 4));
-        expectedPlaces.add(new Place('e', 3));
-        expectedPlaces.add(new Place('e', 5));
 
         assertThat(possiblePlaces).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }

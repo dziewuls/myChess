@@ -17,7 +17,6 @@ class StateOfGameToolsValidator {
     }
 
     static boolean isThePlaceAttacked(Chessboard chessboard, Place testedPlace, ColorOfFigure currentColor){
-        //TODO przetestować
         Figure tmpFigure = new Figure(TypeOfFigure.PAWN, currentColor);
         testedPlace.setCurrentFigure(tmpFigure);
         boolean isAttacked = isTheFigureAttacked(chessboard, tmpFigure);
