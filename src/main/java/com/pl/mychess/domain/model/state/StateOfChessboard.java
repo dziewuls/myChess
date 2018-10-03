@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StateOfChessboard {
+    //TODO jak będzie apdejtowanie cofnięcia ruchu to można usunąć historyOfArrangement
     private List<Chessboard> historyOfArrangement;
     private List<Move> historyOfMoves;
 

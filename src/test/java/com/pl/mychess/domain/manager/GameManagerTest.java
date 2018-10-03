@@ -1,5 +1,80 @@
 package com.pl.mychess.domain.manager;
 
-public class GameManagerTest {
+import org.junit.Test;
 
+public class GameManagerTest {
+    @Test
+    public void shouldGetCorrectPlacesThrowExceptionWhenPlaceIsWrong(){
+
+    }
+
+    @Test
+    public void shouldGetCorrectPlacesReturnEmptyListWhenGivenPlaceHasNotFigure(){
+
+    }
+
+    @Test
+    public void shouldGetCorrectPlacesReturnEmptyListWhenFigureOnGivenPlaceHasWrongColor(){
+
+    }
+
+    @Test
+    public void shouldGetCorrectPlacesReturnCorrectListWhenFigureOnGivenPlaceHasCorrectColor(){
+
+    }
+
+    @Test
+    public void shouldGetCorrectPlacesReturnEmptyListWhenFigureHasNotCorrectMoves(){
+
+    }
+
+    @Test
+    public void shouldMakeMoveThrowExceptionWhenPlaceIsWrong(){
+
+    }
+
+    @Test
+    public void shouldMakeMoveUpdateTheChessboard(){
+
+    }
+
+    @Test
+    public void shouldMakeMoveBuildCorrectMove(){
+
+    }
+
+    @Test
+    public void shouldMakeMoveAddTheMoveToStateOfChessboard(){
+
+    }
+
+    @Test
+    public void shouldMakeMoveChangeCurrentPlayer(){
+
+    }
+
+    @Test
+    public void shouldMakeMoveReturnCorrectMatchResult(){
+
+    }
+
+    @Test
+    public void shouldBackMoveUpdateTheChessboard(){
+
+    }
+
+    @Test
+    public void shouldBackMoveRemoveTheMoveFromStateOfChessboard(){
+
+    }
+
+    @Test
+    public void shouldBackMoveChangeCurrentPlayer(){
+
+    }
+
+    @Test
+    public void shouldGetMovesHistoryReturnListOfMovesInCorrectChessNotation(){
+
+    }
 }

@@ -2,7 +2,7 @@ package com.pl.mychess.domain.logic;
 
 import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.*;
-import com.pl.mychess.domain.model.match.StateOfMatch;
+import com.pl.mychess.domain.model.state.StateOfMatch;
 import com.pl.mychess.domain.model.state.Move;
 import com.pl.mychess.domain.port.GameValidator;
 

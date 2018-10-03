@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassicChessChessboardFactory implements ChessboardCreator {
+    //TODO zrobić cofanie ruchu
     public Chessboard createEmptyChessboard() {
         Place[][] placesOfChessboard = new Place[8][8];
         List<Figure> figuresList = new ArrayList<>();
@@ -38,6 +39,8 @@ public class ClassicChessChessboardFactory implements ChessboardCreator {
     }
 
     public Chessboard createUpdatedChessboard(Chessboard chessboard, Move move) {
+        //TODO zrobić exception na wypadek niedopasowania move z chessboard
+        //
         Chessboard createdChessboard = createCopyOfChessboard(chessboard);
         switch (move.getTypeOfCustomMove()) {
             case NORMAL:

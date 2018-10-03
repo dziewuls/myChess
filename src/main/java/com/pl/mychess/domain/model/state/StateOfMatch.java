@@ -1,4 +1,4 @@
-package com.pl.mychess.domain.model.match;
+package com.pl.mychess.domain.model.state;
 
 public enum StateOfMatch {
     GAME_IS_NOT_COMPLETED,

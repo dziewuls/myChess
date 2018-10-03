@@ -5,7 +5,7 @@ import com.pl.mychess.domain.model.chessboard.Chessboard;
 import com.pl.mychess.domain.model.chessboard.ColorOfFigure;
 import com.pl.mychess.domain.model.chessboard.Figure;
 import com.pl.mychess.domain.model.chessboard.TypeOfFigure;
-import com.pl.mychess.domain.model.match.StateOfMatch;
+import com.pl.mychess.domain.model.state.StateOfMatch;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
