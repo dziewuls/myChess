@@ -5,7 +5,8 @@ import com.pl.mychess.domain.model.state.Move;
 import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 
 class ChessboardUpdater {
-    private ChessboardUpdater(){}
+    private ChessboardUpdater() {
+    }
 
     static void updateChessboardForEnPassant(Move move, Chessboard createdChessboard) {
         Place previousPlace = createdChessboard.getPlaceByCoordinates(move.getPreviousPlace().getCoordinateX(),
@@ -14,11 +15,7 @@ class ChessboardUpdater {
                 move.getNextPlace().getCoordinateY());
         Figure movedFigure = createdChessboard.getFigureByCoordinates(move.getPreviousPlace().getCoordinateX(),
                 move.getPreviousPlace().getCoordinateY());
-        Place beatenFigurePlace = (ColorOfFigure.WHITE.equals(movedFigure.getColorOfFigure())) ?
-                createdChessboard.getPlaceByCoordinates(move.getNextPlace().getCoordinateX(),
-                        move.getNextPlace().getCoordinateY() - 1) :
-                createdChessboard.getPlaceByCoordinates(move.getNextPlace().getCoordinateX(),
-                        move.getNextPlace().getCoordinateY() + 1);
+        Place beatenFigurePlace = createdChessboard.getPlaceByCoordinates(nextPlace.getCoordinateX(), previousPlace.getCoordinateY());
         Figure beatenFigure = createdChessboard.getFigureByCoordinates(beatenFigurePlace.getCoordinateX(),
                 beatenFigurePlace.getCoordinateY());
 

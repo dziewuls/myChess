@@ -65,6 +65,27 @@ public class ClassicChessChessboardFactory implements ChessboardCreator {
     //TODO zrobić cofanie ruchu
     @Override
     public Chessboard createUpdatedChessboardByBackMove(Chessboard chessboard, Move move) {
+        //TODO zrobić exception na wypadek niedopasowania move z chessboard
+        //
+        Chessboard createdChessboard = createCopyOfChessboard(chessboard);
+        switch (move.getTypeOfCustomMove()) {
+            case NORMAL:
+                ChessboardBackUpdater.updateChessboardForNormalMove(move, createdChessboard);
+                break;
+            case SHORT_CASTLE:
+                ChessboardBackUpdater.updateChessboardForCastling(move, createdChessboard, 'h', 'f');
+                break;
+            case LONG_CASTLE:
+                ChessboardBackUpdater.updateChessboardForCastling(move, createdChessboard, 'a', 'd');
+                break;
+            case EN_PASSANT:
+                ChessboardBackUpdater.updateChessboardForEnPassant(move, createdChessboard);
+                break;
+            case PAWN_TRANSFORM:
+                ChessboardBackUpdater.updateChessboardForNormalMove(move, createdChessboard);
+                break;
+            default:
+        }
         return null;
     }
 
