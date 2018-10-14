@@ -12,11 +12,11 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldIsThePlaceAttackedMethodReturnTrueWhenThePlaceIsAttacked(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure attackingFigure = new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK);
+        Figure attackingFigure = new Figure(TypeOfFigure.ROOK, Color.BLACK);
         chessboard.setFigureInPlace('e', 4, attackingFigure);
         Place attackedPlace = chessboard.getPlaceByCoordinates('e', 8);
 
-        boolean result = StateOfGameToolsValidator.isThePlaceAttacked(chessboard, attackedPlace, ColorOfFigure.WHITE);
+        boolean result = StateOfGameToolsValidator.isThePlaceAttacked(chessboard, attackedPlace, Color.WHITE);
 
         assertThat(result).isTrue();
     }
@@ -24,11 +24,11 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldIsThePlaceAttackedMethodReturnTrueWhenThePlaceIsAttackedByPawn(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure attackingFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+        Figure attackingFigure = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 4, attackingFigure);
         Place attackedPlace = chessboard.getPlaceByCoordinates('f', 3);
 
-        boolean result = StateOfGameToolsValidator.isThePlaceAttacked(chessboard, attackedPlace, ColorOfFigure.WHITE);
+        boolean result = StateOfGameToolsValidator.isThePlaceAttacked(chessboard, attackedPlace, Color.WHITE);
 
         assertThat(result).isTrue();
     }
@@ -36,14 +36,14 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldIsThePlaceAttackedMethodReturnFalseWhenThePlaceIsNotAttacked(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure attackingFigure = new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK);
-        Figure figure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+        Figure attackingFigure = new Figure(TypeOfFigure.ROOK, Color.BLACK);
+        Figure figure = new Figure(TypeOfFigure.PAWN, Color.BLACK);
 
         chessboard.setFigureInPlace('e', 4, attackingFigure);
         chessboard.setFigureInPlace('e', 7, figure);
         Place attackedPlace = chessboard.getPlaceByCoordinates('e', 8);
 
-        boolean result = StateOfGameToolsValidator.isThePlaceAttacked(chessboard, attackedPlace, ColorOfFigure.WHITE);
+        boolean result = StateOfGameToolsValidator.isThePlaceAttacked(chessboard, attackedPlace, Color.WHITE);
 
         assertThat(result).isFalse();
     }
@@ -51,8 +51,8 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldIsTheFigureAttackedMethodReturnTrueWhenTheFigureIsAttacked(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure attackingFigure = new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK);
-        Figure attackedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure attackingFigure = new Figure(TypeOfFigure.ROOK, Color.BLACK);
+        Figure attackedFigure = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, attackingFigure);
         chessboard.setFigureInPlace('e', 1, attackedFigure);
 
@@ -64,8 +64,8 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldIsTheFigureAttackedMethodReturnTrueWhenTheFigureIsAttackedByPawn(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure attackingFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
-        Figure attackedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure attackingFigure = new Figure(TypeOfFigure.PAWN, Color.BLACK);
+        Figure attackedFigure = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, attackingFigure);
         chessboard.setFigureInPlace('f', 3, attackedFigure);
 
@@ -77,8 +77,8 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldIsTheFigureAttackedMethodReturnFalseWhenTheFigureIsNotAttacked(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure attackingFigure = new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK);
-        Figure attackedFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure attackingFigure = new Figure(TypeOfFigure.ROOK, Color.BLACK);
+        Figure attackedFigure = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, attackingFigure);
         chessboard.setFigureInPlace('f', 1, attackedFigure);
 
@@ -90,14 +90,14 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldFindTheKingMethodReturnKingWithGivenColor(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure blackKing = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
-        Figure whiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure somePawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure blackKing = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Figure whiteKing = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Figure somePawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, blackKing);
         chessboard.setFigureInPlace('e', 1, whiteKing);
         chessboard.setFigureInPlace('g', 6, somePawn);
 
-        Figure resultKing = StateOfGameToolsValidator.findTheKing(chessboard, ColorOfFigure.WHITE);
+        Figure resultKing = StateOfGameToolsValidator.findTheKing(chessboard, Color.WHITE);
 
         assertThat(resultKing).isEqualTo(whiteKing);
     }
@@ -105,16 +105,16 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldHasTheCurrentPlayerAnyCorrectMoveReturnTrueWhenCorrectMoveExist(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure blackKing = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
-        Figure whiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure blackRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK);
-        Figure whitePawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure blackKing = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Figure whiteKing = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Figure blackRook = new Figure(TypeOfFigure.ROOK, Color.BLACK);
+        Figure whitePawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         chessboard.setFigureInPlace('e', 1, blackKing);
         chessboard.setFigureInPlace('e', 4, whiteKing);
         chessboard.setFigureInPlace('h', 4, blackRook);
         chessboard.setFigureInPlace('e', 7, whitePawn);
 
-        boolean result = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, ColorOfFigure.WHITE);
+        boolean result = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, Color.WHITE);
 
         assertThat(result).isTrue();
     }
@@ -122,14 +122,14 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldHasTheCurrentPlayerAnyCorrectMoveReturnFalseWhenCorrectMovesNotExist(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure blackKing = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
-        Figure whiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure blackRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK);
+        Figure blackKing = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Figure whiteKing = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Figure blackRook = new Figure(TypeOfFigure.ROOK, Color.BLACK);
         chessboard.setFigureInPlace('e', 3, blackKing);
         chessboard.setFigureInPlace('e', 1, whiteKing);
         chessboard.setFigureInPlace('h', 1, blackRook);
 
-        boolean result = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, ColorOfFigure.WHITE);
+        boolean result = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, Color.WHITE);
 
         assertThat(result).isFalse();
     }
@@ -137,11 +137,11 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldIsDrawMethodReturnTrueWhenInChessboardIsInsufficientMaterialForMate(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure blackKing = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
-        Figure whiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure blackKnight = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.BLACK);
-        Figure blackKnight2 = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.BLACK);
-        Figure whiteBishop = new Figure(TypeOfFigure.BISHOP, ColorOfFigure.WHITE);
+        Figure blackKing = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Figure whiteKing = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Figure blackKnight = new Figure(TypeOfFigure.KNIGHT, Color.BLACK);
+        Figure blackKnight2 = new Figure(TypeOfFigure.KNIGHT, Color.BLACK);
+        Figure whiteBishop = new Figure(TypeOfFigure.BISHOP, Color.WHITE);
         chessboard.setFigureInPlace('e', 3, blackKing);
         chessboard.setFigureInPlace('e', 1, whiteKing);
         chessboard.setFigureInPlace('h', 1, blackKnight);
@@ -156,11 +156,11 @@ public class StateOfGameToolsValidatorTest {
     @Test
     public void shouldIsDrawMethodReturnFalseWhenInChessboardIsMaterialForMate(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure blackKing = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
-        Figure whiteKing = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure blackKnight = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.BLACK);
-        Figure blackKnight2 = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
-        Figure whiteBishop = new Figure(TypeOfFigure.BISHOP, ColorOfFigure.BLACK);
+        Figure blackKing = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Figure whiteKing = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Figure blackKnight = new Figure(TypeOfFigure.KNIGHT, Color.BLACK);
+        Figure blackKnight2 = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
+        Figure whiteBishop = new Figure(TypeOfFigure.BISHOP, Color.BLACK);
         chessboard.setFigureInPlace('e', 3, blackKing);
         chessboard.setFigureInPlace('e', 1, whiteKing);
         chessboard.setFigureInPlace('h', 1, blackKnight);

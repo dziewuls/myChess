@@ -1,7 +1,7 @@
 package com.pl.mychess.domain.logic;
 
 import com.pl.mychess.domain.model.chessboard.Chessboard;
-import com.pl.mychess.domain.model.chessboard.ColorOfFigure;
+import com.pl.mychess.domain.model.chessboard.Color;
 import com.pl.mychess.domain.model.chessboard.Figure;
 import com.pl.mychess.domain.model.chessboard.Place;
 
@@ -88,7 +88,7 @@ class MovesValidator {
 
     private static List<Place> possiblePlacesForPawn(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
         List<Place> result = new ArrayList<>();
-        int direction = (testedFigure.getColorOfFigure() == ColorOfFigure.WHITE) ? 1 : -1;
+        int direction = (testedFigure.getColor() == Color.WHITE) ? 1 : -1;
 
         if (StateOfGameToolsValidator.isThePlaceExist(corX, corY + direction) &&
                 chessboard.getFigureByCoordinates(corX, corY + direction) == null) {
@@ -166,6 +166,6 @@ class MovesValidator {
 
     private static boolean isOpponentFigureInPlace(Chessboard chessboard, Figure testedFigure, char corX, int corY) {
         return chessboard.getFigureByCoordinates(corX, corY) != null &&
-                !chessboard.getFigureByCoordinates(corX, corY).getColorOfFigure().equals(testedFigure.getColorOfFigure());
+                !chessboard.getFigureByCoordinates(corX, corY).getColor().equals(testedFigure.getColor());
     }
 }

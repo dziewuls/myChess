@@ -15,7 +15,7 @@ public class KnightMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheKnightWhenChessboardIsEmpty() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
+        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedKnight);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKnight);
 
@@ -35,10 +35,10 @@ public class KnightMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheKnightWhenSomeOpponentFigureCouldBeBeaten() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
-        Figure opponentFigure1 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK);
-        Figure opponentFigure2 = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
-        Figure opponentFigure3 = new Figure(TypeOfFigure.BISHOP, ColorOfFigure.BLACK);
+        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
+        Figure opponentFigure1 = new Figure(TypeOfFigure.ROOK, Color.BLACK);
+        Figure opponentFigure2 = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Figure opponentFigure3 = new Figure(TypeOfFigure.BISHOP, Color.BLACK);
         chessboard.setFigureInPlace('e', 4, testedKnight);
         chessboard.setFigureInPlace('f', 2, opponentFigure1);
         chessboard.setFigureInPlace('d', 6, opponentFigure2);
@@ -61,10 +61,10 @@ public class KnightMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheKnightWhenSomeOurFigureStayInPossiblePlace() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
-        Figure figure1 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
-        Figure figure2 = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure figure3 = new Figure(TypeOfFigure.BISHOP, ColorOfFigure.WHITE);
+        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
+        Figure figure1 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
+        Figure figure2 = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Figure figure3 = new Figure(TypeOfFigure.BISHOP, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedKnight);
         chessboard.setFigureInPlace('f', 2, figure1);
         chessboard.setFigureInPlace('d', 6, figure2);
@@ -84,7 +84,7 @@ public class KnightMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheKnightWhenItStayInTheCorner() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
+        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
         chessboard.setFigureInPlace('a', 1, testedKnight);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKnight);
 
@@ -98,9 +98,9 @@ public class KnightMovesValidatorTest {
     @Test
     public void shouldReturnEmptyArrayWhenTheKnightHasNotPossiblePlacesToMove(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
-        Figure figure1 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
-        Figure figure2 = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
+        Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
+        Figure figure1 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
+        Figure figure2 = new Figure(TypeOfFigure.KING, Color.WHITE);
         chessboard.setFigureInPlace('a', 1, testedKnight);
         chessboard.setFigureInPlace('b', 3, figure1);
         chessboard.setFigureInPlace('c', 2, figure2);

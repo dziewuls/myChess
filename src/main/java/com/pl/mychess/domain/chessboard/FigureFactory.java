@@ -1,6 +1,6 @@
 package com.pl.mychess.domain.chessboard;
 
-import com.pl.mychess.domain.model.chessboard.ColorOfFigure;
+import com.pl.mychess.domain.model.chessboard.Color;
 import com.pl.mychess.domain.model.chessboard.Figure;
 import com.pl.mychess.domain.model.chessboard.TypeOfFigure;
 
@@ -10,28 +10,28 @@ class FigureFactory {
 
     static Figure createFigureByStartedPosition(char coordinateX, int coordinateY) {
         if (coordinateY == 2)
-            return new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+            return new Figure(TypeOfFigure.PAWN, Color.WHITE);
         else if (coordinateY == 7)
-            return new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+            return new Figure(TypeOfFigure.PAWN, Color.BLACK);
         else if(coordinateY == 1)
-            return createFigureByX(coordinateX, ColorOfFigure.WHITE);
+            return createFigureByX(coordinateX, Color.WHITE);
         else if(coordinateY == 8)
-            return createFigureByX(coordinateX, ColorOfFigure.BLACK);
+            return createFigureByX(coordinateX, Color.BLACK);
         else
             return null;
     }
 
-    private static Figure createFigureByX(char coordinateX, ColorOfFigure colorOfFigure) {
+    private static Figure createFigureByX(char coordinateX, Color color) {
         if (coordinateX == 'a' || coordinateX == 'h')
-            return new Figure(TypeOfFigure.ROOK, colorOfFigure);
+            return new Figure(TypeOfFigure.ROOK, color);
         else if (coordinateX == 'b' || coordinateX == 'g')
-            return new Figure(TypeOfFigure.KNIGHT, colorOfFigure);
+            return new Figure(TypeOfFigure.KNIGHT, color);
         else if (coordinateX == 'c' || coordinateX == 'f')
-            return new Figure(TypeOfFigure.BISHOP, colorOfFigure);
+            return new Figure(TypeOfFigure.BISHOP, color);
         else if (coordinateX == 'd')
-            return new Figure(TypeOfFigure.QUEEN, colorOfFigure);
+            return new Figure(TypeOfFigure.QUEEN, color);
         else if (coordinateX == 'e')
-            return new Figure(TypeOfFigure.KING, colorOfFigure);
+            return new Figure(TypeOfFigure.KING, color);
         else
             return null;
     }

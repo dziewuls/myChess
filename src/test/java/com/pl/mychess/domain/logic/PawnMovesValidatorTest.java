@@ -14,7 +14,7 @@ public class PawnMovesValidatorTest {
     @Test
     public void shouldReturnTwoPlacesStraightAheadForPawnInStartingPosition() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         chessboard.setFigureInPlace('e', 2, testedPawn);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedPawn);
 
@@ -28,10 +28,10 @@ public class PawnMovesValidatorTest {
     @Test
     public void shouldReturnOnePlaceAslantAndOnePlaceStraightForPawnWithBeating() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         testedPawn.setMoved(true);
         chessboard.setFigureInPlace('e', 3, testedPawn);
-        chessboard.setFigureInPlace('f', 4, new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK));
+        chessboard.setFigureInPlace('f', 4, new Figure(TypeOfFigure.ROOK, Color.BLACK));
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedPawn);
 
         List<Place> expectedPlaces = new ArrayList<>();
@@ -44,7 +44,7 @@ public class PawnMovesValidatorTest {
     @Test
     public void shouldReturnOnePlaceStraightForPawnWhoHasAlreadyMadeAMove() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
+        Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         testedPawn.setMoved(true);
         chessboard.setFigureInPlace('e', 3, testedPawn);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedPawn);
@@ -58,8 +58,8 @@ public class PawnMovesValidatorTest {
     @Test
     public void shouldReturnTwoPlacesStraightAndOneAslantWhenThePawnStayInStartedPositionAndCouldBeatOpponent(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
-        Figure opponentPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+        Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Figure opponentPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 2, testedPawn);
         chessboard.setFigureInPlace('f', 3, opponentPawn);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedPawn);
@@ -75,8 +75,8 @@ public class PawnMovesValidatorTest {
     @Test
     public void shouldReturnEmptyArrayWhenThePawnHasOpponentInFront(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedPawn = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
-        Figure opponentFigure = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
+        Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Figure opponentFigure = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 2, testedPawn);
         chessboard.setFigureInPlace('e', 3, opponentFigure);
 

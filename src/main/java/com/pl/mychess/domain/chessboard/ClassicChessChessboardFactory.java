@@ -38,8 +38,6 @@ public class ClassicChessChessboardFactory implements ChessboardCreator {
     }
 
     public Chessboard createUpdatedChessboardByMove(Chessboard chessboard, Move move) {
-        //TODO zrobić exception na wypadek niedopasowania move z chessboard
-        //
         Chessboard createdChessboard = createCopyOfChessboard(chessboard);
         switch (move.getTypeOfCustomMove()) {
             case NORMAL:
@@ -62,11 +60,8 @@ public class ClassicChessChessboardFactory implements ChessboardCreator {
         return createdChessboard;
     }
 
-    //TODO zrobić cofanie ruchu
     @Override
     public Chessboard createUpdatedChessboardByBackMove(Chessboard chessboard, Move move) {
-        //TODO zrobić exception na wypadek niedopasowania move z chessboard
-        //
         Chessboard createdChessboard = createCopyOfChessboard(chessboard);
         switch (move.getTypeOfCustomMove()) {
             case NORMAL:
@@ -86,7 +81,7 @@ public class ClassicChessChessboardFactory implements ChessboardCreator {
                 break;
             default:
         }
-        return null;
+        return createdChessboard;
     }
 
     private Chessboard createCopyOfChessboard(Chessboard chessboard) {

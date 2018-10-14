@@ -1,6 +1,6 @@
 package com.pl.mychess.domain.model.chessboard;
 
-public enum ColorOfFigure {
+public enum Color {
     WHITE,
     BLACK
 }

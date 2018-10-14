@@ -4,20 +4,20 @@ import java.util.Objects;
 
 public class Figure {
     private TypeOfFigure typeOfFigure;
-    private final ColorOfFigure colorOfFigure;
+    private final Color color;
     private boolean isMoved;
     private boolean isBeaten;
 
-    public Figure(TypeOfFigure typeOfFigure, ColorOfFigure colorOfFigure) {
+    public Figure(TypeOfFigure typeOfFigure, Color color) {
         this.typeOfFigure = typeOfFigure;
-        this.colorOfFigure = colorOfFigure;
+        this.color = color;
         this.isMoved = false;
         this.isBeaten = false;
     }
 
     public Figure(Figure figure) {
         this.typeOfFigure = figure.getTypeOfFigure();
-        this.colorOfFigure = figure.getColorOfFigure();
+        this.color = figure.getColor();
         this.isMoved = figure.isMoved();
         this.isBeaten = figure.isBeaten();
     }
@@ -26,8 +26,8 @@ public class Figure {
         return typeOfFigure;
     }
 
-    public ColorOfFigure getColorOfFigure() {
-        return colorOfFigure;
+    public Color getColor() {
+        return color;
     }
 
     public boolean isMoved() {
@@ -56,16 +56,16 @@ public class Figure {
         if (o == null || getClass() != o.getClass()) return false;
         Figure figure = (Figure) o;
         return typeOfFigure == figure.typeOfFigure &&
-                colorOfFigure == figure.colorOfFigure;
+                color == figure.color;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(typeOfFigure, colorOfFigure);
+        return Objects.hash(typeOfFigure, color);
     }
 
     @Override
     public String toString() {
-        return colorOfFigure + " " + typeOfFigure.getSignature();
+        return color + " " + typeOfFigure.getSignature();
     }
 }

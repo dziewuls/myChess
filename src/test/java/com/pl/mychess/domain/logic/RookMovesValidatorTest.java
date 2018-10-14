@@ -15,7 +15,7 @@ public class RookMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheRookWhenChessboardIsEmpty() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
+        Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedRook);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedRook);
 
@@ -41,9 +41,9 @@ public class RookMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheRookWhenSomeOpponentFigureCouldBeBeaten() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
-        Figure opponentFigure1 = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
-        Figure opponentFigure2 = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
+        Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
+        Figure opponentFigure1 = new Figure(TypeOfFigure.PAWN, Color.BLACK);
+        Figure opponentFigure2 = new Figure(TypeOfFigure.KING, Color.BLACK);
         chessboard.setFigureInPlace('e', 4, testedRook);
         chessboard.setFigureInPlace('e', 5, opponentFigure1);
         chessboard.setFigureInPlace('g', 4, opponentFigure2);
@@ -67,9 +67,9 @@ public class RookMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheRookWhenSomeOurFigureStayInPossiblePlace() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
-        Figure opponentFigure1 = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
-        Figure opponentFigure2 = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
+        Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
+        Figure opponentFigure1 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Figure opponentFigure2 = new Figure(TypeOfFigure.KING, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedRook);
         chessboard.setFigureInPlace('e', 5, opponentFigure1);
         chessboard.setFigureInPlace('g', 4, opponentFigure2);
@@ -91,7 +91,7 @@ public class RookMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheRookWhenItStayInTheCorner() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
+        Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         chessboard.setFigureInPlace('a', 1, testedRook);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedRook);
 
@@ -117,11 +117,11 @@ public class RookMovesValidatorTest {
     @Test
     public void shouldReturnEmptyArrayWhenTheRookHasNotPossiblePlacesToMove(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedRook = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
-        Figure figure1 = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
-        Figure figure2 = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
-        Figure figure3 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
-        Figure figure4 = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
+        Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
+        Figure figure1 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Figure figure2 = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Figure figure3 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
+        Figure figure4 = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedRook);
         chessboard.setFigureInPlace('e', 5, figure1);
         chessboard.setFigureInPlace('e', 3, figure2);

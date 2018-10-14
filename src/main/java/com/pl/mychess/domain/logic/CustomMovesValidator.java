@@ -52,16 +52,16 @@ class CustomMovesValidator {
     private static boolean isTheCastlingCorrect(Chessboard chessboard, Figure testedFigure, Place placeOfPassageTroughTheKing, Place newPlaceOccupiedByKing, Figure rookForCastling) {
         boolean b1 = testedFigure.getTypeOfFigure() == TypeOfFigure.KING;
         boolean b2 = rookForCastling.getTypeOfFigure() == TypeOfFigure.ROOK;
-        boolean b3 = rookForCastling.getColorOfFigure() == testedFigure.getColorOfFigure();
+        boolean b3 = rookForCastling.getColor() == testedFigure.getColor();
         boolean b4 = !testedFigure.isMoved();
         boolean b5 = !rookForCastling.isMoved();
         boolean b6 = !StateOfGameToolsValidator.isTheFigureAttacked(chessboard, testedFigure);
         boolean b7 = newPlaceOccupiedByKing.getCurrentFigure() == null;
         boolean b8 = placeOfPassageTroughTheKing.getCurrentFigure() == null;
         boolean b9 = !StateOfGameToolsValidator.isThePlaceAttacked(
-                chessboard, placeOfPassageTroughTheKing, testedFigure.getColorOfFigure());
+                chessboard, placeOfPassageTroughTheKing, testedFigure.getColor());
         boolean b10 = !StateOfGameToolsValidator.isThePlaceAttacked(
-                chessboard, newPlaceOccupiedByKing, testedFigure.getColorOfFigure());
+                chessboard, newPlaceOccupiedByKing, testedFigure.getColor());
         return b1 && b2 && b3 && b4 && b5 && b6 && b7 && b8 && b9 && b10;
     }
 
@@ -74,7 +74,7 @@ class CustomMovesValidator {
         int currentCorY = 5;
         int nextCorY = 6;
         int opponentPrevCorY = 7;
-        if (testedFigure.getColorOfFigure() == ColorOfFigure.BLACK) {
+        if (testedFigure.getColor() == Color.BLACK) {
             currentCorY = 4;
             nextCorY = 3;
             opponentPrevCorY = 2;
@@ -109,7 +109,7 @@ class CustomMovesValidator {
                 .movedFigure(testedFigure)
                 .previousPlace(placeOfTestedFigure)
                 .nextPlace(nextPlaceOfTestedFigure)
-                .currentPlayerColor(testedFigure.getColorOfFigure())
+                .currentPlayerColor(testedFigure.getColor())
                 .beatenFigure(lastMovedFigure)
                 .typeOfCustomMove(TypeOfCustomMove.EN_PASSANT)
                 .build();
@@ -117,6 +117,6 @@ class CustomMovesValidator {
         Chessboard simulateChessboard = (new ClassicChessChessboardFactory()).createUpdatedChessboardByMove(chessboard, simulatedMove);
 
         return !StateOfGameToolsValidator.isTheFigureAttacked(simulateChessboard,
-                StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColorOfFigure()));
+                StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColor()));
     }
 }

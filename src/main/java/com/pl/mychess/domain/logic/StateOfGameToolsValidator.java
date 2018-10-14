@@ -9,16 +9,16 @@ class StateOfGameToolsValidator {
     private StateOfGameToolsValidator() {
     }
 
-    static Figure findTheKing(Chessboard chessboard, ColorOfFigure currentColor) {
+    static Figure findTheKing(Chessboard chessboard, Color currentColor) {
         for (Figure f : chessboard.getFigures()) {
-            if (f.getTypeOfFigure() == TypeOfFigure.KING && f.getColorOfFigure() == currentColor) {
+            if (f.getTypeOfFigure() == TypeOfFigure.KING && f.getColor() == currentColor) {
                 return f;
             }
         }
         return null;
     }
 
-    static boolean isThePlaceAttacked(Chessboard chessboard, Place testedPlace, ColorOfFigure currentColor) {
+    static boolean isThePlaceAttacked(Chessboard chessboard, Place testedPlace, Color currentColor) {
         Figure tmpFigure = new Figure(TypeOfFigure.PAWN, currentColor);
         testedPlace.setCurrentFigure(tmpFigure);
         boolean isAttacked = isTheFigureAttacked(chessboard, tmpFigure);
@@ -28,7 +28,7 @@ class StateOfGameToolsValidator {
 
     static boolean isTheFigureAttacked(Chessboard chessboard, Figure checkedFigure) {
         Place placeOfCheckedFigure = chessboard.getPlaceForGivenFigure(checkedFigure);
-        ColorOfFigure currentColor = checkedFigure.getColorOfFigure();
+        Color currentColor = checkedFigure.getColor();
 
         for (int i = 1; i <= 8; i++) {
             for (char j = 'a'; j <= 'h'; j++) {
@@ -39,18 +39,18 @@ class StateOfGameToolsValidator {
         return false;
     }
 
-    private static boolean isOpponentFigureAttackTheGivenFigure(Chessboard chessboard, Place placeOfCheckedFigure, ColorOfFigure colorOfFigure, int i, char j) {
+    private static boolean isOpponentFigureAttackTheGivenFigure(Chessboard chessboard, Place placeOfCheckedFigure, Color color, int i, char j) {
         Figure opponentFigure = chessboard.getFigureByCoordinates(j, i);
         if (opponentFigure == null)
             return false;
-        if (opponentFigure.getColorOfFigure() != colorOfFigure) {
+        if (opponentFigure.getColor() != color) {
             List<Place> placesAttackedByOpponentFigure = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, opponentFigure);
             return placesAttackedByOpponentFigure.contains(placeOfCheckedFigure);
         }
         return false;
     }
 
-    static boolean hasTheCurrentPlayerAnyCorrectMove(Chessboard chessboard, ColorOfFigure currentColor) {
+    static boolean hasTheCurrentPlayerAnyCorrectMove(Chessboard chessboard, Color currentColor) {
         for (int i = 1; i <= 8; i++) {
             for (char j = 'a'; j <= 'h'; j++) {
                 if (hasTheFigureAnyCorrectMove(chessboard, currentColor, i, j))
@@ -60,9 +60,9 @@ class StateOfGameToolsValidator {
         return false;
     }
 
-    private static boolean hasTheFigureAnyCorrectMove(Chessboard chessboard, ColorOfFigure currentColor, int i, char j) {
+    private static boolean hasTheFigureAnyCorrectMove(Chessboard chessboard, Color currentColor, int i, char j) {
         Figure checkedFigure = chessboard.getFigureByCoordinates(j, i);
-        if (checkedFigure != null && checkedFigure.getColorOfFigure() == currentColor) {
+        if (checkedFigure != null && checkedFigure.getColor() == currentColor) {
             List<Place> correctPlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, checkedFigure, null);
             return !correctPlaces.isEmpty();
         }
@@ -81,13 +81,13 @@ class StateOfGameToolsValidator {
                 .collect(Collectors.toList());
 
         for (Figure f : notBeatenFigures) {
-            if (f.equals(new Figure(TypeOfFigure.BISHOP, ColorOfFigure.WHITE))) {
+            if (f.equals(new Figure(TypeOfFigure.BISHOP, Color.WHITE))) {
                 whiteBishops++;
-            } else if (f.equals(new Figure(TypeOfFigure.BISHOP, ColorOfFigure.BLACK))) {
+            } else if (f.equals(new Figure(TypeOfFigure.BISHOP, Color.BLACK))) {
                 blackBishops++;
-            } else if (f.equals(new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE))) {
+            } else if (f.equals(new Figure(TypeOfFigure.KNIGHT, Color.WHITE))) {
                 whiteKnights++;
-            } else if (f.equals(new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.BLACK))) {
+            } else if (f.equals(new Figure(TypeOfFigure.KNIGHT, Color.BLACK))) {
                 blackKnights++;
             } else {
                 return false;

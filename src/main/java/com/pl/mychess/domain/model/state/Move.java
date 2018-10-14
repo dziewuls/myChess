@@ -3,7 +3,7 @@ package com.pl.mychess.domain.model.state;
 import com.pl.mychess.domain.model.chessboard.*;
 
 public class Move {
-    private final ColorOfFigure currentPlayerColor;
+    private final Color currentPlayerColor;
     private final Figure movedFigure;
     private final Figure beatenFigure;
     private final Place previousPlace;
@@ -15,7 +15,7 @@ public class Move {
         return new MoveBuilder();
     }
 
-    private Move(ColorOfFigure currentPlayerColor, Figure movedFigure, Figure beatenFigure, Place previousPlace, Place nextPlace, TypeOfCustomMove typeOfCustomMove, TypeOfFigure pawnTransformNewFigure) {
+    private Move(Color currentPlayerColor, Figure movedFigure, Figure beatenFigure, Place previousPlace, Place nextPlace, TypeOfCustomMove typeOfCustomMove, TypeOfFigure pawnTransformNewFigure) {
         this.currentPlayerColor = currentPlayerColor;
         this.movedFigure = movedFigure;
         this.beatenFigure = beatenFigure;
@@ -25,7 +25,7 @@ public class Move {
         this.pawnTransformNewFigure = pawnTransformNewFigure;
     }
 
-    public ColorOfFigure getCurrentPlayerColor() {
+    public Color getCurrentPlayerColor() {
         return currentPlayerColor;
     }
 
@@ -60,7 +60,7 @@ public class Move {
     }
 
     public static class MoveBuilder {
-        private ColorOfFigure currentPlayerColor;
+        private Color currentPlayerColor;
         private Figure movedFigure;
         private Figure beatenFigure;
         private Place previousPlace;
@@ -74,7 +74,7 @@ public class Move {
             this.pawnTransformNewFigure = null;
         }
 
-        public MoveBuilder currentPlayerColor(ColorOfFigure currentPlayerColor) {
+        public MoveBuilder currentPlayerColor(Color currentPlayerColor) {
             this.currentPlayerColor = currentPlayerColor;
             return this;
         }

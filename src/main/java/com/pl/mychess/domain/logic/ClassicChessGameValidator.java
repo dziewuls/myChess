@@ -2,7 +2,7 @@ package com.pl.mychess.domain.logic;
 
 import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.*;
-import com.pl.mychess.domain.model.state.StateOfMatch;
+import com.pl.mychess.domain.model.state.MatchResult;
 import com.pl.mychess.domain.model.state.Move;
 import com.pl.mychess.domain.port.GameValidator;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ClassicChessGameValidator implements GameValidator {
     @Override
-    public StateOfMatch getTheGameResult(Chessboard chessboard, ColorOfFigure colorOfCheckedPlayer) {
+    public MatchResult getTheGameResult(Chessboard chessboard, Color colorOfCheckedPlayer) {
         Figure checkedKing = StateOfGameToolsValidator.findTheKing(chessboard, colorOfCheckedPlayer);
         boolean isTheKingAttacked = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, checkedKing);
         boolean hasAnyCorrectMove = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, colorOfCheckedPlayer);
@@ -19,15 +19,15 @@ public class ClassicChessGameValidator implements GameValidator {
 
         if (isTheKingAttacked) {
             if (!hasAnyCorrectMove) {
-                return (colorOfCheckedPlayer == ColorOfFigure.BLACK) ?
-                        StateOfMatch.WHITE_IS_A_WINNER : StateOfMatch.BLACK_IS_A_WINNER;
+                return (colorOfCheckedPlayer == Color.BLACK) ?
+                        MatchResult.WHITE_IS_A_WINNER : MatchResult.BLACK_IS_A_WINNER;
             }
-            return StateOfMatch.CHECK;
+            return MatchResult.CHECK;
         }
         if (!hasAnyCorrectMove || isAnotherDrawSituation) {
-            return StateOfMatch.DRAW;
+            return MatchResult.DRAW;
         }
-        return StateOfMatch.GAME_IS_NOT_COMPLETED;
+        return MatchResult.GAME_IS_NOT_COMPLETED;
     }
 
     @Override
@@ -56,13 +56,13 @@ public class ClassicChessGameValidator implements GameValidator {
                 .movedFigure(testedFigure)
                 .previousPlace(chessboard.getPlaceForGivenFigure(testedFigure))
                 .nextPlace(p)
-                .currentPlayerColor(testedFigure.getColorOfFigure())
+                .currentPlayerColor(testedFigure.getColor())
                 .build();
 
         Chessboard simulateChessboard = (new ClassicChessChessboardFactory()).createUpdatedChessboardByMove(chessboard, simulatedMove);
 
         if (!StateOfGameToolsValidator.isTheFigureAttacked(simulateChessboard,
-                StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColorOfFigure()))) {
+                StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColor()))) {
             result.add(p);
         }
     }

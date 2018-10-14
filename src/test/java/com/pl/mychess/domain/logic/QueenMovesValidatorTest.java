@@ -15,7 +15,7 @@ public class QueenMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheQueenWhenChessboardIsEmpty() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
+        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedQueen);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedQueen);
 
@@ -54,11 +54,11 @@ public class QueenMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheQueenWhenSomeOpponentFigureCouldBeBeaten() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
-        Figure opponentFigure1 = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.BLACK);
-        Figure opponentFigure2 = new Figure(TypeOfFigure.PAWN, ColorOfFigure.BLACK);
-        Figure opponentFigure3 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.BLACK);
-        Figure opponentFigure4 = new Figure(TypeOfFigure.KING, ColorOfFigure.BLACK);
+        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, Color.WHITE);
+        Figure opponentFigure1 = new Figure(TypeOfFigure.KNIGHT, Color.BLACK);
+        Figure opponentFigure2 = new Figure(TypeOfFigure.PAWN, Color.BLACK);
+        Figure opponentFigure3 = new Figure(TypeOfFigure.ROOK, Color.BLACK);
+        Figure opponentFigure4 = new Figure(TypeOfFigure.KING, Color.BLACK);
         chessboard.setFigureInPlace('e', 4, testedQueen);
         chessboard.setFigureInPlace('f', 4, opponentFigure1);
         chessboard.setFigureInPlace('f', 5, opponentFigure2);
@@ -92,11 +92,11 @@ public class QueenMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheQueenWhenSomeOurFigureStayInPossiblePlace() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
-        Figure figure1 = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
-        Figure figure2 = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
-        Figure figure3 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
-        Figure figure4 = new Figure(TypeOfFigure.KING, ColorOfFigure.WHITE);
+        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, Color.WHITE);
+        Figure figure1 = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
+        Figure figure2 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Figure figure3 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
+        Figure figure4 = new Figure(TypeOfFigure.KING, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedQueen);
         chessboard.setFigureInPlace('f', 4, figure1);
         chessboard.setFigureInPlace('f', 5, figure2);
@@ -126,7 +126,7 @@ public class QueenMovesValidatorTest {
     @Test
     public void shouldReturnAllPossiblePlacesForTheQueenWhenItStayInTheCorner() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
+        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, Color.WHITE);
         chessboard.setFigureInPlace('a', 1, testedQueen);
         List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedQueen);
 
@@ -159,10 +159,10 @@ public class QueenMovesValidatorTest {
     @Test
     public void shouldReturnEmptyArrayWhenTheQueenHasNotPossiblePlacesToMove(){
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
-        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, ColorOfFigure.WHITE);
-        Figure figure1 = new Figure(TypeOfFigure.KNIGHT, ColorOfFigure.WHITE);
-        Figure figure2 = new Figure(TypeOfFigure.PAWN, ColorOfFigure.WHITE);
-        Figure figure3 = new Figure(TypeOfFigure.ROOK, ColorOfFigure.WHITE);
+        Figure testedQueen = new Figure(TypeOfFigure.QUEEN, Color.WHITE);
+        Figure figure1 = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
+        Figure figure2 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Figure figure3 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         chessboard.setFigureInPlace('a', 1, testedQueen);
         chessboard.setFigureInPlace('a', 2, figure1);
         chessboard.setFigureInPlace('b', 2, figure2);

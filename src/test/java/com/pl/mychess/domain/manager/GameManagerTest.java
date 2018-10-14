@@ -3,10 +3,6 @@ package com.pl.mychess.domain.manager;
 import org.junit.Test;
 
 public class GameManagerTest {
-    @Test
-    public void shouldGetCorrectPlacesThrowExceptionWhenPlaceIsWrong(){
-
-    }
 
     @Test
     public void shouldGetCorrectPlacesReturnEmptyListWhenGivenPlaceHasNotFigure(){
@@ -25,11 +21,6 @@ public class GameManagerTest {
 
     @Test
     public void shouldGetCorrectPlacesReturnEmptyListWhenFigureHasNotCorrectMoves(){
-
-    }
-
-    @Test
-    public void shouldMakeMoveThrowExceptionWhenPlaceIsWrong(){
 
     }
 
