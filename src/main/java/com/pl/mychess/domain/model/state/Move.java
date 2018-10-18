@@ -3,7 +3,6 @@ package com.pl.mychess.domain.model.state;
 import com.pl.mychess.domain.model.chessboard.*;
 
 public class Move {
-    private final Color currentPlayerColor;
     private final Figure movedFigure;
     private final Figure beatenFigure;
     private final Place previousPlace;
@@ -15,18 +14,13 @@ public class Move {
         return new MoveBuilder();
     }
 
-    private Move(Color currentPlayerColor, Figure movedFigure, Figure beatenFigure, Place previousPlace, Place nextPlace, TypeOfCustomMove typeOfCustomMove, TypeOfFigure pawnTransformNewFigure) {
-        this.currentPlayerColor = currentPlayerColor;
+    private Move(Figure movedFigure, Figure beatenFigure, Place previousPlace, Place nextPlace, TypeOfCustomMove typeOfCustomMove, TypeOfFigure pawnTransformNewFigure) {
         this.movedFigure = movedFigure;
         this.beatenFigure = beatenFigure;
         this.previousPlace = previousPlace;
         this.nextPlace = nextPlace;
         this.typeOfCustomMove = typeOfCustomMove;
         this.pawnTransformNewFigure = pawnTransformNewFigure;
-    }
-
-    public Color getCurrentPlayerColor() {
-        return currentPlayerColor;
     }
 
     public Figure getMovedFigure() {
@@ -55,22 +49,26 @@ public class Move {
 
     @Override
     public String toString() {
-        //TODO toString for Move
-        return "";
+        if (typeOfCustomMove == TypeOfCustomMove.SHORT_CASTLE) return  "O-O";
+        if (typeOfCustomMove == TypeOfCustomMove.LONG_CASTLE) return "O-O-O";
+
+        String result = movedFigure.toString() + previousPlace.toString();
+        result += (beatenFigure == null) ? "-" : ":";
+        result += nextPlace.toString();
+
+        if (typeOfCustomMove == TypeOfCustomMove.PAWN_TRANSFORM)
+            result += pawnTransformNewFigure.getSignature();
+
+        return result;
     }
 
     public static class MoveBuilder {
-        private Color currentPlayerColor;
         private Figure movedFigure;
         private Figure beatenFigure;
         private Place previousPlace;
         private Place nextPlace;
         private TypeOfCustomMove typeOfCustomMove;
         private TypeOfFigure pawnTransformNewFigure;
-
-        public Color getCurrentPlayerColor() {
-            return currentPlayerColor;
-        }
 
         public Figure getMovedFigure() {
             return movedFigure;
@@ -92,11 +90,6 @@ public class Move {
             this.beatenFigure = null;
             this.typeOfCustomMove = TypeOfCustomMove.NORMAL;
             this.pawnTransformNewFigure = null;
-        }
-
-        public MoveBuilder currentPlayerColor(Color currentPlayerColor) {
-            this.currentPlayerColor = currentPlayerColor;
-            return this;
         }
 
         public MoveBuilder movedFigure(Figure movedFigure) {
@@ -130,7 +123,7 @@ public class Move {
         }
 
         public Move build() {
-            return new Move(currentPlayerColor, movedFigure, beatenFigure, previousPlace, nextPlace, typeOfCustomMove, pawnTransformNewFigure);
+            return new Move(movedFigure, beatenFigure, previousPlace, nextPlace, typeOfCustomMove, pawnTransformNewFigure);
         }
     }
 }

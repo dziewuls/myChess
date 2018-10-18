@@ -289,7 +289,6 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('f', 5, testedBlackPawn);
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackPawn)
-                .currentPlayerColor(Color.BLACK)
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
                 .build();
@@ -308,7 +307,6 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('f', 5, testedBlackFigure);
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackFigure)
-                .currentPlayerColor(Color.BLACK)
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
                 .build();
@@ -327,7 +325,6 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('f', 6, testedBlackPawn);
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackPawn)
-                .currentPlayerColor(Color.BLACK)
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 6))
                 .build();
@@ -346,7 +343,6 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('f', 5, testedBlackPawn);
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackPawn)
-                .currentPlayerColor(Color.BLACK)
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 6))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
                 .build();
@@ -365,7 +361,6 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('b', 5, testedBlackPawn);
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackPawn)
-                .currentPlayerColor(Color.BLACK)
                 .previousPlace(chessboard.getPlaceByCoordinates('b', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('b', 5))
                 .build();

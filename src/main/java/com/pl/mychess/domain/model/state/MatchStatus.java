@@ -50,8 +50,11 @@ public class MatchStatus {
     }
 
     public List<String> getHistoryOfMovesInString() {
-        //TODO jak bedzie toString w move to dokończyc tutaj
-        return null;
+        List<String> result = new ArrayList<>();
+
+        historyOfMoves.forEach(m -> result.add(m.toString()));
+
+        return result;
     }
 
     public Move getLastMove() {

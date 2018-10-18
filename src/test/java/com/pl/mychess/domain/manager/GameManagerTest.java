@@ -5,22 +5,22 @@ import org.junit.Test;
 public class GameManagerTest {
 //TODO przetestować
     @Test
-    public void shouldGetCorrectPlacesReturnEmptyListWhenGivenPlaceHasNotFigure(){
+    public void shouldGetCorrectPlacesReturnEmptyMapWhenGivenPlaceHasNotFigure(){
 
     }
 
     @Test
-    public void shouldGetCorrectPlacesReturnEmptyListWhenFigureOnGivenPlaceHasWrongColor(){
+    public void shouldGetCorrectPlacesReturnEmptyMapWhenFigureOnGivenPlaceHasWrongColor(){
 
     }
 
     @Test
-    public void shouldGetCorrectPlacesReturnCorrectListWhenFigureOnGivenPlaceHasCorrectColor(){
+    public void shouldGetCorrectPlacesReturnCorrectMapWhenFigureOnGivenPlaceHasCorrectColor(){
 
     }
 
     @Test
-    public void shouldGetCorrectPlacesReturnEmptyListWhenFigureHasNotCorrectMoves(){
+    public void shouldGetCorrectPlacesReturnEmptyMapWhenFigureHasNotCorrectMoves(){
 
     }
 

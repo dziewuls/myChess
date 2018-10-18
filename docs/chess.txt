@@ -151,7 +151,7 @@ klasa GameManager{
 
 	    //logika partii (w mainie)
         //utworzenie pustej listy poprawnych pól
-        //otworzyc pętlę
+        //otworzyc pętlę po rezultacie meczu
         //klikniecie
         //sprawdzenie czy klikniete pole należy do poprawnych pól
         //jeśli należy to wywołanie metody wykonaj posunięcie i wyzeruj poprawne pola

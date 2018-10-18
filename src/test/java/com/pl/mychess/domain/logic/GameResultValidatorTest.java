@@ -2,12 +2,14 @@ package com.pl.mychess.domain.logic;
 
 import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.*;
-import com.pl.mychess.domain.model.state.Move;
 import com.pl.mychess.domain.model.state.MatchResult;
+import com.pl.mychess.domain.model.state.Move;
+import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +18,7 @@ public class GameResultValidatorTest {
     private ClassicChessGameValidator gameValidator = new ClassicChessGameValidator();
 
     @Test
-    public void shouldGameResultValidatorReturnCheckWhenThePawnAttacks(){
+    public void shouldGameResultValidatorReturnCheckWhenThePawnAttacks() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -28,7 +30,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnCheckWhenTheKnightAttacks(){
+    public void shouldGameResultValidatorReturnCheckWhenTheKnightAttacks() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -40,7 +42,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnCheckWhenTheBishopAttacks(){
+    public void shouldGameResultValidatorReturnCheckWhenTheBishopAttacks() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -52,7 +54,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnCheckWhenTheRookAttacks(){
+    public void shouldGameResultValidatorReturnCheckWhenTheRookAttacks() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -64,7 +66,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnCheckWhenTheQueenAttacks(){
+    public void shouldGameResultValidatorReturnCheckWhenTheQueenAttacks() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -76,7 +78,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnGameIsNotCompleteWhenTheCheckCheckmateOrDrawNotExist1(){
+    public void shouldGameResultValidatorReturnGameIsNotCompleteWhenTheCheckCheckmateOrDrawNotExist1() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 5, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -89,13 +91,12 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnGameIsNotCompleteWhenTheCheckCheckmateOrDrawNotExist2(){
+    public void shouldGameResultValidatorReturnGameIsNotCompleteWhenTheCheckCheckmateOrDrawNotExist2() {
         Chessboard chessboardForTest = chessCreator.createInitialChessboard();
         Move move = Move.getMoveBuilder()
                 .previousPlace(chessboardForTest.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboardForTest.getPlaceByCoordinates('e', 4))
                 .movedFigure(chessboardForTest.getFigureByCoordinates('e', 2))
-                .currentPlayerColor(Color.WHITE)
                 .build();
 
         chessboardForTest = chessCreator.createUpdatedChessboardByMove(chessboardForTest, move);
@@ -106,7 +107,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnWhiteIsWinnerWhenTheBlackIsCheckmated1(){
+    public void shouldGameResultValidatorReturnWhiteIsWinnerWhenTheBlackIsCheckmated1() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -118,7 +119,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnBlackIsWinnerWhenTheWhiteIsCheckmated2(){
+    public void shouldGameResultValidatorReturnBlackIsWinnerWhenTheWhiteIsCheckmated2() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.WHITE));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, Color.BLACK));
@@ -130,7 +131,6 @@ public class GameResultValidatorTest {
                 .nextPlace(chessboardForTest.getPlaceByCoordinates('d', 7))
                 .movedFigure(chessboardForTest.getFigureByCoordinates('f', 5))
                 .beatenFigure(chessboardForTest.getFigureByCoordinates('d', 7))
-                .currentPlayerColor(Color.BLACK)
                 .build();
 
         chessboardForTest = chessCreator.createUpdatedChessboardByMove(chessboardForTest, move);
@@ -141,7 +141,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorNotReturnCheckmateWhenTheMateNotExist(){
+    public void shouldGameResultValidatorNotReturnCheckmateWhenTheMateNotExist() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -154,7 +154,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnDrawWhenTheStalemateExist1(){
+    public void shouldGameResultValidatorReturnDrawWhenTheStalemateExist1() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -166,7 +166,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnDrawWhenTheStalemateExist2(){
+    public void shouldGameResultValidatorReturnDrawWhenTheStalemateExist2() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('a', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('g', 6, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -177,7 +177,6 @@ public class GameResultValidatorTest {
                 .nextPlace(chessboardForTest.getPlaceByCoordinates('b', 6))
                 .movedFigure(chessboardForTest.getFigureByCoordinates('b', 1))
                 .beatenFigure(chessboardForTest.getFigureByCoordinates('b', 6))
-                .currentPlayerColor(Color.BLACK)
                 .build();
 
         chessboardForTest = chessCreator.createUpdatedChessboardByMove(chessboardForTest, move);
@@ -188,7 +187,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorNotReturnDrawWhenTheStalemateExistButForOtherPlayerColor(){
+    public void shouldGameResultValidatorNotReturnDrawWhenTheStalemateExistButForOtherPlayerColor() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -200,7 +199,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorNotReturnDrawWhenTheStalemateNotExist(){
+    public void shouldGameResultValidatorNotReturnDrawWhenTheStalemateNotExist() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -213,7 +212,7 @@ public class GameResultValidatorTest {
     }
 
     @Test
-    public void shouldGameResultValidatorReturnDrawWhenInChessboardIsInsufficientMaterialForMate(){
+    public void shouldGameResultValidatorReturnDrawWhenInChessboardIsInsufficientMaterialForMate() {
         Chessboard chessboardForTest = chessCreator.createEmptyChessboard();
         chessboardForTest.setFigureInPlace('d', 8, new Figure(TypeOfFigure.KING, Color.BLACK));
         chessboardForTest.setFigureInPlace('d', 6, new Figure(TypeOfFigure.KING, Color.WHITE));
@@ -223,7 +222,7 @@ public class GameResultValidatorTest {
 
         assertThat(result).isEqualTo(MatchResult.DRAW);
     }
-//TODO poprawic bledy na mape
+
     @Test
     public void shouldCorrectMovesValidatorReturnPlacesToWhichTheMoveWouldNotDiscoverTheCheck() {
         Chessboard chessboard = chessCreator.createEmptyChessboard();
@@ -233,7 +232,8 @@ public class GameResultValidatorTest {
         chessboard.setFigureInPlace('e', 2, testedWhiteKing);
         chessboard.setFigureInPlace('e', 4, testedWhiteRook);
         chessboard.setFigureInPlace('e', 8, testedBlackQueen);
-        List<Place> possiblePlaces = gameValidator.getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
+        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameValidator.getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
+        List<Place> possiblePlaces = new ArrayList<>(possiblePlacesMap.keySet());
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('e', 3));
@@ -254,7 +254,8 @@ public class GameResultValidatorTest {
         chessboard.setFigureInPlace('e', 4, testedWhiteKing);
         chessboard.setFigureInPlace('e', 2, testedWhiteRook);
         chessboard.setFigureInPlace('e', 8, testedBlackQueen);
-        List<Place> possiblePlaces = gameValidator.getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
+        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameValidator.getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
+        List<Place> possiblePlaces = new ArrayList<>(possiblePlacesMap.keySet());
 
         assertThat(possiblePlaces.isEmpty()).isTrue();
     }
@@ -266,7 +267,8 @@ public class GameResultValidatorTest {
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 4, testedWhiteKing);
         chessboard.setFigureInPlace('e', 6, testedBlackPawn);
-        List<Place> possiblePlaces = gameValidator.getCorrectPlacesForFigure(chessboard, testedWhiteKing, null);
+        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameValidator.getCorrectPlacesForFigure(chessboard, testedWhiteKing, null);
+        List<Place> possiblePlaces = new ArrayList<>(possiblePlacesMap.keySet());
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 3));

@@ -21,7 +21,6 @@ public class MatchStatusTest {
         Place previousPlace = new Place('a', 4, movedFigure);
         Place nextPlace = new Place('b', 5, beatenFigure);
         Move move = Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(movedFigure)
                 .beatenFigure(beatenFigure)
                 .previousPlace(previousPlace)
@@ -31,8 +30,6 @@ public class MatchStatusTest {
 
         assertThat(move)
                 .isNotNull()
-                .is(new Condition<>(m -> m.getCurrentPlayerColor().equals(Color.WHITE),
-                        "Current color is white"))
                 .is(new Condition<>(m -> m.getMovedFigure().equals(new Figure(TypeOfFigure.KING,
                         Color.WHITE)), "Moved figure is white King"))
                 .is(new Condition<>(m -> m.getBeatenFigure().equals(new Figure(TypeOfFigure.PAWN,
@@ -49,7 +46,6 @@ public class MatchStatusTest {
     public void shouldAddTheNewMoveToTheListOfMoves() {
         MatchStatus matchStatus = new MatchStatus();
         Move firstMove = Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(new Figure(TypeOfFigure.PAWN, Color.WHITE))
                 .beatenFigure(null)
                 .previousPlace(new Place('e', 2))
@@ -67,7 +63,6 @@ public class MatchStatusTest {
     public void shouldRemoveTheLastMoveFromTheListOfMoves() {
         MatchStatus matchStatus = new MatchStatus();
         Move firstMove = Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(new Figure(TypeOfFigure.PAWN, Color.WHITE))
                 .beatenFigure(null)
                 .previousPlace(new Place('e', 2))

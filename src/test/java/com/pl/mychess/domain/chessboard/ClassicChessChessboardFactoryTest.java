@@ -137,7 +137,6 @@ public class ClassicChessChessboardFactoryTest {
     public void shouldUpdatedChessboardCreatorReturnChessboardUpdatedWithMove() {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         Move move = Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
@@ -156,14 +155,12 @@ public class ClassicChessChessboardFactoryTest {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.BLACK)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 7))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 5))
@@ -188,21 +185,18 @@ public class ClassicChessChessboardFactoryTest {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 5))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.BLACK)
                 .movedFigure(chessboard.getFigureByCoordinates('f', 7))
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 5))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 5))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 6))
@@ -227,21 +221,18 @@ public class ClassicChessChessboardFactoryTest {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('g', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('g', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.BLACK)
                 .movedFigure(chessboard.getFigureByCoordinates('f', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('d', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('g', 1))
@@ -265,28 +256,24 @@ public class ClassicChessChessboardFactoryTest {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('b', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('b', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('c', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('c', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('c', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('d', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('d', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('d', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('c', 1))
@@ -311,7 +298,6 @@ public class ClassicChessChessboardFactoryTest {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('a', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('a', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('a', 8))
@@ -332,7 +318,6 @@ public class ClassicChessChessboardFactoryTest {
     public void shouldBackMoveUpdateReturnChessboardUpdatedWithBackMove() {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         Move move = Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 4))
@@ -351,7 +336,6 @@ public class ClassicChessChessboardFactoryTest {
     public void shouldBackMoveUpdateReturnChessboardUpdatedWithEnPassantBack() {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         Move move1 = Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 5))
@@ -361,7 +345,6 @@ public class ClassicChessChessboardFactoryTest {
         chessboard = chessboardFactory.createUpdatedChessboardByMove(chessboard, move1);
 
         Move move2 = Move.getMoveBuilder()
-                .currentPlayerColor(Color.BLACK)
                 .movedFigure(chessboard.getFigureByCoordinates('f', 7))
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
@@ -371,7 +354,6 @@ public class ClassicChessChessboardFactoryTest {
         chessboard = chessboardFactory.createUpdatedChessboardByMove(chessboard, move2);
 
         Move move3 = Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 5))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 5))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 6))
@@ -397,21 +379,18 @@ public class ClassicChessChessboardFactoryTest {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('g', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('g', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.BLACK)
                 .movedFigure(chessboard.getFigureByCoordinates('f', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('d', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('g', 1))
@@ -438,28 +417,24 @@ public class ClassicChessChessboardFactoryTest {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('b', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('b', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('c', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('c', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('c', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('e', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('d', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('d', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('d', 6))
                 .typeOfCustomMove(TypeOfCustomMove.NORMAL)
                 .build());
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('e', 1))
                 .previousPlace(chessboard.getPlaceByCoordinates('e', 1))
                 .nextPlace(chessboard.getPlaceByCoordinates('c', 1))
@@ -487,7 +462,6 @@ public class ClassicChessChessboardFactoryTest {
         Chessboard chessboard = chessboardFactory.createInitialChessboard();
         List<Move> moves = new ArrayList<>();
         moves.add(Move.getMoveBuilder()
-                .currentPlayerColor(Color.WHITE)
                 .movedFigure(chessboard.getFigureByCoordinates('a', 2))
                 .previousPlace(chessboard.getPlaceByCoordinates('a', 2))
                 .nextPlace(chessboard.getPlaceByCoordinates('a', 8))

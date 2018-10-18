@@ -12,6 +12,7 @@ import com.pl.mychess.domain.port.ChessboardCreator;
 import com.pl.mychess.domain.port.GameManager;
 import com.pl.mychess.domain.port.GameValidator;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,20 +32,26 @@ public class ClassicChessGameManager implements GameManager {
     }
 
     @Override
-    public void makeMove(Place chosenPlace, TypeOfCustomMove typeOfCustomMove) {
+    public void makeMove(Place chosenPlace, TypeOfCustomMove typeOfCustomMove, TypeOfFigure typeOfPawnTransformFigure) {
         Figure beatenFigure = currentChessboard.getFigureByCoordinates(
                 chosenPlace.getCoordinateX(), chosenPlace.getCoordinateY());
-//TODO zbudowac i wykonac ruch
 
-        Move newMove = moveBuilder.nextPlace(chosenPlace)
+        Move newMove = moveBuilder
+                .nextPlace(chosenPlace)
                 .beatenFigure(beatenFigure)
-                //.pawnTransformNewFigure()
+                .pawnTransformNewFigure(typeOfPawnTransformFigure)
                 .typeOfCustomMove(typeOfCustomMove)
                 .build();
+
+        currentChessboard = chessboardCreator.createUpdatedChessboardByMove(currentChessboard, newMove);
+        matchStatus.newMove(newMove);
     }
 
     @Override
     public void backMove() {
+        Move lastMove = matchStatus.getLastMove();
+        currentChessboard = chessboardCreator.createUpdatedChessboardByBackMove(currentChessboard, lastMove);
+        matchStatus.backMove();
     }
 
     @Override
@@ -53,9 +60,13 @@ public class ClassicChessGameManager implements GameManager {
                 chosenPlace.getCoordinateX(), chosenPlace.getCoordinateY());
         Figure movedFigure = currentChessboard.getFigureByCoordinates(
                 chosenPlace.getCoordinateX(), chosenPlace.getCoordinateY());
-        moveBuilder.previousPlace(previousPlace)
-                .movedFigure(movedFigure)
-                .currentPlayerColor(matchStatus.getCurrentPlayerColor());
+
+        if(movedFigure == null) return new HashMap<>();
+        if(movedFigure.getColor() != matchStatus.getCurrentPlayerColor()) return new HashMap<>();
+
+        moveBuilder
+                .previousPlace(previousPlace)
+                .movedFigure(movedFigure);
 
         return gameValidator.getCorrectPlacesForFigure(currentChessboard, movedFigure, matchStatus.getLastMove());
     }
