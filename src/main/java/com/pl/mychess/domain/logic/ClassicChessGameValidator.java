@@ -4,10 +4,13 @@ import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.model.chessboard.*;
 import com.pl.mychess.domain.model.state.MatchResult;
 import com.pl.mychess.domain.model.state.Move;
+import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 import com.pl.mychess.domain.port.GameValidator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClassicChessGameValidator implements GameValidator {
     @Override
@@ -31,9 +34,9 @@ public class ClassicChessGameValidator implements GameValidator {
     }
 
     @Override
-    public List<Place> getCorrectPlacesForFigure(Chessboard chessboard, Figure testedFigure, Move lastMove) {
+    public Map<Place, TypeOfCustomMove> getCorrectPlacesForFigure(Chessboard chessboard, Figure testedFigure, Move lastMove) {
         List<Place> allPossiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedFigure);
-        List<Place> result = new ArrayList<>();
+        Map<Place, TypeOfCustomMove> result = new HashMap<>();
 
         allPossiblePlaces.forEach(p -> moveSimulator(chessboard, testedFigure, result, p));
         customMoveSimulator(chessboard, testedFigure, lastMove, result);
@@ -41,17 +44,17 @@ public class ClassicChessGameValidator implements GameValidator {
         return result;
     }
 
-    private void customMoveSimulator(Chessboard chessboard, Figure testedFigure, Move lastMove, List<Place> result) {
+    private void customMoveSimulator(Chessboard chessboard, Figure testedFigure, Move lastMove, Map<Place, TypeOfCustomMove> result) {
         Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, testedFigure, lastMove);
         Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedFigure);
         Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedFigure);
 
-        if (enPassantPlace != null) result.add(enPassantPlace);
-        if (shortCastlingPlace != null) result.add(shortCastlingPlace);
-        if (longCastlingPlace != null) result.add(longCastlingPlace);
+        if (enPassantPlace != null) result.put(enPassantPlace, TypeOfCustomMove.EN_PASSANT);
+        if (shortCastlingPlace != null) result.put(shortCastlingPlace, TypeOfCustomMove.SHORT_CASTLE);
+        if (longCastlingPlace != null) result.put(longCastlingPlace, TypeOfCustomMove.LONG_CASTLE);
     }
 
-    private void moveSimulator(Chessboard chessboard, Figure testedFigure, List<Place> result, Place p) {
+    private void moveSimulator(Chessboard chessboard, Figure testedFigure, Map<Place, TypeOfCustomMove> result, Place p) {
         Move simulatedMove = Move.getMoveBuilder()
                 .movedFigure(testedFigure)
                 .previousPlace(chessboard.getPlaceForGivenFigure(testedFigure))
@@ -63,7 +66,17 @@ public class ClassicChessGameValidator implements GameValidator {
 
         if (!StateOfGameToolsValidator.isTheFigureAttacked(simulateChessboard,
                 StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColor()))) {
-            result.add(p);
-        }
+            if (isPawnTransform(testedFigure, p)) {
+                result.put(p, TypeOfCustomMove.PAWN_TRANSFORM);
+            }
+        } else
+            result.put(p, TypeOfCustomMove.NORMAL);
+    }
+
+    private boolean isPawnTransform(Figure testedFigure, Place p) {
+        return testedFigure.getTypeOfFigure() == TypeOfFigure.PAWN &&
+                ((testedFigure.getColor() == Color.WHITE && p.getCoordinateY() == 8) ||
+                        (testedFigure.getColor() == Color.BLACK && p.getCoordinateY() == 1));
     }
 }
+

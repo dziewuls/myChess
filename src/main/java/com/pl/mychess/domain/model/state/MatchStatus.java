@@ -12,6 +12,10 @@ public class MatchStatus {
     private Player whitePlayer;
     private Player blackPlayer;
 
+    public MatchStatus() {
+        this(new Player(), new Player());
+    }
+
     public MatchStatus(Player whitePlayer, Player blackPlayer) {
         this.whitePlayer = whitePlayer;
         this.blackPlayer = blackPlayer;

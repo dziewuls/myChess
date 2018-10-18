@@ -68,6 +68,26 @@ public class Move {
         private TypeOfCustomMove typeOfCustomMove;
         private TypeOfFigure pawnTransformNewFigure;
 
+        public Color getCurrentPlayerColor() {
+            return currentPlayerColor;
+        }
+
+        public Figure getMovedFigure() {
+            return movedFigure;
+        }
+
+        public Figure getBeatenFigure() {
+            return beatenFigure;
+        }
+
+        public Place getPreviousPlace() {
+            return previousPlace;
+        }
+
+        public Place getNextPlace() {
+            return nextPlace;
+        }
+
         public MoveBuilder() {
             this.beatenFigure = null;
             this.typeOfCustomMove = TypeOfCustomMove.NORMAL;

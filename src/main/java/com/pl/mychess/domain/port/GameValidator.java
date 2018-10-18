@@ -6,10 +6,11 @@ import com.pl.mychess.domain.model.chessboard.Figure;
 import com.pl.mychess.domain.model.chessboard.Place;
 import com.pl.mychess.domain.model.state.MatchResult;
 import com.pl.mychess.domain.model.state.Move;
+import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 
-import java.util.List;
+import java.util.Map;
 
 public interface GameValidator {
     MatchResult getTheGameResult(Chessboard chessboard, Color currentColor);
-    List<Place> getCorrectPlacesForFigure(Chessboard chessboard, Figure testedFigure, Move lastMove);
+    Map<Place, TypeOfCustomMove> getCorrectPlacesForFigure(Chessboard chessboard, Figure testedFigure, Move lastMove);
 }

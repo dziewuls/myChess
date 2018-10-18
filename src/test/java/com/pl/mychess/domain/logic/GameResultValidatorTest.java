@@ -223,7 +223,7 @@ public class GameResultValidatorTest {
 
         assertThat(result).isEqualTo(MatchResult.DRAW);
     }
-
+//TODO poprawic bledy na mape
     @Test
     public void shouldCorrectMovesValidatorReturnPlacesToWhichTheMoveWouldNotDiscoverTheCheck() {
         Chessboard chessboard = chessCreator.createEmptyChessboard();

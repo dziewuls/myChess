@@ -2,19 +2,18 @@ package com.pl.mychess.domain.manager;
 
 import com.pl.mychess.domain.chessboard.ClassicChessChessboardFactory;
 import com.pl.mychess.domain.logic.ClassicChessGameValidator;
-import com.pl.mychess.domain.model.chessboard.Chessboard;
-import com.pl.mychess.domain.model.chessboard.Color;
-import com.pl.mychess.domain.model.chessboard.Figure;
-import com.pl.mychess.domain.model.chessboard.Place;
+import com.pl.mychess.domain.model.chessboard.*;
 import com.pl.mychess.domain.model.player.Player;
 import com.pl.mychess.domain.model.state.MatchStatus;
 import com.pl.mychess.domain.model.state.MatchResult;
 import com.pl.mychess.domain.model.state.Move;
+import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 import com.pl.mychess.domain.port.ChessboardCreator;
 import com.pl.mychess.domain.port.GameManager;
 import com.pl.mychess.domain.port.GameValidator;
 
 import java.util.List;
+import java.util.Map;
 
 public class ClassicChessGameManager implements GameManager {
     private ChessboardCreator chessboardCreator;
@@ -32,7 +31,16 @@ public class ClassicChessGameManager implements GameManager {
     }
 
     @Override
-    public void makeMove(String chosenPlace) {
+    public void makeMove(Place chosenPlace, TypeOfCustomMove typeOfCustomMove) {
+        Figure beatenFigure = currentChessboard.getFigureByCoordinates(
+                chosenPlace.getCoordinateX(), chosenPlace.getCoordinateY());
+//TODO zbudowac i wykonac ruch
+
+        Move newMove = moveBuilder.nextPlace(chosenPlace)
+                .beatenFigure(beatenFigure)
+                //.pawnTransformNewFigure()
+                .typeOfCustomMove(typeOfCustomMove)
+                .build();
     }
 
     @Override
@@ -40,11 +48,11 @@ public class ClassicChessGameManager implements GameManager {
     }
 
     @Override
-    public List<Place> getCorrectMoveOptions(String chosenPlace) {
+    public Map<Place, TypeOfCustomMove> getCorrectMoveOptions(Place chosenPlace) {
         Place previousPlace = currentChessboard.getPlaceByCoordinates(
-                chosenPlace.charAt(0), Character.getNumericValue(chosenPlace.charAt(1)));
+                chosenPlace.getCoordinateX(), chosenPlace.getCoordinateY());
         Figure movedFigure = currentChessboard.getFigureByCoordinates(
-                chosenPlace.charAt(0), Character.getNumericValue(chosenPlace.charAt(1)));
+                chosenPlace.getCoordinateX(), chosenPlace.getCoordinateY());
         moveBuilder.previousPlace(previousPlace)
                 .movedFigure(movedFigure)
                 .currentPlayerColor(matchStatus.getCurrentPlayerColor());

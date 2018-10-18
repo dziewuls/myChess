@@ -3,7 +3,7 @@ package com.pl.mychess.domain.manager;
 import org.junit.Test;
 
 public class GameManagerTest {
-
+//TODO przetestować
     @Test
     public void shouldGetCorrectPlacesReturnEmptyListWhenGivenPlaceHasNotFigure(){
 

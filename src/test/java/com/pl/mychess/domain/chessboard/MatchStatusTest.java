@@ -47,7 +47,7 @@ public class MatchStatusTest {
 
     @Test
     public void shouldAddTheNewMoveToTheListOfMoves() {
-        MatchStatus matchStatus = new MatchStatus(whitePlayer, blackPlayer);
+        MatchStatus matchStatus = new MatchStatus();
         Move firstMove = Move.getMoveBuilder()
                 .currentPlayerColor(Color.WHITE)
                 .movedFigure(new Figure(TypeOfFigure.PAWN, Color.WHITE))
@@ -65,7 +65,7 @@ public class MatchStatusTest {
 
     @Test
     public void shouldRemoveTheLastMoveFromTheListOfMoves() {
-        MatchStatus matchStatus = new MatchStatus(whitePlayer, blackPlayer);
+        MatchStatus matchStatus = new MatchStatus();
         Move firstMove = Move.getMoveBuilder()
                 .currentPlayerColor(Color.WHITE)
                 .movedFigure(new Figure(TypeOfFigure.PAWN, Color.WHITE))
