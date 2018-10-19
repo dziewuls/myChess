@@ -1,71 +1,138 @@
 package com.pl.mychess.domain.manager;
 
+import com.pl.mychess.domain.model.chessboard.*;
+import com.pl.mychess.domain.model.player.Player;
+import com.pl.mychess.domain.model.state.MatchResult;
+import com.pl.mychess.domain.model.state.TypeOfCustomMove;
+import com.pl.mychess.domain.port.GameManager;
 import org.junit.Test;
 
+import java.util.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class GameManagerTest {
-//TODO przetestować
     @Test
-    public void shouldGetCorrectPlacesReturnEmptyMapWhenGivenPlaceHasNotFigure(){
+    public void shouldGetCorrectPlacesReturnEmptyMapWhenGivenPlaceHasNotFigure() {
+        GameManager gameManager = new ClassicChessGameManager(new Player(), new Player());
 
+        Map<Place, TypeOfCustomMove> possiblePlaces = gameManager.getCorrectMoveOptions(new Place('e', 4));
+
+        assertThat(possiblePlaces).isEmpty();
     }
 
     @Test
-    public void shouldGetCorrectPlacesReturnEmptyMapWhenFigureOnGivenPlaceHasWrongColor(){
+    public void shouldGetCorrectPlacesReturnEmptyMapWhenFigureOnGivenPlaceHasWrongColor() {
+        GameManager gameManager = new ClassicChessGameManager(new Player(), new Player());
 
+        Map<Place, TypeOfCustomMove> possiblePlaces = gameManager.getCorrectMoveOptions(new Place('e', 7));
+
+        assertThat(possiblePlaces).isEmpty();
     }
 
     @Test
-    public void shouldGetCorrectPlacesReturnCorrectMapWhenFigureOnGivenPlaceHasCorrectColor(){
+    public void shouldGetCorrectPlacesReturnCorrectMapWhenFigureOnGivenPlaceHasCorrectColor() {
+        GameManager gameManager = new ClassicChessGameManager(new Player(), new Player());
 
+        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameManager.getCorrectMoveOptions(new Place('e', 2));
+        List<Place> possiblePlacesList = new ArrayList<>(possiblePlacesMap.keySet());
+
+        List<Place> expectedPlaces = new ArrayList<>(
+                Arrays.asList(
+                        new Place('e', 3),
+                        new Place('e', 4)
+                )
+        );
+
+        assertThat(possiblePlacesList).containsExactlyInAnyOrderElementsOf(expectedPlaces);
     }
 
     @Test
-    public void shouldGetCorrectPlacesReturnEmptyMapWhenFigureHasNotCorrectMoves(){
+    public void shouldGetCorrectPlacesReturnEmptyMapWhenFigureHasNotCorrectMoves() {
+        GameManager gameManager = new ClassicChessGameManager(new Player(), new Player());
 
+        Map<Place, TypeOfCustomMove> possiblePlaces = gameManager.getCorrectMoveOptions(new Place('e', 1));
+
+        assertThat(possiblePlaces).isEmpty();
     }
 
     @Test
-    public void shouldMakeMoveUpdateTheChessboard(){
+    public void shouldMakeMoveUpdateTheChessboard() {
+        GameManager gameManager = new ClassicChessGameManager(new Player(), new Player());
 
+        gameManager.getCorrectMoveOptions(new Place('e', 2));
+        gameManager.makeMove(new Place('e', 4), TypeOfCustomMove.NORMAL, null);
+
+        Chessboard chessboard = gameManager.getCurrentChessboard();
+        Figure expectedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+
+        assertThat(chessboard.getFigureByCoordinates('e', 2)).isNull();
+        assertThat(chessboard.getFigureByCoordinates('e', 4)).isEqualTo(expectedPawn);
     }
 
     @Test
-    public void shouldMakeMoveBuildCorrectMove(){
+    public void shouldMakeMoveAddTheMoveToStateOfChessboard() {
+        GameManager gameManager = new ClassicChessGameManager(new Player(), new Player());
 
+        gameManager.getCorrectMoveOptions(new Place('e', 2));
+        gameManager.makeMove(new Place('e', 4), TypeOfCustomMove.NORMAL, null);
+        gameManager.getCorrectMoveOptions(new Place('e', 7));
+        gameManager.makeMove(new Place('e', 5), TypeOfCustomMove.NORMAL, null);
+
+        List<String> moves = gameManager.getMovesHistory();
+
+        List<String> expectedMoves = new ArrayList<>(Arrays.asList("e2-e4", "e7-e5"));
+
+        assertThat(moves).containsExactlyInAnyOrderElementsOf(expectedMoves);
     }
 
     @Test
-    public void shouldMakeMoveAddTheMoveToStateOfChessboard(){
+    public void shouldGameManagerReturnCorrectMatchResult() {
+        GameManager gameManager = new ClassicChessGameManager(new Player(), new Player());
 
+        gameManager.getCorrectMoveOptions(new Place('e', 2));
+        gameManager.makeMove(new Place('e', 4), TypeOfCustomMove.NORMAL, null);
+        gameManager.getCorrectMoveOptions(new Place('e', 7));
+        gameManager.makeMove(new Place('e', 5), TypeOfCustomMove.NORMAL, null);
+
+        MatchResult matchResult = gameManager.getGameResult();
+
+        assertThat(matchResult).isEqualTo(MatchResult.GAME_IS_NOT_COMPLETED);
     }
 
     @Test
-    public void shouldMakeMoveChangeCurrentPlayer(){
+    public void shouldBackMoveUpdateTheChessboard() {
+        GameManager gameManager = new ClassicChessGameManager(new Player(), new Player());
 
+        gameManager.getCorrectMoveOptions(new Place('e', 2));
+        gameManager.makeMove(new Place('e', 4), TypeOfCustomMove.NORMAL, null);
+        gameManager.getCorrectMoveOptions(new Place('e', 7));
+        gameManager.makeMove(new Place('e', 5), TypeOfCustomMove.NORMAL, null);
+
+        gameManager.backMove();
+
+        Chessboard chessboard = gameManager.getCurrentChessboard();
+        Figure expectedPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
+
+        assertThat(chessboard.getFigureByCoordinates('e', 5)).isNull();
+        assertThat(chessboard.getFigureByCoordinates('e', 7)).isEqualTo(expectedPawn);
     }
 
     @Test
-    public void shouldMakeMoveReturnCorrectMatchResult(){
+    public void shouldBackMoveRemoveTheMoveFromStateOfChessboard() {
+        GameManager gameManager = new ClassicChessGameManager(new Player(), new Player());
 
-    }
+        gameManager.getCorrectMoveOptions(new Place('e', 2));
+        gameManager.makeMove(new Place('e', 4), TypeOfCustomMove.NORMAL, null);
+        gameManager.getCorrectMoveOptions(new Place('e', 7));
+        gameManager.makeMove(new Place('e', 5), TypeOfCustomMove.NORMAL, null);
 
-    @Test
-    public void shouldBackMoveUpdateTheChessboard(){
+        gameManager.backMove();
 
-    }
+        List<String> moves = gameManager.getMovesHistory();
 
-    @Test
-    public void shouldBackMoveRemoveTheMoveFromStateOfChessboard(){
+        List<String> expectedMoves = new ArrayList<>(Collections.singletonList("e2-e4"));
 
-    }
-
-    @Test
-    public void shouldBackMoveChangeCurrentPlayer(){
-
-    }
-
-    @Test
-    public void shouldGetMovesHistoryReturnListOfMovesInCorrectChessNotation(){
-
+        assertThat(moves).containsExactlyInAnyOrderElementsOf(expectedMoves);
     }
 }

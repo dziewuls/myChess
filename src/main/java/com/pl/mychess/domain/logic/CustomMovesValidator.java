@@ -109,7 +109,6 @@ class CustomMovesValidator {
                 .movedFigure(testedFigure)
                 .previousPlace(placeOfTestedFigure)
                 .nextPlace(nextPlaceOfTestedFigure)
-                .currentPlayerColor(testedFigure.getColor())
                 .beatenFigure(lastMovedFigure)
                 .typeOfCustomMove(TypeOfCustomMove.EN_PASSANT)
                 .build();

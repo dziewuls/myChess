@@ -8,9 +8,11 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomMovesValidatorTest {
+    private ClassicChessChessboardFactory chessCreator = new ClassicChessChessboardFactory();
+
     @Test
     public void shouldShortCastlingValidatorReturnNullWhenTheChosenFigureIsNotAKing() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
@@ -25,7 +27,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldShortCastlingValidatorReturnNullWhenTheRookIsNotInTheCorrectPlace() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
@@ -40,7 +42,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldShortCastlingValidatorReturnNullWhenTheKingWasMoved() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         testedKing.setMoved(true);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
@@ -56,7 +58,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldShortCastlingValidatorReturnNullWhenTheRookWasMoved() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         testedRook.setMoved(true);
@@ -72,7 +74,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldShortCastlingValidatorReturnNullWhenTheKingIsChecked() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBishop = new Figure(TypeOfFigure.BISHOP, Color.BLACK);
@@ -87,7 +89,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldShortCastlingValidatorReturnNullWhenTheKingStandsInTheCheckedPlace() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBlackRook = new Figure(TypeOfFigure.ROOK, Color.BLACK);
@@ -102,7 +104,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldShortCastlingValidatorReturnNullWhenTheKingPassesThroughTheCheckedPlace() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBlackRook = new Figure(TypeOfFigure.ROOK, Color.BLACK);
@@ -117,7 +119,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldShortCastlingValidatorReturnNullWhenBetweenTheKingAndTheRookAreSomeFigures() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBishop = new Figure(TypeOfFigure.BISHOP, Color.WHITE);
@@ -132,7 +134,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldShortCastlingValidatorReturnCorrectPlaceWhenCastlingMoveIsCorrect() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         chessboard.setFigureInPlace('e', 1, testedKing);
@@ -146,7 +148,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldLongCastlingValidatorReturnNullWhenTheChosenFigureIsNotAKing() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
@@ -161,7 +163,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldLongCastlingValidatorReturnNullWhenTheRookIsNotInTheCorrectPlace() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
@@ -176,7 +178,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldLongCastlingValidatorReturnNullWhenTheKingWasMoved() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         testedKing.setMoved(true);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
@@ -192,7 +194,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldLongCastlingValidatorReturnNullWhenTheRookWasMoved() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         testedRook.setMoved(true);
@@ -208,7 +210,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldLongCastlingValidatorReturnNullWhenTheKingIsChecked() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBishop = new Figure(TypeOfFigure.BISHOP, Color.BLACK);
@@ -223,7 +225,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldLongCastlingValidatorReturnNullWhenTheKingStandsInTheCheckedPlace() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBlackRook = new Figure(TypeOfFigure.ROOK, Color.BLACK);
@@ -238,7 +240,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldLongCastlingValidatorReturnNullWhenTheKingPassesThroughTheCheckedPlace() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBlackRook = new Figure(TypeOfFigure.ROOK, Color.BLACK);
@@ -253,7 +255,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldLongCastlingValidatorReturnNullWhenBetweenTheKingAndTheRookAreSomeFigures() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBishop = new Figure(TypeOfFigure.BISHOP, Color.WHITE);
@@ -268,7 +270,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldLongCastlingValidatorReturnTrueWhenCastlingMoveIsCorrect() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         chessboard.setFigureInPlace('e', 1, testedKing);
@@ -282,7 +284,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldEnPassantValidatorReturnNullWhenTheChosenFigureIsNotAPawn() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedWhiteFigure = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 5, testedWhiteFigure);
@@ -300,7 +302,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldEnPassantValidatorReturnNullWhenTheLastMovedFigureIsNotAPawn() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedWhitePawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         Figure testedBlackFigure = new Figure(TypeOfFigure.BISHOP, Color.BLACK);
         chessboard.setFigureInPlace('e', 5, testedWhitePawn);
@@ -318,7 +320,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldEnPassantValidatorReturnNullWhenTheBeatenPawnNotStandBesideTheBeatingPawn() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedWhitePawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 5, testedWhitePawn);
@@ -336,7 +338,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldEnPassantValidatorReturnNullWhenTheBeatenPawnNotMoveAboutTwoPlacesForward() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createEmptyChessboard();
+        Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedWhitePawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 5, testedWhitePawn);
@@ -354,7 +356,7 @@ public class CustomMovesValidatorTest {
 
     @Test
     public void shouldEnPassandValidatorReturnTrueWhenEnPassantMoveIsCorrect() {
-        Chessboard chessboard = (new ClassicChessChessboardFactory()).createInitialChessboard();
+        Chessboard chessboard = chessCreator.createInitialChessboard();
         Figure testedWhitePawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('c', 5, testedWhitePawn);

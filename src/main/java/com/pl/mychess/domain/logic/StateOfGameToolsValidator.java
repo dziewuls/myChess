@@ -1,8 +1,11 @@
 package com.pl.mychess.domain.logic;
 
 import com.pl.mychess.domain.model.chessboard.*;
+import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 class StateOfGameToolsValidator {
@@ -63,7 +66,8 @@ class StateOfGameToolsValidator {
     private static boolean hasTheFigureAnyCorrectMove(Chessboard chessboard, Color currentColor, int i, char j) {
         Figure checkedFigure = chessboard.getFigureByCoordinates(j, i);
         if (checkedFigure != null && checkedFigure.getColor() == currentColor) {
-            List<Place> correctPlaces = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, checkedFigure, null);
+            Map<Place, TypeOfCustomMove> placesMap = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, checkedFigure, null);
+            List<Place> correctPlaces = new ArrayList<>(placesMap.keySet());
             return !correctPlaces.isEmpty();
         }
         return false;

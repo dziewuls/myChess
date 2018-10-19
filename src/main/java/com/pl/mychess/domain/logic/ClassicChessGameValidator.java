@@ -59,7 +59,6 @@ public class ClassicChessGameValidator implements GameValidator {
                 .movedFigure(testedFigure)
                 .previousPlace(chessboard.getPlaceForGivenFigure(testedFigure))
                 .nextPlace(p)
-                .currentPlayerColor(testedFigure.getColor())
                 .build();
 
         Chessboard simulateChessboard = (new ClassicChessChessboardFactory()).createUpdatedChessboardByMove(chessboard, simulatedMove);
@@ -68,9 +67,9 @@ public class ClassicChessGameValidator implements GameValidator {
                 StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColor()))) {
             if (isPawnTransform(testedFigure, p)) {
                 result.put(p, TypeOfCustomMove.PAWN_TRANSFORM);
-            }
-        } else
-            result.put(p, TypeOfCustomMove.NORMAL);
+            } else
+                result.put(p, TypeOfCustomMove.NORMAL);
+        }
     }
 
     private boolean isPawnTransform(Figure testedFigure, Place p) {

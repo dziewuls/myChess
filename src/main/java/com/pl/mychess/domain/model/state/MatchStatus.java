@@ -58,6 +58,7 @@ public class MatchStatus {
     }
 
     public Move getLastMove() {
+        if(historyOfMoves.isEmpty()) return null;
         return historyOfMoves.get(historyOfMoves.size() - 1);
     }
 
