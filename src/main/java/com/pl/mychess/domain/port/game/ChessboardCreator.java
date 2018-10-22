@@ -8,4 +8,5 @@ public interface ChessboardCreator {
     Chessboard createEmptyChessboard();
     Chessboard createUpdatedChessboardByMove(Chessboard chessboard, Move move);
     Chessboard createUpdatedChessboardByBackMove(Chessboard chessboard, Move move);
+    Chessboard createCopyOfChessboard(Chessboard chessboard);
 }

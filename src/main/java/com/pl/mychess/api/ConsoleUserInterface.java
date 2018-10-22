@@ -7,32 +7,32 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ConsoleUserInterface implements UserInterface {
+//    @Override
+//    public void viewChessboard(Map<String, String> arrangement) {
+//        for (int i = 0; i < 8; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                String key = String.valueOf('a' + j) + String.valueOf(8 - i);
+//                System.out.print("[" + arrangement.get(key) + "]");
+//            }
+//
+//            System.out.println(" " + (8 - i) + ". ");
+//        }
+//
+//        for (int i = 0; i < 8; i++) {
+//            System.out.println('a' + i);
+//        }
+//    }
+
     @Override
-    public void viewChessboard(Map<String, String> chessboard) {
+    public void viewChessboard(Map<String, String> arrangement, List<String> places) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                String key = String.valueOf('a' + j) + String.valueOf(8 - i);
-                System.out.print("[" + chessboard.get(key) + "]");
-            }
-
-            System.out.println(" " + (8 - i) + ". ");
-        }
-
-        for (int i = 0; i < 8; i++) {
-            System.out.println('a' + i);
-        }
-    }
-
-    @Override
-    public void viewCorrectMoves(Map<String, String> chessboard, List<String> places) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                String key = String.valueOf('a' + j) + String.valueOf(8 - i);
+                String key = String.valueOf((char)('a' + j)) + String.valueOf(8 - i);
 
                 if(places.contains(key)){
-                    System.out.print("{" + chessboard.get(key) + "}");
+                    System.out.print("{" + arrangement.get(key) + "}");
                 } else {
-                    System.out.print("[" + chessboard.get(key) + "]");
+                    System.out.print("[" + arrangement.get(key) + "]");
                 }
             }
 
@@ -40,8 +40,9 @@ public class ConsoleUserInterface implements UserInterface {
         }
 
         for (int i = 0; i < 8; i++) {
-            System.out.println('a' + i);
+            System.out.print(" " + (char)('a' + i) + " ");
         }
+        System.out.println("");
     }
 
     @Override

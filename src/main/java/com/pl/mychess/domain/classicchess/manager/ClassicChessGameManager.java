@@ -70,7 +70,8 @@ public class ClassicChessGameManager implements GameManager {
                 .previousPlace(previousPlace)
                 .movedFigure(movedFigure);
 
-        return gameValidator.getCorrectPlacesForFigure(currentChessboard, movedFigure, matchStatus.getLastMove());
+        return gameValidator.getCorrectPlacesForFigure(
+                chessboardCreator.createCopyOfChessboard(currentChessboard), movedFigure, matchStatus.getLastMove());
     }
 
     @Override
@@ -80,7 +81,8 @@ public class ClassicChessGameManager implements GameManager {
 
     @Override
     public MatchResult getGameResult() {
-        return gameValidator.getTheGameResult(currentChessboard, matchStatus.getCurrentPlayerColor());
+        return gameValidator.getTheGameResult(
+                chessboardCreator.createCopyOfChessboard(currentChessboard), matchStatus.getCurrentPlayerColor());
     }
 
     @Override

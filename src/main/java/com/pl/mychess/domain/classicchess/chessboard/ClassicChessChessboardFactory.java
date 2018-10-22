@@ -84,7 +84,8 @@ public class ClassicChessChessboardFactory implements ChessboardCreator {
         return createdChessboard;
     }
 
-    private Chessboard createCopyOfChessboard(Chessboard chessboard) {
+    @Override
+    public Chessboard createCopyOfChessboard(Chessboard chessboard) {
         Place[][] placesOfChessboard = new Place[8][8];
         List<Figure> figuresList = new ArrayList<>();
 
