@@ -125,7 +125,7 @@ package manager
 
 klasa GameManager{
 	Chessboard currentChessboard
-	StateOfChessboard stateOfChessboard
+	StateOfChessboard matchStatus
 	Player whitePlayer
 	Player blackPlayer
 	Color currentPlayer	
@@ -148,7 +148,42 @@ klasa GameManager{
 	backMove() {
 		// logika cofania ruchu, uaktualniania stanu szachownicy, usuwanie ruchu z historii itp
 	}
-	
+
+	    //logika partii (w mainie)
+        //utworzenie pustej listy poprawnych pól
+        //otworzyc pętlę po rezultacie meczu
+        //klikniecie
+        //sprawdzenie czy klikniete pole należy do poprawnych pól
+        //jeśli należy to wywołanie metody wykonaj posunięcie i wyzeruj poprawne pola
+        //jeśli nie istnieje to wykonaj metodę znajdz poprawne posuniecie
+
+        //1. pobierz poprawne posunięcia
+        //      parametry: współrzędne wprowadzonego pola
+        //      sprawdzenie czy kliknięte pole ma figure
+        //      czy kolor  figury się zgadza,
+        //      jeżeli wszystko jest okej to wstawienie posiadanych informacji do moveBuildera
+        //      zwrócenie poprawnych pól
+        //      zwrócenie pustej listy jeśli nie ma poprawnych ruchów
+
+        //2. wykonaj posunięcie
+        //      parametry: współrzędne wprowadzonego pola
+        //      sprawdzić jakiego typu jest to ruch
+        //      zbudować ruch o kolejne niezbedne informacje
+        //      wywołać metodę apdejtującą szachownicę
+        //      dodać ruch i szachownicę do matchStatus
+        //      zmienić bieżącego gracza
+        //      wywołać metodę sprawdzenia stanu meczu
+        //      zwrócić chessboard, albo coś dzięki czemu wyrysuje szachownice
+
+        //3. cofnij posunięcie
+        //      pod aktualną szachownicę przypisać poprzednią
+        //      wywołąć metodę remove ze matchStatus
+        //      zmienić bieżącego gracza
+        //      zwrócić szachownice
+
+        //4. pobierz historie ruchów, w stringu, ładnie sformatowane
+
+        //5. pobierz resultat
 	
 }
 

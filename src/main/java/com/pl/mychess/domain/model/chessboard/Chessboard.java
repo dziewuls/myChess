@@ -32,12 +32,11 @@ public class Chessboard {
         return figures;
     }
 
-    //TODO przetestować
     public Place getPlaceForGivenFigure(Figure figure) {
-        for (int i = 0; i < placesOfChessboard.length; i++)
-            for (int j = 0; j < placesOfChessboard[i].length; j++)
-                if (placesOfChessboard[i][j].getCurrentFigure() == figure)
-                    return placesOfChessboard[i][j];
+        for (Place[] aPlacesOfChessboard : placesOfChessboard)
+            for (Place anAPlacesOfChessboard : aPlacesOfChessboard)
+                if (anAPlacesOfChessboard.getCurrentFigure() == figure)
+                    return anAPlacesOfChessboard;
 
         return null;
     }
