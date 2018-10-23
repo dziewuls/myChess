@@ -32,15 +32,6 @@ public class Chessboard {
         return figures;
     }
 
-    public Place getPlaceForGivenFigure(Figure figure) {
-        for (Place[] aPlacesOfChessboard : placesOfChessboard)
-            for (Place anAPlacesOfChessboard : aPlacesOfChessboard)
-                if (anAPlacesOfChessboard.getCurrentFigure() == figure)
-                    return anAPlacesOfChessboard;
-
-        return null;
-    }
-
     public Place getPlaceByCoordinates(char x, int y) {
         int indexForCoordinateX = (int) x - (int) 'a';
         int indexForCoordinateY = y - 1;

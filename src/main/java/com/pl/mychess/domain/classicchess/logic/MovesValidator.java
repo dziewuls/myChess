@@ -13,11 +13,13 @@ class MovesValidator {
     private MovesValidator() {
     }
 
-    static List<Place> getAllPossiblePlacesForTheFigure(Chessboard chessboard, Figure testedFigure) {
+    static List<Place> getAllPossiblePlacesForTheFigure(Chessboard chessboard, Place placeOfTestedFigure) {
         List<Place> result = new ArrayList<>();
-        Place placeOfTestedFigure = chessboard.getPlaceForGivenFigure(testedFigure);
         char corX = placeOfTestedFigure.getCoordinateX();
         int corY = placeOfTestedFigure.getCoordinateY();
+        Figure testedFigure = chessboard.getFigureByCoordinates(corX, corY);
+
+        if(testedFigure == null) return result;
 
         switch (testedFigure.getTypeOfFigure()) {
             case PAWN:

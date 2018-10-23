@@ -55,8 +55,9 @@ public class StateOfGameToolsValidatorTest {
         Figure attackedFigure = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, attackingFigure);
         chessboard.setFigureInPlace('e', 1, attackedFigure);
+        Place placeOfAttackedFigure = chessboard.getPlaceByCoordinates('e', 1);
 
-        boolean result = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, attackedFigure);
+        boolean result = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, placeOfAttackedFigure);
 
         assertThat(result).isTrue();
     }
@@ -68,8 +69,9 @@ public class StateOfGameToolsValidatorTest {
         Figure attackedFigure = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, attackingFigure);
         chessboard.setFigureInPlace('f', 3, attackedFigure);
+        Place placeOfAttackedFigure = chessboard.getPlaceByCoordinates('f', 3);
 
-        boolean result = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, attackedFigure);
+        boolean result = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, placeOfAttackedFigure);
 
         assertThat(result).isTrue();
     }
@@ -81,8 +83,9 @@ public class StateOfGameToolsValidatorTest {
         Figure attackedFigure = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, attackingFigure);
         chessboard.setFigureInPlace('f', 1, attackedFigure);
+        Place placeOfAttackedFigure = chessboard.getPlaceByCoordinates('f', 1);
 
-        boolean result = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, attackedFigure);
+        boolean result = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, placeOfAttackedFigure);
 
         assertThat(result).isFalse();
     }
@@ -96,10 +99,11 @@ public class StateOfGameToolsValidatorTest {
         chessboard.setFigureInPlace('e', 4, blackKing);
         chessboard.setFigureInPlace('e', 1, whiteKing);
         chessboard.setFigureInPlace('g', 6, somePawn);
+        Place expectedKingPlace = chessboard.getPlaceByCoordinates('e', 1);
 
-        Figure resultKing = StateOfGameToolsValidator.findTheKing(chessboard, Color.WHITE);
+        Place resultKingPlace = StateOfGameToolsValidator.findTheKingPlace(chessboard, Color.WHITE);
 
-        assertThat(resultKing).isEqualTo(whiteKing);
+        assertThat(resultKingPlace).isEqualTo(expectedKingPlace);
     }
 
     @Test

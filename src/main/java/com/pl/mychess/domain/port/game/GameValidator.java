@@ -12,5 +12,5 @@ import java.util.Map;
 
 public interface GameValidator {
     MatchResult getTheGameResult(Chessboard chessboard, Color currentColor);
-    Map<Place, TypeOfCustomMove> getCorrectPlacesForFigure(Chessboard chessboard, Figure testedFigure, Move lastMove);
+    Map<Place, TypeOfCustomMove> getCorrectPlacesForFigure(Chessboard chessboard, Place placeOfTestedFigure, Move lastMove);
 }

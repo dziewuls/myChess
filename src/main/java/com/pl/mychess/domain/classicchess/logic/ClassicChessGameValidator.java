@@ -14,8 +14,8 @@ import java.util.Map;
 public class ClassicChessGameValidator implements GameValidator {
     @Override
     public MatchResult getTheGameResult(Chessboard chessboard, Color colorOfCheckedPlayer) {
-        Figure checkedKing = StateOfGameToolsValidator.findTheKing(chessboard, colorOfCheckedPlayer);
-        boolean isTheKingAttacked = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, checkedKing);
+        Place placeOfCheckedKing = StateOfGameToolsValidator.findTheKingPlace(chessboard, colorOfCheckedPlayer);
+        boolean isTheKingAttacked = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, placeOfCheckedKing);
         boolean hasAnyCorrectMove = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, colorOfCheckedPlayer);
         boolean isAnotherDrawSituation = StateOfGameToolsValidator.isInsufficientMaterialForMate(chessboard);
 
@@ -33,37 +33,40 @@ public class ClassicChessGameValidator implements GameValidator {
     }
 
     @Override
-    public Map<Place, TypeOfCustomMove> getCorrectPlacesForFigure(Chessboard chessboard, Figure testedFigure, Move lastMove) {
-        List<Place> allPossiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedFigure);
+    public Map<Place, TypeOfCustomMove> getCorrectPlacesForFigure(Chessboard chessboard, Place placeOfTestedFigure, Move lastMove) {
+        List<Place> allPossiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedFigure);
         Map<Place, TypeOfCustomMove> result = new HashMap<>();
 
-        allPossiblePlaces.forEach(p -> moveSimulator(chessboard, testedFigure, result, p));
-        customMoveSimulator(chessboard, testedFigure, lastMove, result);
+        allPossiblePlaces.forEach(p -> moveSimulator(chessboard, placeOfTestedFigure, result, p));
+        customMoveSimulator(chessboard, placeOfTestedFigure, lastMove, result);
 
         return result;
     }
 
-    private void customMoveSimulator(Chessboard chessboard, Figure testedFigure, Move lastMove, Map<Place, TypeOfCustomMove> result) {
-        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, testedFigure, lastMove);
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedFigure);
-        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedFigure);
+    private void customMoveSimulator(Chessboard chessboard, Place placeOfTestedFigure, Move lastMove, Map<Place, TypeOfCustomMove> result) {
+        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, placeOfTestedFigure, lastMove);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedFigure);
+        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedFigure);
 
         if (enPassantPlace != null) result.put(enPassantPlace, TypeOfCustomMove.EN_PASSANT);
         if (shortCastlingPlace != null) result.put(shortCastlingPlace, TypeOfCustomMove.SHORT_CASTLE);
         if (longCastlingPlace != null) result.put(longCastlingPlace, TypeOfCustomMove.LONG_CASTLE);
     }
 
-    private void moveSimulator(Chessboard chessboard, Figure testedFigure, Map<Place, TypeOfCustomMove> result, Place p) {
+    private void moveSimulator(Chessboard chessboard, Place placeOfTestedFigure, Map<Place, TypeOfCustomMove> result, Place p) {
+        Figure testedFigure = chessboard.getFigureByCoordinates(
+                placeOfTestedFigure.getCoordinateX(), placeOfTestedFigure.getCoordinateY());
+
         Move simulatedMove = Move.getMoveBuilder()
                 .movedFigure(testedFigure)
-                .previousPlace(chessboard.getPlaceForGivenFigure(testedFigure))
+                .previousPlace(placeOfTestedFigure)
                 .nextPlace(p)
                 .build();
 
         Chessboard simulateChessboard = (new ClassicChessChessboardFactory()).createUpdatedChessboardByMove(chessboard, simulatedMove);
 
         if (!StateOfGameToolsValidator.isTheFigureAttacked(simulateChessboard,
-                StateOfGameToolsValidator.findTheKing(simulateChessboard, testedFigure.getColor()))) {
+                StateOfGameToolsValidator.findTheKingPlace(simulateChessboard, testedFigure.getColor()))) {
             if (isPawnTransform(testedFigure, p)) {
                 result.put(p, TypeOfCustomMove.PAWN_TRANSFORM);
             } else
