@@ -16,8 +16,10 @@ public class KingMovesValidatorTest {
     public void shouldReturnAllPossiblePlacesForTheKingWhenChessboardIsEmpty() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedKing);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKing);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKing);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 3));
@@ -38,10 +40,12 @@ public class KingMovesValidatorTest {
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure opponentFigure1 = new Figure(TypeOfFigure.ROOK, Color.BLACK);
         Figure opponentFigure2 = new Figure(TypeOfFigure.PAWN, Color.BLACK);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedKing);
         chessboard.setFigureInPlace('e', 3, opponentFigure1);
         chessboard.setFigureInPlace('f', 5, opponentFigure2);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKing);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKing);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 3));
@@ -62,10 +66,12 @@ public class KingMovesValidatorTest {
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure figure1 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure figure2 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedKing);
         chessboard.setFigureInPlace('e', 3, figure1);
         chessboard.setFigureInPlace('f', 5, figure2);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKing);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKing);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 3));
@@ -82,8 +88,10 @@ public class KingMovesValidatorTest {
     public void shouldReturnAllPossiblePlacesForTheKingWhenItStayInTheCorner() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('a', 1);
+
         chessboard.setFigureInPlace('a', 1, testedKing);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKing);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKing);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('a', 2));
@@ -100,12 +108,14 @@ public class KingMovesValidatorTest {
         Figure figure1 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure figure2 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure figure3 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('a', 1);
+
         chessboard.setFigureInPlace('a', 1, testedKing);
         chessboard.setFigureInPlace('a', 2, figure1);
         chessboard.setFigureInPlace('b', 1, figure2);
         chessboard.setFigureInPlace('b', 2, figure3);
 
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKing);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKing);
 
         assertThat(possiblePlaces.isEmpty()).isTrue();
     }

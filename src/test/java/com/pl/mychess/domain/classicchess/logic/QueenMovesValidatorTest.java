@@ -16,8 +16,10 @@ public class QueenMovesValidatorTest {
     public void shouldReturnAllPossiblePlacesForTheQueenWhenChessboardIsEmpty() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedQueen = new Figure(TypeOfFigure.QUEEN, Color.WHITE);
+        Place placeOfTestedQueen = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedQueen);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedQueen);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedQueen);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('e', 1));
@@ -59,12 +61,14 @@ public class QueenMovesValidatorTest {
         Figure opponentFigure2 = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         Figure opponentFigure3 = new Figure(TypeOfFigure.ROOK, Color.BLACK);
         Figure opponentFigure4 = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Place placeOfTestedQueen = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedQueen);
         chessboard.setFigureInPlace('f', 4, opponentFigure1);
         chessboard.setFigureInPlace('f', 5, opponentFigure2);
         chessboard.setFigureInPlace('e', 3, opponentFigure3);
         chessboard.setFigureInPlace('d', 5, opponentFigure4);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedQueen);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedQueen);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('e', 3));
@@ -97,12 +101,14 @@ public class QueenMovesValidatorTest {
         Figure figure2 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         Figure figure3 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure figure4 = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Place placeOfTestedQueen = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedQueen);
         chessboard.setFigureInPlace('f', 4, figure1);
         chessboard.setFigureInPlace('f', 5, figure2);
         chessboard.setFigureInPlace('e', 3, figure3);
         chessboard.setFigureInPlace('d', 5, figure4);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedQueen);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedQueen);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('e', 5));
@@ -127,8 +133,10 @@ public class QueenMovesValidatorTest {
     public void shouldReturnAllPossiblePlacesForTheQueenWhenItStayInTheCorner() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedQueen = new Figure(TypeOfFigure.QUEEN, Color.WHITE);
+        Place placeOfTestedQueen = chessboard.getPlaceByCoordinates('a', 1);
+
         chessboard.setFigureInPlace('a', 1, testedQueen);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedQueen);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedQueen);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('a', 2));
@@ -163,12 +171,14 @@ public class QueenMovesValidatorTest {
         Figure figure1 = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
         Figure figure2 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         Figure figure3 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
+        Place placeOfTestedQueen = chessboard.getPlaceByCoordinates('a', 1);
+
         chessboard.setFigureInPlace('a', 1, testedQueen);
         chessboard.setFigureInPlace('a', 2, figure1);
         chessboard.setFigureInPlace('b', 2, figure2);
         chessboard.setFigureInPlace('b', 1, figure3);
 
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedQueen);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedQueen);
 
         assertThat(possiblePlaces.isEmpty()).isTrue();
     }

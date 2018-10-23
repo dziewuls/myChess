@@ -71,7 +71,7 @@ public class ClassicChessGameManager implements GameManager {
                 .movedFigure(movedFigure);
 
         return gameValidator.getCorrectPlacesForFigure(
-                chessboardCreator.createCopyOfChessboard(currentChessboard), movedFigure, matchStatus.getLastMove());
+                chessboardCreator.createCopyOfChessboard(currentChessboard), chosenPlace, matchStatus.getLastMove());
     }
 
     @Override

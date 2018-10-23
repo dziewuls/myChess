@@ -17,7 +17,9 @@ public class KnightMovesValidatorTest {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedKnight);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKnight);
+        Place placeOfTestedKnight = chessboard.getPlaceByCoordinates('e', 4);
+
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKnight);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 2));
@@ -43,7 +45,9 @@ public class KnightMovesValidatorTest {
         chessboard.setFigureInPlace('f', 2, opponentFigure1);
         chessboard.setFigureInPlace('d', 6, opponentFigure2);
         chessboard.setFigureInPlace('c', 3, opponentFigure3);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKnight);
+        Place placeOfTestedKnight = chessboard.getPlaceByCoordinates('e', 4);
+
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKnight);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 2));
@@ -69,7 +73,9 @@ public class KnightMovesValidatorTest {
         chessboard.setFigureInPlace('f', 2, figure1);
         chessboard.setFigureInPlace('d', 6, figure2);
         chessboard.setFigureInPlace('c', 3, figure3);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKnight);
+        Place placeOfTestedKnight = chessboard.getPlaceByCoordinates('e', 4);
+
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKnight);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 6));
@@ -86,7 +92,9 @@ public class KnightMovesValidatorTest {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
         chessboard.setFigureInPlace('a', 1, testedKnight);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKnight);
+        Place placeOfTestedKnight = chessboard.getPlaceByCoordinates('a', 1);
+
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKnight);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('b', 3));
@@ -96,7 +104,7 @@ public class KnightMovesValidatorTest {
     }
 
     @Test
-    public void shouldReturnEmptyArrayWhenTheKnightHasNotPossiblePlacesToMove(){
+    public void shouldReturnEmptyArrayWhenTheKnightHasNotPossiblePlacesToMove() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedKnight = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
         Figure figure1 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
@@ -104,8 +112,9 @@ public class KnightMovesValidatorTest {
         chessboard.setFigureInPlace('a', 1, testedKnight);
         chessboard.setFigureInPlace('b', 3, figure1);
         chessboard.setFigureInPlace('c', 2, figure2);
+        Place placeOfTestedKnight = chessboard.getPlaceByCoordinates('a', 1);
 
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedKnight);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedKnight);
 
         assertThat(possiblePlaces.isEmpty()).isTrue();
     }

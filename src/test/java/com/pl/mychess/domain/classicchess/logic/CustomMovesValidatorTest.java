@@ -16,11 +16,13 @@ public class CustomMovesValidatorTest {
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Place placeOfTestedPawn = chessboard.getPlaceByCoordinates('e', 2);
+
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('h', 1, testedRook);
         chessboard.setFigureInPlace('e', 2, testedPawn);
 
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedPawn);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedPawn);
 
         assertThat(shortCastlingPlace).isNull();
     }
@@ -34,8 +36,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('g', 1, testedRook);
         chessboard.setFigureInPlace('e', 2, testedPawn);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedKing);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(shortCastlingPlace).isNull();
     }
@@ -50,8 +53,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('h', 1, testedRook);
         chessboard.setFigureInPlace('e', 2, testedPawn);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedKing);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(shortCastlingPlace).isNull();
     }
@@ -66,8 +70,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('h', 1, testedRook);
         chessboard.setFigureInPlace('e', 2, testedPawn);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedKing);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(shortCastlingPlace).isNull();
     }
@@ -81,8 +86,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('h', 1, testedRook);
         chessboard.setFigureInPlace('h', 4, testedBishop);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedKing);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(shortCastlingPlace).isNull();
     }
@@ -96,8 +102,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('h', 1, testedRook);
         chessboard.setFigureInPlace('g', 4, testedBlackRook);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedKing);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(shortCastlingPlace).isNull();
     }
@@ -111,8 +118,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('h', 1, testedRook);
         chessboard.setFigureInPlace('f', 4, testedBlackRook);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedKing);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(shortCastlingPlace).isNull();
     }
@@ -126,8 +134,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('h', 1, testedRook);
         chessboard.setFigureInPlace('f', 1, testedBishop);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedKing);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(shortCastlingPlace).isNull();
     }
@@ -139,8 +148,9 @@ public class CustomMovesValidatorTest {
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('h', 1, testedRook);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, testedKing);
+        Place shortCastlingPlace = CustomMovesValidator.isShortCastlingCorrect(chessboard, placeOfTestedKing);
         Place expectedPlace = new Place('g', 1);
 
         assertThat(shortCastlingPlace).isEqualTo(expectedPlace);
@@ -152,11 +162,13 @@ public class CustomMovesValidatorTest {
         Figure testedKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedPawn = new Figure(TypeOfFigure.PAWN, Color.WHITE);
+        Place placeOfTestedPawn = chessboard.getPlaceByCoordinates('e', 2);
+
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('a', 1, testedRook);
         chessboard.setFigureInPlace('e', 2, testedPawn);
 
-        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedPawn);
+        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedPawn);
 
         assertThat(longCastlingPlace).isNull();
     }
@@ -170,8 +182,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('a', 2, testedRook);
         chessboard.setFigureInPlace('e', 2, testedPawn);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedKing);
+        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(longCastlingPlace).isNull();
     }
@@ -186,8 +199,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('a', 1, testedRook);
         chessboard.setFigureInPlace('e', 2, testedPawn);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedKing);
+        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(longCastlingPlace).isNull();
     }
@@ -202,8 +216,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('a', 1, testedRook);
         chessboard.setFigureInPlace('e', 2, testedPawn);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedKing);
+        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(longCastlingPlace).isNull();
     }
@@ -217,8 +232,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('a', 1, testedRook);
         chessboard.setFigureInPlace('h', 4, testedBishop);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedKing);
+        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(longCastlingPlace).isNull();
     }
@@ -232,8 +248,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('a', 1, testedRook);
         chessboard.setFigureInPlace('c', 4, testedBlackRook);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedKing);
+        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(longCastlingPlace).isNull();
     }
@@ -247,8 +264,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('a', 1, testedRook);
         chessboard.setFigureInPlace('d', 4, testedBlackRook);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedKing);
+        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(longCastlingPlace).isNull();
     }
@@ -262,8 +280,9 @@ public class CustomMovesValidatorTest {
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('a', 1, testedRook);
         chessboard.setFigureInPlace('c', 1, testedBishop);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedKing);
+        Place longCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedKing);
 
         assertThat(longCastlingPlace).isNull();
     }
@@ -275,8 +294,9 @@ public class CustomMovesValidatorTest {
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         chessboard.setFigureInPlace('e', 1, testedKing);
         chessboard.setFigureInPlace('a', 1, testedRook);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 1);
 
-        Place shortCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, testedKing);
+        Place shortCastlingPlace = CustomMovesValidator.isLongCastlingCorrect(chessboard, placeOfTestedKing);
         Place expectedPlace = new Place('c', 1);
 
         assertThat(shortCastlingPlace).isEqualTo(expectedPlace);
@@ -289,13 +309,15 @@ public class CustomMovesValidatorTest {
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 5, testedWhiteFigure);
         chessboard.setFigureInPlace('f', 5, testedBlackPawn);
+        Place placeOfTestedFigure = chessboard.getPlaceByCoordinates('e', 5);
+
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackPawn)
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
                 .build();
 
-        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhiteFigure, lastMove);
+        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, placeOfTestedFigure, lastMove);
 
         assertThat(enPassantPlace).isNull();
     }
@@ -307,13 +329,15 @@ public class CustomMovesValidatorTest {
         Figure testedBlackFigure = new Figure(TypeOfFigure.BISHOP, Color.BLACK);
         chessboard.setFigureInPlace('e', 5, testedWhitePawn);
         chessboard.setFigureInPlace('f', 5, testedBlackFigure);
+        Place placeOfTestedPawn = chessboard.getPlaceByCoordinates('e', 5);
+
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackFigure)
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
                 .build();
 
-        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhitePawn, lastMove);
+        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, placeOfTestedPawn, lastMove);
 
         assertThat(enPassantPlace).isNull();
     }
@@ -325,13 +349,15 @@ public class CustomMovesValidatorTest {
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 5, testedWhitePawn);
         chessboard.setFigureInPlace('f', 6, testedBlackPawn);
+        Place placeOfTestedPawn = chessboard.getPlaceByCoordinates('e', 5);
+
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackPawn)
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 6))
                 .build();
 
-        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhitePawn, lastMove);
+        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, placeOfTestedPawn, lastMove);
 
         assertThat(enPassantPlace).isNull();
     }
@@ -343,13 +369,15 @@ public class CustomMovesValidatorTest {
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('e', 5, testedWhitePawn);
         chessboard.setFigureInPlace('f', 5, testedBlackPawn);
+        Place placeOfTestedPawn = chessboard.getPlaceByCoordinates('e', 5);
+
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackPawn)
                 .previousPlace(chessboard.getPlaceByCoordinates('f', 6))
                 .nextPlace(chessboard.getPlaceByCoordinates('f', 5))
                 .build();
 
-        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhitePawn, lastMove);
+        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, placeOfTestedPawn, lastMove);
 
         assertThat(enPassantPlace).isNull();
     }
@@ -361,13 +389,15 @@ public class CustomMovesValidatorTest {
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         chessboard.setFigureInPlace('c', 5, testedWhitePawn);
         chessboard.setFigureInPlace('b', 5, testedBlackPawn);
+        Place placeOfTestedPawn = chessboard.getPlaceByCoordinates('e', 5);
+
         Move lastMove = Move.getMoveBuilder()
                 .movedFigure(testedBlackPawn)
                 .previousPlace(chessboard.getPlaceByCoordinates('b', 7))
                 .nextPlace(chessboard.getPlaceByCoordinates('b', 5))
                 .build();
 
-        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, testedWhitePawn, lastMove);
+        Place enPassantPlace = CustomMovesValidator.isEnPassantCorrect(chessboard, placeOfTestedPawn, lastMove);
         Place expectedPlace = new Place('b', 6);
 
         assertThat(enPassantPlace).isEqualTo(expectedPlace);

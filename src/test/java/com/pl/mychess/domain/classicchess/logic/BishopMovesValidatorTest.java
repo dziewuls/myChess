@@ -17,7 +17,9 @@ public class BishopMovesValidatorTest {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedBishop = new Figure(TypeOfFigure.BISHOP, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedBishop);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedBishop);
+        Place placeOfTestedBishop = chessboard.getPlaceByCoordinates('e', 4);
+
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedBishop);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 3));
@@ -46,7 +48,9 @@ public class BishopMovesValidatorTest {
         chessboard.setFigureInPlace('e', 4, testedBishop);
         chessboard.setFigureInPlace('f', 5, opponentFigure1);
         chessboard.setFigureInPlace('c', 2, opponentFigure2);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedBishop);
+        Place placeOfTestedBishop = chessboard.getPlaceByCoordinates('e', 4);
+
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedBishop);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 3));
@@ -72,7 +76,9 @@ public class BishopMovesValidatorTest {
         chessboard.setFigureInPlace('e', 4, testedBishop);
         chessboard.setFigureInPlace('f', 5, figure1);
         chessboard.setFigureInPlace('c', 2, figure2);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedBishop);
+        Place placeOfTestedBishop = chessboard.getPlaceByCoordinates('e', 4);
+
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedBishop);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('f', 3));
@@ -92,7 +98,9 @@ public class BishopMovesValidatorTest {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedBishop = new Figure(TypeOfFigure.BISHOP, Color.WHITE);
         chessboard.setFigureInPlace('a', 1, testedBishop);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedBishop);
+        Place placeOfTestedBishop = chessboard.getPlaceByCoordinates('a', 1);
+
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedBishop);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('b', 2));
@@ -107,7 +115,7 @@ public class BishopMovesValidatorTest {
     }
 
     @Test
-    public void shouldReturnEmptyArrayWhenTheBishopHasNotPossiblePlacesToMove(){
+    public void shouldReturnEmptyArrayWhenTheBishopHasNotPossiblePlacesToMove() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedBishop = new Figure(TypeOfFigure.BISHOP, Color.WHITE);
         Figure figure1 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
@@ -119,8 +127,9 @@ public class BishopMovesValidatorTest {
         chessboard.setFigureInPlace('f', 3, figure2);
         chessboard.setFigureInPlace('d', 3, figure3);
         chessboard.setFigureInPlace('d', 5, figure4);
+        Place placeOfTestedBishop = chessboard.getPlaceByCoordinates('e', 4);
 
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedBishop);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedBishop);
 
         assertThat(possiblePlaces.isEmpty()).isTrue();
     }

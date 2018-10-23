@@ -12,25 +12,33 @@ class StateOfGameToolsValidator {
     private StateOfGameToolsValidator() {
     }
 
-    static Figure findTheKing(Chessboard chessboard, Color currentColor) {
-        for (Figure f : chessboard.getFigures()) {
-            if (f.getTypeOfFigure() == TypeOfFigure.KING && f.getColor() == currentColor) {
-                return f;
+    static Place findTheKingPlace(Chessboard chessboard, Color currentColor) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Figure tmpFigure = chessboard.getFigureByCoordinates((char) ('a' + j), 1 + i);
+                if(tmpFigure == null) continue;
+                if (tmpFigure.getTypeOfFigure() == TypeOfFigure.KING && tmpFigure.getColor() == currentColor) {
+                    return chessboard.getPlaceByCoordinates((char) ('a' + j), 1 + i);
+                }
             }
         }
+
         return null;
     }
 
     static boolean isThePlaceAttacked(Chessboard chessboard, Place testedPlace, Color currentColor) {
         Figure tmpFigure = new Figure(TypeOfFigure.PAWN, currentColor);
         testedPlace.setCurrentFigure(tmpFigure);
-        boolean isAttacked = isTheFigureAttacked(chessboard, tmpFigure);
+        boolean isAttacked = isTheFigureAttacked(chessboard, testedPlace);
         testedPlace.setCurrentFigure(null);
         return isAttacked;
     }
 
-    static boolean isTheFigureAttacked(Chessboard chessboard, Figure checkedFigure) {
-        Place placeOfCheckedFigure = chessboard.getPlaceForGivenFigure(checkedFigure);
+    static boolean isTheFigureAttacked(Chessboard chessboard, Place placeOfCheckedFigure) {
+        if(placeOfCheckedFigure == null) return false;
+
+        Figure checkedFigure = chessboard.getFigureByCoordinates(
+                placeOfCheckedFigure.getCoordinateX(), placeOfCheckedFigure.getCoordinateY());
         Color currentColor = checkedFigure.getColor();
 
         for (int i = 1; i <= 8; i++) {
@@ -44,10 +52,11 @@ class StateOfGameToolsValidator {
 
     private static boolean isOpponentFigureAttackTheGivenFigure(Chessboard chessboard, Place placeOfCheckedFigure, Color color, int i, char j) {
         Figure opponentFigure = chessboard.getFigureByCoordinates(j, i);
+        Place placeOfOpponentFigure = chessboard.getPlaceByCoordinates(j, i);
         if (opponentFigure == null)
             return false;
         if (opponentFigure.getColor() != color) {
-            List<Place> placesAttackedByOpponentFigure = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, opponentFigure);
+            List<Place> placesAttackedByOpponentFigure = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfOpponentFigure);
             return placesAttackedByOpponentFigure.contains(placeOfCheckedFigure);
         }
         return false;
@@ -64,9 +73,10 @@ class StateOfGameToolsValidator {
     }
 
     private static boolean hasTheFigureAnyCorrectMove(Chessboard chessboard, Color currentColor, int i, char j) {
+        Place placeOfCheckedFigure = chessboard.getPlaceByCoordinates(j, i);
         Figure checkedFigure = chessboard.getFigureByCoordinates(j, i);
         if (checkedFigure != null && checkedFigure.getColor() == currentColor) {
-            Map<Place, TypeOfCustomMove> placesMap = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, checkedFigure, null);
+            Map<Place, TypeOfCustomMove> placesMap = (new ClassicChessGameValidator()).getCorrectPlacesForFigure(chessboard, placeOfCheckedFigure, null);
             List<Place> correctPlaces = new ArrayList<>(placesMap.keySet());
             return !correctPlaces.isEmpty();
         }

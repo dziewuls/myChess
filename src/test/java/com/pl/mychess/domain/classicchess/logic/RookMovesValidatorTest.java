@@ -17,7 +17,8 @@ public class RookMovesValidatorTest {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         chessboard.setFigureInPlace('e', 4, testedRook);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedRook);
+        Place placeOfTestedRook = chessboard.getPlaceByCoordinates('e', 4);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedRook);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('e', 1));
@@ -44,10 +45,12 @@ public class RookMovesValidatorTest {
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure opponentFigure1 = new Figure(TypeOfFigure.PAWN, Color.BLACK);
         Figure opponentFigure2 = new Figure(TypeOfFigure.KING, Color.BLACK);
+        Place placeOfTestedRook = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedRook);
         chessboard.setFigureInPlace('e', 5, opponentFigure1);
         chessboard.setFigureInPlace('g', 4, opponentFigure2);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedRook);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedRook);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('e', 1));
@@ -70,10 +73,12 @@ public class RookMovesValidatorTest {
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure opponentFigure1 = new Figure(TypeOfFigure.PAWN, Color.WHITE);
         Figure opponentFigure2 = new Figure(TypeOfFigure.KING, Color.WHITE);
+        Place placeOfTestedRook = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedRook);
         chessboard.setFigureInPlace('e', 5, opponentFigure1);
         chessboard.setFigureInPlace('g', 4, opponentFigure2);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedRook);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedRook);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('e', 1));
@@ -92,8 +97,10 @@ public class RookMovesValidatorTest {
     public void shouldReturnAllPossiblePlacesForTheRookWhenItStayInTheCorner() {
         Chessboard chessboard = chessboardFactory.createEmptyChessboard();
         Figure testedRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
+        Place placeOfTestedRook = chessboard.getPlaceByCoordinates('a', 1);
+
         chessboard.setFigureInPlace('a', 1, testedRook);
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedRook);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedRook);
 
         List<Place> expectedPlaces = new ArrayList<>();
         expectedPlaces.add(new Place('a', 2));
@@ -122,13 +129,15 @@ public class RookMovesValidatorTest {
         Figure figure2 = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure figure3 = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure figure4 = new Figure(TypeOfFigure.KNIGHT, Color.WHITE);
+        Place placeOfTestedRook = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedRook);
         chessboard.setFigureInPlace('e', 5, figure1);
         chessboard.setFigureInPlace('e', 3, figure2);
         chessboard.setFigureInPlace('d', 4, figure3);
         chessboard.setFigureInPlace('f', 4, figure4);
 
-        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, testedRook);
+        List<Place> possiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedRook);
 
         assertThat(possiblePlaces.isEmpty()).isTrue();
     }

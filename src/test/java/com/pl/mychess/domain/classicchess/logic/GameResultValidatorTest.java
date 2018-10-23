@@ -229,10 +229,12 @@ public class GameResultValidatorTest {
         Figure testedWhiteKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedWhiteRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBlackQueen = new Figure(TypeOfFigure.QUEEN, Color.BLACK);
+        Place placeOfTestedRook = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 2, testedWhiteKing);
         chessboard.setFigureInPlace('e', 4, testedWhiteRook);
         chessboard.setFigureInPlace('e', 8, testedBlackQueen);
-        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameValidator.getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
+        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameValidator.getCorrectPlacesForFigure(chessboard, placeOfTestedRook, null);
         List<Place> possiblePlaces = new ArrayList<>(possiblePlacesMap.keySet());
 
         List<Place> expectedPlaces = new ArrayList<>();
@@ -251,10 +253,12 @@ public class GameResultValidatorTest {
         Figure testedWhiteKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedWhiteRook = new Figure(TypeOfFigure.ROOK, Color.WHITE);
         Figure testedBlackQueen = new Figure(TypeOfFigure.QUEEN, Color.BLACK);
+        Place placeOfTestedRook = chessboard.getPlaceByCoordinates('e', 2);
+
         chessboard.setFigureInPlace('e', 4, testedWhiteKing);
         chessboard.setFigureInPlace('e', 2, testedWhiteRook);
         chessboard.setFigureInPlace('e', 8, testedBlackQueen);
-        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameValidator.getCorrectPlacesForFigure(chessboard, testedWhiteRook, null);
+        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameValidator.getCorrectPlacesForFigure(chessboard, placeOfTestedRook, null);
         List<Place> possiblePlaces = new ArrayList<>(possiblePlacesMap.keySet());
 
         assertThat(possiblePlaces.isEmpty()).isTrue();
@@ -265,9 +269,11 @@ public class GameResultValidatorTest {
         Chessboard chessboard = chessCreator.createEmptyChessboard();
         Figure testedWhiteKing = new Figure(TypeOfFigure.KING, Color.WHITE);
         Figure testedBlackPawn = new Figure(TypeOfFigure.PAWN, Color.BLACK);
+        Place placeOfTestedKing = chessboard.getPlaceByCoordinates('e', 4);
+
         chessboard.setFigureInPlace('e', 4, testedWhiteKing);
         chessboard.setFigureInPlace('e', 6, testedBlackPawn);
-        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameValidator.getCorrectPlacesForFigure(chessboard, testedWhiteKing, null);
+        Map<Place, TypeOfCustomMove> possiblePlacesMap = gameValidator.getCorrectPlacesForFigure(chessboard, placeOfTestedKing, null);
         List<Place> possiblePlaces = new ArrayList<>(possiblePlacesMap.keySet());
 
         List<Place> expectedPlaces = new ArrayList<>();
