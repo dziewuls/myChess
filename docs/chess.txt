@@ -1,16 +1,18 @@
-package chessboard //klasy z pakietu nie korzystają z innych klas
+package placesOfChessboard //klasy z pakietu nie korzystają z innych klas
 
 klasa Chessboard{ //zrobić aby logika gry wykorzystywała z tego pakietu tylko Chessboard
-	Place[8][8] chessboard
+	Place[8][8] placesOfChessboard
 	List<Figure> figures
-	
-	getPlaceWithCoordinates(int crX, char crY) : Place
-	getFigureWithCoordinates(int crX, char crY) : Figure
+
+    pełen konstruktor
+
+	getPlaceByCoordinates(char crX, int crY) : Place
+	getFigureByCoordinates(char crX, int crY) : Figure
 }
 
 klasa Place{
-	int final coordinateX
-	char final coordinateY
+	char final coordinateX
+	int final coordinateY
 	Figure currentFigure
 }
 	
@@ -18,6 +20,7 @@ Klasa Figure{
 	TypeOfFigure final type
 	Color final color
 	boolean isMoved
+	boolean isBeaten
 }
 
 Enum Color{
@@ -34,41 +37,66 @@ Enum TypeOfFigure{
 	king("K")
 }
 
+Klasa ChessboardFactory{
+ 	createChessboard() : Chessboard
+ 	createChessboard(Chessboard initialState, List<Move> historyOfMoves) : Chessboard
+ 	createChessboard(Chessboard currentChessboard, Move move) : Chessboard
+}
 
 package status
 
-klasa StateOfGameboard{
-	Arrangement startedArrangement //tworzony w konstruktorze
+klasa StateOfChessboard{
+	Chessboard initialState
+	List<Chessboard> historyOfArrangement
 	List<Move> historyOfMoves
 
-	obsłużyć getNewArrangement() i newMove(), tak, żeby logika gry korzystała tylko z StateOfGameboard
+	addNewMove(Move move)
+	addNewArrangement(Chessboard)
+	backMove()
+	getMoveBuilder() : moveBuilder
 }
 
-Klasa Arrangement{
-	Map<Place, Figure>	figuresArrangement
-	
-	createArrangement(Chessboard chessboard)
-	createArrangement(Arrangement startedArrangement, List<Move> historyOfMoves)
-}
-
-klasa Move{
-	Color final currentPlayerColor
-	Figure final movedFigure 
+klasa Move{ //wykorzystać builder
+	Color final playerColor
+	Figure final movedFigure
+	Figure final beatenFigure //domyslnie null
 	Place final previousPlace
 	Place final nextPlace
+	typeOfMove final typeOfMove //domyslnie normal
+
+	klasa MoveBuilder
 }
+
+enum TypeOfCustomMove{
+    normal,
+    longcastle
+    shortcastle
+    enpassant
+    pawntransform
+}
+
+//pomyśleć o enumie oznaczającym inne symbole ruchu jak bicie, szacha itp
 
 
 package logic
 
-klasa GameLogic{
-	static getAllPlacesAttackedByFigure(Chessboard chessboard, Figure figure) : List<Place>
-	static getAllCorrectMovePlacesByFigure(Chessboard chessboard, Figure figure) : List<Place>
-	static isCorrectMove(Chessboard chessboard, Move testedMove) : boolean
-	static isAttackedPlace(Chessboard chessboard, Place place) : boolean
-	static isCheck(Chessboard chessboard, Color movedPlayer) : boolean
-	static isCheckmate(Chessboard chessboard, Color movedPlayer) : boolean
-	static isStalemate(Chessboard chessboard, Color movedPlayer) : boolean
+klasa MovesValidator{
+	static getAllPossiblePlacesForTheFigure(Chessboard placesOfChessboard, Figure figure) : List<Place>
+	static getAllCorrectPlacesForTheFigure(Chessboard placesOfChessboard, Figure figure) : List<Place>
+?	static isCorrectMove(Chessboard placesOfChessboard, Move testedMove) : boolean
+	static isThePlaceAttacked(Chessboard placesOfChessboard, Place place) : boolean
+}
+
+klasa GameResultValidator{
+	static isCheck(Chessboard placesOfChessboard, Color currentPlayer) : boolean
+	static isCheckmate(Chessboard placesOfChessboard, Color currentPlayer) : boolean
+	static isStalemate(Chessboard placesOfChessboard, Color currentPlayer) : boolean
+}
+
+Klasa CustomMovesValidator{
+    static isEnPassantCorrect(Chessboard placesOfChessboard, Figure movedFigure, Move previousMove) : boolean
+    static isShortCastlingCorrect(Chessboard placesOfChessboard, Figure movedFigure)
+    static isLongCastlingCorrect(Chessboard placesOfChessboard, Figure movedFigure)
 }
 
 
@@ -80,7 +108,7 @@ klasa Player{
 	int rating
 	int numberOfWinMatches
 	int numberOfLostMatches
-	List<StateOfGameboard> savedMatches
+	List<StateOfChessboard> savedMatches
 	
 	updateRating()
 	updateWin()
@@ -96,41 +124,80 @@ klasa computerPlayer{
 package manager
 
 klasa GameManager{
-	Chessboard chessboard
-	StateOfGameboard stateOfGameboard
+	Chessboard currentChessboard
+	StateOfChessboard matchStatus
 	Player whitePlayer
 	Player blackPlayer
 	Color currentPlayer	
-	Move createdMove
-	
+	MoveBuilder createdMove
+
 	checkPlace(String clickedPlace) : List<Place> {
 		// sprawdzić trzy możliwości
 			// 1. pole wybrane pierwszy raz, posiadające figure w odpowiednim kolorze, wtedy zwrócić listę pól, na które może pójść
 			// 2. drugi raz wybrane to samo pole, wtedy trzeba wyłączyć kliknięcie (zwrócić pustą listę)
 			// 3. kliknięcie w pole należące do listy z kroku 1., wtedy należy stworzyć createdMove i wywolać metodę makeMove() i zwrócić pustą listę 
 	
-		List<Place> listPlace GameLogic.getAllCorrectMovePlacesByFigure(chessboard, chessboard.getFigureWithCoordinates(/*choosenPlace*/))
+		List<Place> listPlace GameLogic.getAllCorrectMovePlacesByFigure(placesOfChessboard, placesOfChessboard.getFigureWithCoordinates(/*choosenPlace*/))
 	}
 	
 	makeMove() : StateOfMatch {
-		// logika robienia ruchu, uaktualnienia stanu szachownicy (chessboard i arrangement), dodanie ruchu do historii itp
+		// logika robienia ruchu, uaktualnienia stanu szachownicy (placesOfChessboard i arrangement), dodanie ruchu do historii itp
 		// logika sprawdzania stanu partii i zwrócenie rezultatu (metody z GameLogic)
 	}
 	
 	backMove() {
 		// logika cofania ruchu, uaktualniania stanu szachownicy, usuwanie ruchu z historii itp
 	}
-	
+
+	    //logika partii (w mainie)
+        //utworzenie pustej listy poprawnych pól
+        //otworzyc pętlę po rezultacie meczu
+        //klikniecie
+        //sprawdzenie czy klikniete pole należy do poprawnych pól
+        //jeśli należy to wywołanie metody wykonaj posunięcie i wyzeruj poprawne pola
+        //jeśli nie istnieje to wykonaj metodę znajdz poprawne posuniecie
+
+        //1. pobierz poprawne posunięcia
+        //      parametry: współrzędne wprowadzonego pola
+        //      sprawdzenie czy kliknięte pole ma figure
+        //      czy kolor  figury się zgadza,
+        //      jeżeli wszystko jest okej to wstawienie posiadanych informacji do moveBuildera
+        //      zwrócenie poprawnych pól
+        //      zwrócenie pustej listy jeśli nie ma poprawnych ruchów
+
+        //2. wykonaj posunięcie
+        //      parametry: współrzędne wprowadzonego pola
+        //      sprawdzić jakiego typu jest to ruch
+        //      zbudować ruch o kolejne niezbedne informacje
+        //      wywołać metodę apdejtującą szachownicę
+        //      dodać ruch i szachownicę do matchStatus
+        //      zmienić bieżącego gracza
+        //      wywołać metodę sprawdzenia stanu meczu
+        //      zwrócić chessboard, albo coś dzięki czemu wyrysuje szachownice
+
+        //3. cofnij posunięcie
+        //      pod aktualną szachownicę przypisać poprzednią
+        //      wywołąć metodę remove ze matchStatus
+        //      zmienić bieżącego gracza
+        //      zwrócić szachownice
+
+        //4. pobierz historie ruchów, w stringu, ładnie sformatowane
+
+        //5. pobierz resultat
 	
 }
 
-enume StateOfMatch{
+enum StateOfMatch{
 	gameIsNotFinished,
 	check,
 	whiteIsWinner,
 	blackIsWinner,
-	stalemate
+	stalemate,
+	draw
 }
+
+package gui
+GameManagerGUIAdapter
 
 
 
