@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class Application {
     public static void main(String[] args) {
+        //TODO uproscic.
         GameManager gameManager = new ClassicChessGameManager();
         UserInterface userInterface = new ConsoleUserInterface();
         Map<Place, TypeOfCustomMove> correctMoves = new HashMap<>();
