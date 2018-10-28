@@ -7,32 +7,18 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ConsoleUserInterface implements UserInterface {
-//    @Override
-//    public void viewChessboard(Map<String, String> arrangement) {
-//        for (int i = 0; i < 8; i++) {
-//            for (int j = 0; j < 8; j++) {
-//                String key = String.valueOf('a' + j) + String.valueOf(8 - i);
-//                System.out.print("[" + arrangement.get(key) + "]");
-//            }
-//
-//            System.out.println(" " + (8 - i) + ". ");
-//        }
-//
-//        for (int i = 0; i < 8; i++) {
-//            System.out.println('a' + i);
-//        }
-//    }
 
     @Override
-    public void viewChessboard(Map<String, String> arrangement, List<String> places) {
+    public void viewChessboard(Map<String, String> placeAndFigureArrangement, List<String> placesForMove, String currentPlayer) {
+        System.out.println("Current player: " + currentPlayer);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 String key = String.valueOf((char)('a' + j)) + String.valueOf(8 - i);
 
-                if(places.contains(key)){
-                    System.out.print("{" + arrangement.get(key) + "}");
+                if(placesForMove.contains(key)){
+                    System.out.print("{" + placeAndFigureArrangement.get(key) + "}");
                 } else {
-                    System.out.print("[" + arrangement.get(key) + "]");
+                    System.out.print("[" + placeAndFigureArrangement.get(key) + "]");
                 }
             }
 
@@ -57,7 +43,7 @@ public class ConsoleUserInterface implements UserInterface {
 
         while(!correct) {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter the place [ex. e2]: ");
+            System.out.println("Enter the place [ex. e2], or \"back\", \"resign\": ");
             choice = scanner.nextLine();
 
             correct = isPlaceCorrect(choice);
@@ -66,11 +52,13 @@ public class ConsoleUserInterface implements UserInterface {
     }
 
     private boolean isPlaceCorrect(String choice) {
-        return choice.length() == 2 &&
+        return "back".equals(choice) ||
+                "resign".equals(choice) ||
+                (choice.length() == 2 &&
                 choice.charAt(0) >= 'a' &&
                 choice.charAt(0) <= 'h' &&
                 choice.charAt(1) >= '1' &&
-                choice.charAt(1) <= '8';
+                choice.charAt(1) <= '8');
     }
 
     @Override
@@ -82,7 +70,7 @@ public class ConsoleUserInterface implements UserInterface {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter the figure for pawn transform [R, N, B, Q]: ");
             choice = scanner.nextLine();
-            correct = choice.equals("R") ||  choice.equals("N") ||  choice.equals("B") ||  choice.equals("Q");
+            correct = "R".equals(choice) ||  "N".equals(choice) ||  "B".equals(choice) ||  "Q".equals(choice);
         }
         return choice;
     }

@@ -16,4 +16,6 @@ public interface GameManager {
     List<String> getMovesHistory();
     MatchResult getGameResult();
     Chessboard getCurrentChessboard();
+
+    String getColor();
 }

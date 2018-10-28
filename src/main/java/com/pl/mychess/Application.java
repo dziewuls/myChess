@@ -2,10 +2,7 @@ package com.pl.mychess;
 
 import com.pl.mychess.api.ConsoleUserInterface;
 import com.pl.mychess.domain.classicchess.manager.ClassicChessGameManager;
-import com.pl.mychess.domain.model.chessboard.Chessboard;
-import com.pl.mychess.domain.model.chessboard.Figure;
-import com.pl.mychess.domain.model.chessboard.Place;
-import com.pl.mychess.domain.model.chessboard.TypeOfFigure;
+import com.pl.mychess.domain.model.chessboard.*;
 import com.pl.mychess.domain.model.state.MatchResult;
 import com.pl.mychess.domain.model.state.TypeOfCustomMove;
 import com.pl.mychess.domain.port.api.UserInterface;
@@ -18,35 +15,70 @@ import java.util.stream.Collectors;
 
 public class Application {
     public static void main(String[] args) {
+        //TODO uproscic.
         GameManager gameManager = new ClassicChessGameManager();
         UserInterface userInterface = new ConsoleUserInterface();
         Map<Place, TypeOfCustomMove> correctMoves = new HashMap<>();
-        TypeOfFigure pawnTransformFigure = null;
+        boolean gameLoop = true;
 
-        while (gameManager.getGameResult() == MatchResult.GAME_IS_NOT_COMPLETED) {
-            List<String> correctPlaces = mapPlacesToListOfStrings(correctMoves);
-            Chessboard chessboard = gameManager.getCurrentChessboard();
-            Map<String, String> currentArrangement = getArrangementFromChessboard(chessboard);
-            userInterface.viewChessboard(currentArrangement, correctPlaces);
+        displayChessboard(gameManager, userInterface, correctMoves);
 
+        while (gameLoop) {
             String place = userInterface.getPlaceForMove();
-            Place placeForMove = new Place(place.charAt(0), Integer.parseInt(String.valueOf(place.charAt(1))));
+            if("back".equals(place)){
+                gameManager.backMove();
+            }
+            else if("resign".equals(place)){
+                userInterface.viewMatchResult("game end");
+                break;
+            }
+            else {
+                Place placeForMove = new Place(place.charAt(0), Integer.parseInt(String.valueOf(place.charAt(1))));
 
-            if (correctMoves.keySet().contains(placeForMove)) {
-                gameManager.makeMove(placeForMove, correctMoves.get(placeForMove), pawnTransformFigure);
-                correctMoves.clear();
-                pawnTransformFigure = null;
+                if (correctMoves.keySet().contains(placeForMove)) {
+                    TypeOfFigure pawnTransformFigure = getTypeOfFigureWhenPawnIsTransform(userInterface, correctMoves.get(placeForMove));
+                    gameLoop = makeMoveAndViewResult(gameManager, userInterface, correctMoves, pawnTransformFigure, placeForMove);
 
-            } else {
-                correctMoves = gameManager.getCorrectMoveOptions(placeForMove);
-
-                if (correctMoves.get(placeForMove) == TypeOfCustomMove.PAWN_TRANSFORM) {
-                    String signPawnTransformFigure = userInterface.getFigureForPawnTransform();
-                    pawnTransformFigure = TypeOfFigure.getTypeOfFigure(signPawnTransformFigure);
+                    correctMoves.clear();
+                } else {
+                    correctMoves = gameManager.getCorrectMoveOptions(placeForMove);
                 }
             }
-
+            displayChessboard(gameManager, userInterface, correctMoves);
         }
+    }
+
+    private static void displayChessboard(GameManager gameManager, UserInterface userInterface, Map<Place, TypeOfCustomMove> correctMoves) {
+        List<String> correctPlaces = mapPlacesToListOfStrings(correctMoves);
+        Chessboard chessboard = gameManager.getCurrentChessboard();
+        Map<String, String> currentArrangement = getArrangementFromChessboard(chessboard);
+        userInterface.viewChessboard(currentArrangement, correctPlaces, gameManager.getColor());
+    }
+
+    private static TypeOfFigure getTypeOfFigureWhenPawnIsTransform(UserInterface userInterface, TypeOfCustomMove typeOfCustomMove) {
+        TypeOfFigure pawnTransformFigure = null;
+
+        if (typeOfCustomMove == TypeOfCustomMove.PAWN_TRANSFORM) {
+            String signPawnTransformFigure = userInterface.getFigureForPawnTransform();
+            pawnTransformFigure = TypeOfFigure.getTypeOfFigure(signPawnTransformFigure);
+        }
+        return pawnTransformFigure;
+    }
+
+    private static boolean makeMoveAndViewResult(GameManager gameManager, UserInterface userInterface, Map<Place, TypeOfCustomMove> correctMoves, TypeOfFigure pawnTransformFigure, Place placeForMove) {
+        gameManager.makeMove(placeForMove, correctMoves.get(placeForMove), pawnTransformFigure);
+        boolean gameLoop = true;
+
+        MatchResult result = gameManager.getGameResult();
+        if (result == MatchResult.WHITE_IS_A_WINNER ||
+                result == MatchResult.BLACK_IS_A_WINNER ||
+                result == MatchResult.DRAW) {
+            gameLoop = false;
+            userInterface.viewMatchResult(result.toString());
+        } else if (result == MatchResult.CHECK) {
+            userInterface.viewMatchResult(result.toString());
+        }
+        return gameLoop;
     }
 
     private static List<String> mapPlacesToListOfStrings(Map<Place, TypeOfCustomMove> correctMoves) {
@@ -64,13 +96,19 @@ public class Application {
             for (int j = 0; j < 8; j++) {
                 Place place = currentChessboard.getPlaceByCoordinates((char) ('a' + j), 1 + i);
                 Figure figure = place.getCurrentFigure();
+                String sign = " ";
+                if (figure != null) {
+                    if (figure.getTypeOfFigure() == TypeOfFigure.PAWN) {
+                        sign = "P";
+                    } else {
+                        sign = figure.toString();
+                    }
+                    if (figure.getColor() == Color.WHITE) {
+                        sign = sign.toLowerCase();
+                    }
+                }
 
-                if (figure == null)
-                    result.put(place.toString(), " ");
-                else if (figure.getTypeOfFigure() == TypeOfFigure.PAWN)
-                    result.put(place.toString(), "p");
-                else
-                    result.put(place.toString(), figure.toString());
+                result.put(place.toString(), sign);
             }
         }
 

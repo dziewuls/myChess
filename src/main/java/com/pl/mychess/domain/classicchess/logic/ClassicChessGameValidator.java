@@ -13,7 +13,8 @@ import java.util.Map;
 
 public class ClassicChessGameValidator implements GameValidator {
     @Override
-    public MatchResult getTheGameResult(Chessboard chessboard, Color colorOfCheckedPlayer) {
+    public MatchResult getTheGameResult(Chessboard currentChessboard, Color colorOfCheckedPlayer) {
+        Chessboard chessboard = (new ClassicChessChessboardFactory()).createCopyOfChessboard(currentChessboard);
         Place placeOfCheckedKing = StateOfGameToolsValidator.findTheKingPlace(chessboard, colorOfCheckedPlayer);
         boolean isTheKingAttacked = StateOfGameToolsValidator.isTheFigureAttacked(chessboard, placeOfCheckedKing);
         boolean hasAnyCorrectMove = StateOfGameToolsValidator.hasTheCurrentPlayerAnyCorrectMove(chessboard, colorOfCheckedPlayer);
@@ -33,7 +34,8 @@ public class ClassicChessGameValidator implements GameValidator {
     }
 
     @Override
-    public Map<Place, TypeOfCustomMove> getCorrectPlacesForFigure(Chessboard chessboard, Place placeOfTestedFigure, Move lastMove) {
+    public Map<Place, TypeOfCustomMove> getCorrectPlacesForFigure(Chessboard currentChessboard, Place placeOfTestedFigure, Move lastMove) {
+        Chessboard chessboard = (new ClassicChessChessboardFactory()).createCopyOfChessboard(currentChessboard);
         List<Place> allPossiblePlaces = MovesValidator.getAllPossiblePlacesForTheFigure(chessboard, placeOfTestedFigure);
         Map<Place, TypeOfCustomMove> result = new HashMap<>();
 
