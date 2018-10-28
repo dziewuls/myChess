@@ -33,6 +33,7 @@ public class ClassicChessGameManager implements GameManager {
         this.moveBuilder = Move.getMoveBuilder();
     }
 
+    //TODO chciałbym, aby GameManager zwracał wyniki w formie stringów
     @Override
     public void makeMove(Place chosenPlace, TypeOfCustomMove typeOfCustomMove, TypeOfFigure typeOfPawnTransformFigure) {
         Figure beatenFigure = currentChessboard.getFigureByCoordinates(
@@ -63,15 +64,14 @@ public class ClassicChessGameManager implements GameManager {
         Figure movedFigure = currentChessboard.getFigureByCoordinates(
                 chosenPlace.getCoordinateX(), chosenPlace.getCoordinateY());
 
-        if(movedFigure == null) return new HashMap<>();
-        if(movedFigure.getColor() != matchStatus.getCurrentPlayerColor()) return new HashMap<>();
+        if (movedFigure == null) return new HashMap<>();
+        if (movedFigure.getColor() != matchStatus.getCurrentPlayerColor()) return new HashMap<>();
 
         moveBuilder
                 .previousPlace(previousPlace)
                 .movedFigure(movedFigure);
 
-        return gameValidator.getCorrectPlacesForFigure(
-                chessboardCreator.createCopyOfChessboard(currentChessboard), chosenPlace, matchStatus.getLastMove());
+        return gameValidator.getCorrectPlacesForFigure(currentChessboard, chosenPlace, matchStatus.getLastMove());
     }
 
     @Override
@@ -81,12 +81,16 @@ public class ClassicChessGameManager implements GameManager {
 
     @Override
     public MatchResult getGameResult() {
-        return gameValidator.getTheGameResult(
-                chessboardCreator.createCopyOfChessboard(currentChessboard), matchStatus.getCurrentPlayerColor());
+        return gameValidator.getTheGameResult(currentChessboard, matchStatus.getCurrentPlayerColor());
     }
 
     @Override
     public Chessboard getCurrentChessboard() {
         return currentChessboard;
+    }
+
+    @Override
+    public String getColor() {
+        return matchStatus.getCurrentPlayerColor().toString();
     }
 }
